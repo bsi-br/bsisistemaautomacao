@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Qualidade — BSI Automação</title>
+  <meta name="description" content="App de gestão de qualidade para fábrica de alimentos enlatados. Controle de não-conformidades, rastreabilidade de lotes e monitoramento de PCC.">
+  <meta name="theme-color" content="#1e40af">
+  <style>
+:root {
+  --azul: #1e40af;
+  --azul-claro: #3b82f6;
+  --verde: #10b981;
+  --amarelo: #f59e0b;
+  --vermelho: #ef4444;
+  --cinza-100: #f3f4f6;
+  --cinza-200: #e5e7eb;
+  --cinza-600: #4b5563;
+  --cinza-900: #111827;
+  --branco: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cinza-100: #1f2937;
+    --cinza-200: #374151;
+    --cinza-600: #d1d5db;
+    --cinza-900: #f9fafb;
+    --branco: #111827;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --cinza-100: #1f2937;
+  --cinza-200: #374151;
+  --cinza-600: #d1d5db;
+  --cinza-900: #f9fafb;
+  --branco: #111827;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--cinza-900);
+  background: var(--branco);
+}
+
+h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--azul);
+  text-wrap: balance;
+}
+
+h2 {
+  margin: 20px 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cinza-900);
+  text-wrap: balance;
+}
+
+h3 {
+  margin: 12px 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cinza-900);
+}
+
+h4 {
+  margin: 10px 0 4px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cinza-900);
+}
+
+.topo {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--cinza-200);
+}
+
+.topo-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.logo-texto {
+  font-size: 12px;
+  color: var(--cinza-600);
+  font-weight: 500;
+}
+
+.abas {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--cinza-200);
+  overflow-x: auto;
+}
+
+.aba {
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: var(--cinza-600);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: all 200ms;
+  white-space: nowrap;
+}
+
+.aba:hover {
+  color: var(--azul);
+}
+
+.aba.ativo {
+  color: var(--azul);
+  border-bottom-color: var(--azul);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+  .aba { padding: 8px 12px; font-size: 13px; }
+}
+
+.card {
+  padding: 16px;
+  border: 1px solid var(--cinza-200);
+  border-radius: 8px;
+  background: var(--cinza-100);
+  transition: all 200ms;
+}
+
+.card:hover {
+  border-color: var(--azul);
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.1);
+}
+
+.card-titulo {
+  font-weight: 600;
+  color: var(--cinza-900);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--cinza-600);
+  line-height: 1.5;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-sev-baixa { background: var(--verde); color: var(--branco); }
+.badge-sev-media { background: var(--amarelo); color: var(--branco); }
+.badge-sev-critica { background: var(--vermelho); color: var(--branco); }
+.badge-v { background: var(--azul-claro); color: var(--branco); }
+
+.status-line {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.icone { font-size: 18px; line-height: 1; }
+
+.fluxo {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.fluxo-step {
+  padding: 8px 12px;
+  background: var(--azul-claro);
+  color: var(--branco);
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.fluxo-arrow {
+  color: var(--azul);
+  font-weight: bold;
+}
+
+.tabela-simple {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 8px;
+  overflow-x: auto;
+}
+
+.tabela-simple th, .tabela-simple td {
+  padding: 8px;
+  border-bottom: 1px solid var(--cinza-200);
+  text-align: left;
+}
+
+.tabela-simple th {
+  background: var(--cinza-200);
+  font-weight: 600;
+  color: var(--cinza-900);
+}
+
+.tabela-simple tr:hover {
+  background: var(--cinza-100);
+}
+
+.destaque {
+  padding: 12px;
+  border-left: 4px solid var(--azul);
+  background: var(--cinza-100);
+  margin: 12px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--cinza-600);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.oculto { display: none; }
+
+.rodape {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cinza-200);
+  text-align: center;
+  font-size: 12px;
+  color: var(--cinza-600);
+}
+
+.rodape a {
+  color: var(--azul);
+  text-decoration: none;
+}
+
+.rodape a:hover {
+  text-decoration: underline;
+}
+
+ul { padding-left: 20px; }
+li { margin: 4px 0; }
+  </style>
+</head>
+<body>
+
+<div class="topo">
+  <div class="topo-logo">
+    <span>🏭</span>
+    <div>
+      <h1 style="margin: 0;">Gestão de Qualidade</h1>
+      <div class="logo-texto">BSI Automação • v0.2.9</div>
+    </div>
+  </div>
+  <p>Controle de não-conformidades, rastreabilidade de lotes e monitoramento de PCC. Sistema integrado para fábrica de alimentos enlatados.</p>
+</div>
+
+<div class="abas">
+  <button class="aba ativo" onclick="mostrarAba('visao')">Visão Geral</button>
+  <button class="aba" onclick="mostrarAba('modulos')">Módulos</button>
+  <button class="aba" onclick="mostrarAba('rastreio')">Rastreabilidade</button>
+  <button class="aba" onclick="mostrarAba('fluxos')">Fluxos</button>
+  <button class="aba" onclick="mostrarAba('casos')">Casos de Uso</button>
+  <button class="aba" onclick="mostrarAba('beneficios')">Impacto</button>
+  <button class="aba" onclick="mostrarAba('versoes')">Versões</button>
+  <button class="aba" onclick="mostrarAba('permissoes')">Permissões</button>
+</div>
+
+<div id="visao" class="conteudo">
+  <h2>Visão Geral</h2>
+  <p>App web de gestão da qualidade em uma fábrica de alimentos enlatados. O inspetor abre uma não-conformidade no chão de fábrica, no celular, rastreia lotes de matéria-prima até o produto final e gerencia o plano de ação (CAPA).</p>
+
+  <h3>📊 Módulos Principais</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-titulo"><span class="icone">⚠️</span> Não-Conformidades (NC)</div>
+      <div class="card-desc">Abertura manual ou automática (F0, auditoria). Plano de ação 5W2H com verificação de eficácia.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">📦</span> Rastreabilidade</div>
+      <div class="card-desc">Lote final ↔ cargas ↔ matéria-prima ↔ embalagem ↔ distribuição. Busca por qualquer elo.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">✅</span> Checklists Tipados</div>
+      <div class="card-desc">Inspeção no celular: Sim/Não, numérico, seleção, texto. Foto de evidência, conformidade automática.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">🔒</span> Retenção de Lote</div>
+      <div class="card-desc">Quarentena / parada de linha. Bloqueado até resolução com causa-raiz e ação.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">📈</span> Monitoramento PCC</div>
+      <div class="card-desc">Curva da carga (temperatura/pressão) e F0 acumulado. SVG gerado no servidor.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">🏷️</span> Etiqueta com QR</div>
+      <div class="card-desc">QR Code + Code 128 da etiqueta do lote. Impressão e leitura pelo celular.</div>
+    </div>
+  </div>
+
+  <h3>🛠️ Tecnologia</h3>
+  <div class="destaque">
+    <strong>Java 21 + Spring Boot 3.3</strong> (Web, Thymeleaf, JPA, Security) • <strong>MySQL 5.1.17-beta</strong> (dois schemas: qualidade + sscai) • <strong>Mobile-first</strong> (web responsivo) • <strong>Offline</strong> (SVG/gráficos no servidor, sem CDN)
+  </div>
+</div>
+
+<div id="modulos" class="conteudo oculto">
+  <h2>Módulos</h2>
+
+  <h3>NC — Não-Conformidade</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-titulo">Abertura Manual</div>
+      <div class="card-desc">Inspetor escolhe a etapa (Recebimento, MP, Processo, Distribuição), registra o vínculo e descreve o problema. Severidade fixa na abertura.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Sugestão Automática</div>
+      <div class="card-desc">F0 abaixo do mínimo ou auditoria reprovada. Job diário (2h) ou manual. Inspetor confirma ou descarta.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Plano de Ação (CAPA)</div>
+      <div class="card-desc">5W2H: O quê, Por quê, Onde, Quando, Quem, Como, Quanto. Assinatura eletrônica (usuário + hora).</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Ciclo de Vida</div>
+      <div class="card-desc">ABERTA → EM_TRATAMENTO (1ª ação) → AGUARDANDO_VERIFICACAO (todas concluídas) → FECHADA.</div>
+    </div>
+  </div>
+
+  <h3>Checklist Tipado</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-titulo">Tipos de Item</div>
+      <div class="card-desc"><strong>Sim/Não, Numérico, Seleção, Texto, Calculado.</strong> Conformidade automática (dentro da faixa).</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Submissão</div>
+      <div class="card-desc">Foto de evidência (compressão no servidor). Tudo-ou-nada, sem rascunho parcial.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Checklists Atuais</div>
+      <div class="card-desc">BPF Autoclave, PPHO, Cravagem, PCC, Recebimento, Higiene, Embalagens, DTA (10 tipos).</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Criação de NC</div>
+      <div class="card-desc">Item reprovado vira NC sugerida (MEDIA por padrão). Cada checklist é um evento único (sem duplicidade).</div>
+    </div>
+  </div>
+
+  <h3>Retenção de Lote</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-titulo">Abertura</div>
+      <div class="card-desc">Manual (POST /retencao) ou automática (checklist com falha). Origem: DESVIO_PCC ou FALHA_CRAVAGEM.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Máquina de Estados</div>
+      <div class="card-desc">RETIDO → LIBERADO ou REPROVADO. Resolução requer causa-raiz + ação + assinatura.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Retroativo (Cravagem)</div>
+      <div class="card-desc">Falha retém tudo desde a última inspeção aprovada da linha (amostral → 100%).</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Alerta Crítico</div>
+      <div class="card-desc">Faixa vermelha no lote: "PARE A RECRAVADEIRA" ou "LOTE RETIDO" quando já foi expedido.</div>
+    </div>
+  </div>
+</div>
+
+<div id="rastreio" class="conteudo oculto">
+  <h2>Rastreabilidade (v0.2.3 → 0.2.8)</h2>
+  <p>Lote final vincula-se a 4 elos: cargas de autoclave, matéria-prima, embalagem/lata vazia e distribuição. Todas as NCs relacionadas entram no rastro.</p>
+
+  <h3>🔗 Os Quatro Elos</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-titulo"><span class="icone">🔄</span> Carga do Autoclave</div>
+      <div class="card-desc"><strong>LoteCarga:</strong> ID da carga + safra (lidos do sscai). Snapshot de produto, operador, horários.</div>
+      <div class="status-line"><span class="badge badge-v">v0.2.3</span></div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">🌱</span> Matéria-Prima</div>
+      <div class="card-desc"><strong>LoteMateriaPrima:</strong> Fornecedor + lote do fornecedor (texto livre). NCs com mesmo fornecedor/lote entram no rastro.</div>
+      <div class="status-line"><span class="badge badge-v">v0.2.3</span></div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">📦</span> Embalagem / Lata Vazia</div>
+      <div class="card-desc"><strong>LoteEmbalagem:</strong> Fornecedor + lote + descrição (ex.: "Lata 300g"). NC aberta como Matéria-prima, mesmo fornecedor/lote.</div>
+      <div class="status-line"><span class="badge badge-v">v0.2.5</span></div>
+    </div>
+    <div class="card">
+      <div class="card-titulo"><span class="icone">🚚</span> Distribuição</div>
+      <div class="card-desc"><strong>LoteDistribuicao:</strong> Cliente/transportadora + NF + data + quantidade. NCs de Distribuição do mesmo cliente entram.</div>
+      <div class="status-line"><span class="badge badge-v">v0.2.7</span></div>
+    </div>
+  </div>
+
+  <h3>🔍 Buscas Reversas</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-titulo">Para Trás (Insumos)</div>
+      <div class="card-desc">Qual lote usou a MP "XYZ" do fornecedor "ABC"? Ou a embalagem "Lata 300g" da mesma origem?</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Para Frente (Distribuição)</div>
+      <div class="card-desc">Qual lote foi para o cliente "DEF"? Ou a nota fiscal "NF-999"?</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Carga → Lote (0.2.6)</div>
+      <div class="card-desc">Na tela da carga (PCC) e no detalhe da NC, mostra "Lote final: [código]" com link. Uma carga pode estar em vários lotes.</div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Recall Completo</div>
+      <div class="card-desc">Partindo de uma NC, matéria-prima, ou cliente, vê-se toda a cadeia de impacto em segundos.</div>
+    </div>
+  </div>
+
+  <h3>🎟️ Etiqueta com QR (v0.2.8)</h3>
+  <div class="destaque">
+    <strong>/lote/{id}/etiqueta:</strong> Página imprimível com <strong>QR Code</strong> (abre o lote no celular pela câmera) + <strong>Code 128</strong> (leitor de mão) + código do lote. SVG gerado no servidor sem JavaScript. Base do QR vem de QUALIDADE_BASE_URL (env var).
+  </div>
+
+  <h3>⚡ Alertas</h3>
+  <div class="card" style="margin-top: 12px;">
+    <div class="card-titulo">Lote Retido + Já Expedido</div>
+    <div class="card-desc">Faixa vermelha (CSS .alerta-critico): "LOTE COM RETENÇÃO EM ABERTO JÁ FOI EXPEDIDO — RECOLHER / BLOQUEAR NOS DESTINOS ABAIXO". Aparece quando o lote tem retenção RETIDO e distribuição registrada.</div>
+  </div>
+</div>
+
+<div id="fluxos" class="conteudo oculto">
+  <h2>Fluxos Principais</h2>
+
+  <h3>1️⃣ Abertura de NC de Carga</h3>
+  <div class="fluxo">
+    <span class="fluxo-step">Busca carga</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Escolhe NC</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Define severidade</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Abre NC</span>
+  </div>
+  <p><strong>Resultado:</strong> NC com status ABERTA, inspetor = usuário logado, fixada na abertura (não editável depois).</p>
+
+  <h3>2️⃣ Plano de Ação (5W2H)</h3>
+  <div class="fluxo">
+    <span class="fluxo-step">Adiciona ação</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">NC → EM_TRATAMENTO</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Confirma execução</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Verifica eficácia</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Fecha NC</span>
+  </div>
+  <p><strong>Automático:</strong> status muda para AGUARDANDO_VERIFICACAO quando todas as ações são concluídas. Fechamento bloqueado enquanto houver ação sem verificação.</p>
+
+  <h3>3️⃣ Rastreabilidade de Lote</h3>
+  <div class="fluxo">
+    <span class="fluxo-step">Cria lote</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Vincula carga</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Registra MP</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Registra emb.</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Registra dist.</span>
+  </div>
+  <p><strong>Rastro:</strong> Todas as NCs relacionadas (cargas, MP, embalagem, distribuição) entram no detalhe do lote automaticamente.</p>
+
+  <h3>4️⃣ Checklist + Retenção</h3>
+  <div class="fluxo">
+    <span class="fluxo-step">Preenche check</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Item reprovado?</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">NC sugerida + Retenção</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Resolve (causa + ação)</span>
+  </div>
+  <p><strong>Cravagem retroativa:</strong> Uma falha retém tudo desde a última inspeção aprovada da linha. Liberação exige nova inspeção aprovada após a abertura.</p>
+
+  <h3>5️⃣ Leitura de QR / Código de Barras</h3>
+  <div class="fluxo">
+    <span class="fluxo-step">Câmera do celular lê QR</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">/lote/ir?codigo=XXX</span>
+    <span class="fluxo-arrow">→</span>
+    <span class="fluxo-step">Abre o lote</span>
+  </div>
+  <p><strong>Leitor de mão:</strong> Digita código + Enter em /lote — se for código exato, abre o lote direto; parcial, mostra lista.</p>
+</div>
+
+<div id="casos" class="conteudo oculto">
+  <h2>Casos de Uso Reais</h2>
+
+  <h3>📋 Caso 1: Um Recall de Matéria-Prima (Cenário Completo)</h3>
+  <div class="destaque">
+    <strong>Situação:</strong> Fornecedor "Empresa ABC" notifica que o lote MP-2026-5001 de corante alimentar tem problema de pureza (não atende especificação). Você precisa saber quais produtos saíram da fábrica com esse insumo.
+  </div>
+
+  <div style="margin-top: 12px;">
+    <h4>🔍 Passo 1: Busca no app (3 segundos)</h4>
+    <p>Acessa <strong>/lote</strong> e busca por <strong>"Empresa ABC"</strong> ou <strong>"MP-2026-5001"</strong>. O sistema retorna:</p>
+    <ul>
+      <li>✓ <strong>Lote Final 95625-000</strong> — usou esse insumo</li>
+      <li>✓ <strong>Lote Final 95625-001</strong> — também usou</li>
+      <li>✓ <strong>Lote Final 95625-002</strong> — usou</li>
+    </ul>
+    <p class="meta">Resultado: 3 lotes impactados identificados em segundos.</p>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <h4>📦 Passo 2: Ver para onde cada lote foi</h4>
+    <p>Abre cada lote (ex. 95625-000) e vê a aba <strong>"Distribuição"</strong>:</p>
+    <ul>
+      <li>🚚 <strong>Cliente XYZ</strong> — NF-15001 — expedido 20 set 2026 — 120 caixas</li>
+      <li>🚚 <strong>Cliente MNO</strong> — NF-15002 — expedido 21 set 2026 — 80 caixas</li>
+    </ul>
+    <p class="meta">Resultado: você sabe exatamente quem recebeu cada lote (cliente/transportadora/data/quantidade).</p>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <h4>⚠️ Passo 3: Abrir NC de recall</h4>
+    <p>Abre NC manualmente:</p>
+    <ul>
+      <li><strong>Objeto:</strong> DISTRIBUICAO (pois é sobre recolhimento)</li>
+      <li><strong>Cliente:</strong> XYZ (foco no destino)</li>
+      <li><strong>Severidade:</strong> CRITICA (problema de pureza é risco à saúde)</li>
+      <li><strong>Descrição:</strong> "Recall: MP corante lote ABC-2026-5001 fora de especificação. Lote final 95625-000 em destinos abaixo."</li>
+    </ul>
+    <p class="meta">Status: NC ABERTA</p>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <h4>🔧 Passo 4: Plano de Ação (CAPA)</h4>
+    <p>Adiciona ações (exemplo):</p>
+    <div class="card" style="margin-top: 8px;">
+      <div class="card-titulo">Ação 1: Contenção</div>
+      <div class="card-desc">
+        <strong>O quê:</strong> Contactar clientes de distribuição para bloquear lotes 95625-000/001/002<br>
+        <strong>Quando:</strong> Hoje (urgente)<br>
+        <strong>Quem:</strong> Gerente de Qualidade
+      </div>
+    </div>
+  </div>
+
+  <h3>📋 Caso 2: Falha de Cravagem em Linha (Retenção Retroativa)</h3>
+  <div style="margin-top: 12px;">
+    <div class="card">
+      <div class="card-titulo">14:35 — Inspector preenche checklist de cravagem</div>
+      <div class="card-desc">Amostra #15 de 20 medidas fora da tolerância → <strong>Reprovado</strong></div>
+    </div>
+    <div class="card" style="margin-top: 8px;">
+      <div class="card-titulo">14:36 — Sistema cria automaticamente</div>
+      <div class="card-desc">1) <strong>NC sugerida</strong> (DESVIO)<br>2) <strong>Retenção</strong> de tudo desde a última inspeção aprovada (14:05)</div>
+    </div>
+    <div class="card" style="margin-top: 8px;">
+      <div class="card-titulo">14:36 — Faixa vermelha aparece</div>
+      <div class="card-desc"><strong>"⛔ PARE A RECRAVADEIRA"</strong> na home. Ninguém tira lata fora da linha até resolver.</div>
+    </div>
+  </div>
+
+  <h3>📋 Caso 3: Inspetor Abre NC no Chão (Com Foto de Evidência)</h3>
+  <div style="margin-top: 12px;">
+    <p><strong>Cenário:</strong> Matéria-prima chega com embalagem danificada (lata amassada).</p>
+    <div class="card">
+      <div class="card-titulo">Inspetor, celular em mão:</div>
+      <div class="card-desc">
+        1. Abre /nc no celular (mobile-first)<br>
+        2. Escolhe objeto: <strong>MATERIA_PRIMA</strong><br>
+        3. Digita fornecedor: <strong>"Latabrás"</strong>, lote: <strong>"LB-2026-800"</strong><br>
+        4. Tira foto com câmera → comprimida no servidor<br>
+        5. Clica "Abrir NC"
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="beneficios" class="conteudo oculto">
+  <h2>Impacto e Benefícios</h2>
+
+  <h3>⏱️ Eficiência Operacional</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-titulo">Recall (Antes)</div>
+      <div class="card-desc">
+        • Telefonar para cada área<br>
+        • Vasculhar planilhas Excel<br>
+        • Risco de perder informação<br>
+        <strong>Tempo:</strong> 4-8 horas
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-titulo">Recall (Depois)</div>
+      <div class="card-desc">
+        • Uma busca: fornecedor/insumo<br>
+        • Lista de lotes e destinos em segundos<br>
+        • Histórico 100% documentado<br>
+        <strong>Tempo:</strong> 5-30 min
+      </div>
+    </div>
+  </div>
+
+  <h3>🛡️ Conformidade e Segurança Alimentar</h3>
+  <div class="card" style="margin-top: 12px;">
+    <div class="card-titulo">✓ Rastreabilidade 100%</div>
+    <div class="card-desc">Qualquer lote pode ser rastreado de volta (MP/embalagem) ou para frente (cliente/NF) em segundos.</div>
+  </div>
+  <div class="card" style="margin-top: 8px;">
+    <div class="card-titulo">✓ Evidência de Ação</div>
+    <div class="card-desc">Foto de evidência + assinatura eletrônica (usuário + data/hora) prova que inspeção foi feita.</div>
+  </div>
+  <div class="card" style="margin-top: 8px;">
+    <div class="card-titulo">✓ Monitoramento PCC</div>
+    <div class="card-desc">F0 acumulado vs. F0 mínimo do produto — garante que o calor foi suficiente.</div>
+  </div>
+
+  <h3>💰 Redução de Custos</h3>
+  <table class="tabela-simple">
+    <tr>
+      <th>Cenário</th>
+      <th>Sem App</th>
+      <th>Com App</th>
+      <th>Economia</th>
+    </tr>
+    <tr>
+      <td><strong>Recall de 3 lotes</strong></td>
+      <td>R$ 15.000 - 50.000</td>
+      <td>R$ 2.000 - 5.000</td>
+      <td><strong>70-90%</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Parada de linha (1h)</strong></td>
+      <td>R$ 8.000 - 15.000</td>
+      <td>R$ 2.000 - 4.000</td>
+      <td><strong>50-75%</strong></td>
+    </tr>
+  </table>
+
+  <h3>📊 ROI</h3>
+  <div class="destaque">
+    <strong>Implementação:</strong> 2 semanas • <strong>Payback:</strong> 3-6 meses • <strong>Conformidade:</strong> MAPA/Anvisa/ISO 22000
+  </div>
+</div>
+
+<div id="versoes" class="conteudo oculto">
+  <h2>Histórico de Versões</h2>
+  <table class="tabela-simple">
+    <tr>
+      <th>Versão</th>
+      <th>Funcionalidade</th>
+    </tr>
+    <tr>
+      <td><strong>0.2.1</strong></td>
+      <td>NC manual + CAPA 5W2H + Checklists básicos</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.2</strong></td>
+      <td>Retenção de lote + máquina de estados</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.3</strong></td>
+      <td>Rastreabilidade v1: Lote ↔ Carga ↔ MP</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.4</strong></td>
+      <td>Compressão de foto no servidor</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.5</strong></td>
+      <td>Embalagem/lata vazia (LoteEmbalagem)</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.6</strong></td>
+      <td>Carga → Lote reverso (PCC e NC)</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.7</strong></td>
+      <td>Distribuição (LoteDistribuicao) — rastreio para frente</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.8</strong></td>
+      <td>Etiqueta com QR + Code 128 (SVG)</td>
+    </tr>
+    <tr>
+      <td><strong>0.2.9</strong></td>
+      <td>Fix: login return-to-link, /error permitAll</td>
+    </tr>
+  </table>
+</div>
+
+<div id="permissoes" class="conteudo oculto">
+  <h2>Papéis e Permissões</h2>
+  <p>Spring Security, form login. Quatro papéis (INSPETOR ⊂ QUALIDADE ⊂ ADMIN cumulativos; AUDITOR somente-leitura).</p>
+
+  <table class="tabela-simple">
+    <tr>
+      <th>Papel</th>
+      <th>Permissões</th>
+    </tr>
+    <tr>
+      <td><strong>INSPETOR</strong></td>
+      <td>Abrir NC, adicionar/confirmar ações, verificar eficácia, preencher checklist</td>
+    </tr>
+    <tr>
+      <td><strong>QUALIDADE</strong></td>
+      <td>+ Fechar NC, confirmar/descartar sugestão, atribuir responsável, remover vínculo de lote</td>
+    </tr>
+    <tr>
+      <td><strong>ADMIN</strong></td>
+      <td>+ Gerenciar usuários, todos os POST/DELETE ilimitados</td>
+    </tr>
+    <tr>
+      <td><strong>AUDITOR</strong></td>
+      <td>✓ Somente leitura de tudo. ✗ Não altera nada</td>
+    </tr>
+  </table>
+
+  <h3>🔐 Segurança</h3>
+  <div class="destaque">
+    Senha BCrypt, CSRF ativado, form login. Integração com sistema-app existente, schemas separados (não compartilha tabelas).
+  </div>
+</div>
+
+<div class="rodape">
+  <p>🏭 <strong>Gestão de Qualidade v0.2.9</strong> • BSI Automação</p>
+  <p>Sistema integrado para fábrica de alimentos enlatados. Desenvolvido em Java 21 + Spring Boot 3.3</p>
+  <p style="margin-top: 12px; font-size: 11px;">Para mais informações, contate: <a href="mailto:contato@bsiautomacao.com.br">contato@bsiautomacao.com.br</a></p>
+</div>
+
+<script>
+function mostrarAba(aba) {
+  document.querySelectorAll('.conteudo').forEach(el => el.classList.add('oculto'));
+  document.querySelectorAll('.aba').forEach(el => el.classList.remove('ativo'));
+  document.getElementById(aba).classList.remove('oculto');
+  event.target.classList.add('ativo');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

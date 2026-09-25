@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSI Sistemas Automação — Soluções Industriais Integradas</title>
+  <meta name="description" content="Sistemas de automação industrial: Produção, Processo, Branqueador e Gestão de Qualidade. Integração completa para indústria de alimentos e processos.">
+  <style>
+:root {
+  --azul: #1e40af;
+  --azul-claro: #3b82f6;
+  --verde: #10b981;
+  --laranja: #f59e0b;
+  --cinza-100: #f3f4f6;
+  --cinza-200: #e5e7eb;
+  --cinza-600: #4b5563;
+  --cinza-900: #111827;
+  --branco: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--cinza-900);
+  background: var(--branco);
+}
+
+header {
+  background: var(--branco);
+  border-bottom: 1px solid var(--cinza-200);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--azul);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav a {
+  color: var(--cinza-600);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 200ms;
+}
+
+.nav a:hover { color: var(--azul); }
+
+.cta-btn {
+  background: var(--azul);
+  color: var(--branco);
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
+  color: var(--branco);
+  padding: 80px 16px;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 32px;
+  opacity: 0.95;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--branco);
+  color: var(--azul);
+  padding: 12px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--branco);
+  padding: 12px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid var(--branco);
+  cursor: pointer;
+}
+
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 16px;
+}
+
+.section h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--cinza-900);
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: var(--cinza-600);
+  margin-bottom: 48px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .grid-4 { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .hero h1 { font-size: 32px; }
+}
+
+.card-app {
+  background: var(--cinza-100);
+  padding: 32px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  border-left: 4px solid var(--azul);
+  transition: all 200ms;
+}
+
+.card-app:hover {
+  border-color: var(--azul);
+  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.15);
+  transform: translateY(-4px);
+}
+
+.card-app-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.card-app h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.card-app p {
+  color: var(--cinza-600);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.card-app .tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  background: var(--azul);
+  color: var(--branco);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; }
+}
+
+.about-text h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.about-text p {
+  color: var(--cinza-600);
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+.features-list {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.features-list li {
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cinza-600);
+}
+
+.features-list li:before {
+  content: "✓";
+  color: var(--verde);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.numeros {
+  background: var(--azul);
+  color: var(--branco);
+  padding: 60px 16px;
+}
+
+.numeros-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .numeros-content { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+}
+
+.numero-box h3 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.numero-box p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.contato {
+  background: var(--cinza-100);
+  padding: 60px 16px;
+}
+
+.contato-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contato h2 { margin-bottom: 24px; }
+
+.contato-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.contato-form input,
+.contato-form textarea {
+  padding: 12px;
+  border: 1px solid var(--cinza-200);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.contato-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contato-form button {
+  background: var(--azul);
+  color: var(--branco);
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+footer {
+  background: var(--cinza-900);
+  color: var(--branco);
+  padding: 40px 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .footer-content { grid-template-columns: 1fr; }
+}
+
+.footer-section h4 {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footer-section a {
+  display: block;
+  margin: 8px 0;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footer-section a:hover { color: var(--branco); }
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 24px;
+  color: rgba(255,255,255,0.6);
+}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-content">
+    <a href="#" class="logo">🏭 BSI Sistemas Automação</a>
+    <nav class="nav">
+      <a href="#sobre">Sobre</a>
+      <a href="#apps">Apps</a>
+      <a href="#qualidade">Gestão de Qualidade</a>
+      <a href="#contato">Contato</a>
+      <a href="demo.html" class="cta-btn">Demo</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Automação Industrial Integrada</h1>
+    <p>Controle completo da produção: desde matéria-prima até produto final. Sistemas conectados para indústria de alimentos e processos.</p>
+    <div class="hero-buttons">
+      <a href="#qualidade" class="btn-primary">Conhecer Gestão de Qualidade</a>
+      <a href="#contato" class="btn-secondary">Solicitar Demonstração</a>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO DE APPS -->
+<section id="apps" class="section">
+  <h2>Portfolio de Aplicações</h2>
+  <p class="section-subtitle">Soluções integradas para cada etapa da produção industrial.</p>
+
+  <div class="grid-4">
+    <!-- App 1: SISTEMA -->
+    <div class="card-app">
+      <div class="card-app-icon">⚙️</div>
+      <h3>Sistema</h3>
+      <p>Controle centralizado de produção. Gestão de cargas, autoclaves, monitoramento de parâmetros em tempo real e rastreamento de bateladas.</p>
+      <div class="tags">
+        <span class="tag">Produção</span>
+        <span class="tag">Autoclave</span>
+        <span class="tag">Rastreio</span>
+      </div>
+    </div>
+
+    <!-- App 2: PROCESSO -->
+    <div class="card-app">
+      <div class="card-app-icon">📊</div>
+      <h3>Processo</h3>
+      <p>Monitoramento de variáveis de processo. Temperatura, pressão, tempo de ciclo e conformidade com especificações. Alertas automáticos e logs.</p>
+      <div class="tags">
+        <span class="tag">Monitoramento</span>
+        <span class="tag">PCC</span>
+        <span class="tag">Controle</span>
+      </div>
+    </div>
+
+    <!-- App 3: BRANQUEADOR -->
+    <div class="card-app">
+      <div class="card-app-icon">🧪</div>
+      <h3>Branqueador</h3>
+      <p>Controle especializado de branqueamento e etapas relacionadas. Dosagem automática, concentração, tempo de exposição e eficácia comprovada.</p>
+      <div class="tags">
+        <span class="tag">Branqueamento</span>
+        <span class="tag">Dosagem</span>
+        <span class="tag">Controle</span>
+      </div>
+    </div>
+
+    <!-- App 4: GESTÃO DE QUALIDADE (Novo) -->
+    <div class="card-app" style="border-left-color: var(--verde);">
+      <div class="card-app-icon">✅</div>
+      <h3>Gestão de Qualidade</h3>
+      <p><strong>NOVO:</strong> Não-conformidades, rastreabilidade 100%, checklists tipados, plano de ação 5W2H, retenção de lote e monitoramento de PCC.</p>
+      <div class="tags">
+        <span class="tag" style="background: var(--verde);">v0.2.9</span>
+        <span class="tag">Qualidade</span>
+        <span class="tag">Conformidade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" class="section">
+  <h2>Sobre a BSI Sistemas Automação</h2>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <h3>Especialistas em Automação Industrial</h3>
+      <p>A BSI Sistemas Automação desenvolve soluções integradas de controle e monitoramento para indústria de alimentos, com foco especial em processos de autoclavagem, branqueamento e conformidade.</p>
+      <p>Nossos sistemas são projetados para garantir segurança alimentar, rastreabilidade completa e conformidade regulatória (MAPA, Anvisa, ISO 22000).</p>
+      <ul class="features-list">
+        <li>Integração entre Sistema, Processo, Branqueador e Qualidade</li>
+        <li>Rastreabilidade bidirecional (matéria-prima ↔ cliente)</li>
+        <li>Monitoramento em tempo real com alertas automáticos</li>
+        <li>Suporte offline — funciona sem internet constante</li>
+        <li>Mobile-first — inspeção no chão de fábrica</li>
+        <li>Segurança comprovada com assinatura eletrônica</li>
+      </ul>
+    </div>
+    <div style="background: var(--cinza-100); padding: 32px; border-radius: 8px;">
+      <h3 style="text-align: center; margin-bottom: 24px;">Stack Tecnológico</h3>
+      <ul class="features-list">
+        <li><strong>Java 21</strong> — Backend robusto</li>
+        <li><strong>Spring Boot 3.3</strong> — Web moderno</li>
+        <li><strong>MySQL 5.1+</strong> — Banco de dados integrado</li>
+        <li><strong>Thymeleaf</strong> — Templates server-side</li>
+        <li><strong>Spring Security</strong> — RBAC completo</li>
+        <li><strong>SVG/Offline</strong> — Gráficos sem CDN</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<section class="numeros">
+  <div class="numeros-content">
+    <div class="numero-box">
+      <h3>70-90%</h3>
+      <p>Redução em recall</p>
+    </div>
+    <div class="numero-box">
+      <h3>100%</h3>
+      <p>Rastreabilidade</p>
+    </div>
+    <div class="numero-box">
+      <h3>3-6M</h3>
+      <p>ROI estimado</p>
+    </div>
+    <div class="numero-box">
+      <h3>4</h3>
+      <p>Apps integrados</p>
+    </div>
+  </div>
+</section>
+
+<!-- GESTÃO DE QUALIDADE DESTAQUE -->
+<section id="qualidade" class="section">
+  <h2>Gestão de Qualidade — v0.2.9</h2>
+  <p class="section-subtitle">Novo módulo: Controle completo de não-conformidades e rastreabilidade para indústria alimentícia.</p>
+
+  <div class="grid-4">
+    <div class="card-app">
+      <div class="card-app-icon">⚠️</div>
+      <h3>Não-Conformidades</h3>
+      <p>Abertura manual ou automática (F0, auditoria). Plano de ação 5W2H com assinatura eletrônica e verificação de eficácia.</p>
+    </div>
+    <div class="card-app">
+      <div class="card-app-icon">📦</div>
+      <h3>Rastreabilidade</h3>
+      <p>Lote final ↔ cargas ↔ matéria-prima ↔ embalagem ↔ distribuição. Busca reversa por qualquer elo.</p>
+    </div>
+    <div class="card-app">
+      <div class="card-app-icon">✅</div>
+      <h3>Checklists Tipados</h3>
+      <p>Inspeção no celular: Sim/Não, numérico, seleção, texto. Foto de evidência e conformidade automática.</p>
+    </div>
+    <div class="card-app">
+      <div class="card-app-icon">🔒</div>
+      <h3>Retenção de Lote</h3>
+      <p>Parada de linha automática. Quarentena retroativa com liberação manual (causa-raiz + ação).</p>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 48px;">
+    <a href="demo.html" class="btn-primary">Ver Demonstração Completa</a>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="section">
+  <div class="contato-content">
+    <h2>Solicitar Demonstração</h2>
+    <p class="section-subtitle">Entre em contato para conhecer os sistemas da BSI.</p>
+
+    <form class="contato-form" action="https://formspree.io/f/SEU_ID" method="POST">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <input type="email" name="email" placeholder="seu@email.com" required>
+      <input type="text" name="empresa" placeholder="Sua empresa" required>
+      <textarea name="mensagem" placeholder="Mensagem (opcional)"></textarea>
+      <button type="submit">Enviar Solicitação</button>
+    </form>
+
+    <p style="margin-top: 24px; font-size: 13px; color: var(--cinza-600);">
+      📧 Email: <strong>bsisistemaautomacao@gmail.com</strong><br>
+      📱 WhatsApp: <strong>(11) 99999-9999</strong>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>🏭 BSI Sistemas Automação</h4>
+      <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px;">Soluções de automação industrial integradas para indústria de alimentos e processos.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Aplicações</h4>
+      <a href="#apps">Sistema</a>
+      <a href="#apps">Processo</a>
+      <a href="#apps">Branqueador</a>
+      <a href="#qualidade">Gestão de Qualidade</a>
+    </div>
+    <div class="footer-section">
+      <h4>Empresa</h4>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+      <a href="demo.html">Demo</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
