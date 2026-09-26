@@ -3,808 +3,163 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BSI Automação — Soluções Integradas para Indústria Alimentícia</title>
-  <meta name="description" content="Plataforma completa de automação industrial: Produção, Processo, Branqueador, Caldeiras e Qualidade. Integração zero-to-production para indústria de alimentos.">
-  <style>
-:root {
-  --azul: #1e40af;
-  --azul-claro: #3b82f6;
-  --verde: #10b981;
-  --cinza-50: #f9fafb;
-  --cinza-100: #f3f4f6;
-  --cinza-200: #e5e7eb;
-  --cinza-400: #9ca3af;
-  --cinza-600: #4b5563;
-  --cinza-900: #111827;
-  --branco: #ffffff;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.6;
-  color: var(--cinza-900);
-  background: var(--branco);
-}
-
-/* HEADER */
-header {
-  background: var(--branco);
-  border-bottom: 1px solid var(--cinza-200);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 16px 24px;
-}
-
-.header-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--azul);
-  text-decoration: none;
-  letter-spacing: -0.5px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-  list-style: none;
-}
-
-.nav-menu a, .nav-menu button {
-  color: var(--cinza-600);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 200ms;
-}
-
-.nav-menu a:hover, .nav-menu button:hover {
-  color: var(--azul);
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.btn-ghost {
-  background: none;
-  color: var(--cinza-600);
-  padding: 8px 16px;
-  border: 1px solid var(--cinza-200);
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 200ms;
-}
-
-.btn-ghost:hover {
-  color: var(--azul);
-  border-color: var(--azul);
-}
-
-.btn-primary {
-  background: var(--azul);
-  color: var(--branco);
-  padding: 8px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: background 200ms;
-}
-
-.btn-primary:hover {
-  background: #1e3a8a;
-}
-
-@media (max-width: 768px) {
-  .nav-menu { display: none; }
-  .header-actions { gap: 8px; }
-}
-
-/* HERO */
-.hero {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 120px 24px;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 56px;
-  font-weight: 700;
-  margin-bottom: 24px;
-  line-height: 1.1;
-  color: var(--cinza-900);
-}
-
-.hero .highlight {
-  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero p {
-  font-size: 18px;
-  color: var(--cinza-600);
-  margin-bottom: 40px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.7;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 80px;
-}
-
-.btn-large {
-  padding: 12px 32px;
-  font-size: 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 200ms;
-}
-
-.btn-large-primary {
-  background: var(--azul);
-  color: var(--branco);
-  border: 2px solid var(--azul);
-}
-
-.btn-large-primary:hover {
-  background: #1e3a8a;
-}
-
-.btn-large-secondary {
-  background: transparent;
-  color: var(--azul);
-  border: 2px solid var(--azul);
-}
-
-.btn-large-secondary:hover {
-  background: var(--cinza-50);
-}
-
-.hero-image {
-  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
-  border-radius: 12px;
-  padding: 40px;
-  text-align: center;
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-  color: var(--azul);
-  margin-bottom: 80px;
-}
-
-@media (max-width: 768px) {
-  .hero h1 { font-size: 36px; }
-  .hero p { font-size: 16px; }
-}
-
-/* LOGOS */
-.logos-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-  border-bottom: 1px solid var(--cinza-200);
-}
-
-.logos-label {
-  text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--cinza-500);
-  text-transform: uppercase;
-  margin-bottom: 40px;
-  letter-spacing: 1px;
-}
-
-.logos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 40px;
-  align-items: center;
-  justify-items: center;
-}
-
-.logo-item {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--cinza-500);
-  text-align: center;
-}
-
-/* FEATURES GRID */
-.features-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.section-header h2 {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--cinza-900);
-}
-
-.section-header p {
-  font-size: 18px;
-  color: var(--cinza-600);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 32px;
-}
-
-.feature-card {
-  padding: 32px;
-  border: 1px solid var(--cinza-200);
-  border-radius: 12px;
-  transition: all 200ms;
-}
-
-.feature-card:hover {
-  border-color: var(--azul);
-  box-shadow: 0 12px 32px rgba(30, 64, 175, 0.1);
-  transform: translateY(-4px);
-}
-
-.feature-card-icon {
-  font-size: 32px;
-  margin-bottom: 16px;
-}
-
-.feature-card h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.feature-card p {
-  color: var(--cinza-600);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-/* CODE SECTION */
-.code-section {
-  background: var(--cinza-50);
-  padding: 80px 24px;
-  border-bottom: 1px solid var(--cinza-200);
-}
-
-.code-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.code-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.code-header h2 {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-.code-header p {
-  font-size: 16px;
-  color: var(--cinza-600);
-}
-
-.code-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
-.code-block {
-  background: var(--cinza-900);
-  color: #e0e7ff;
-  padding: 24px;
-  border-radius: 8px;
-  font-family: 'Monaco', 'Courier New', monospace;
-  font-size: 13px;
-  line-height: 1.6;
-  overflow-x: auto;
-}
-
-.code-keyword { color: #c084fc; }
-.code-string { color: #86efac; }
-.code-function { color: #60a5fa; }
-.code-comment { color: #6b7280; }
-
-.code-description {
-  padding: 24px;
-  background: var(--branco);
-  border-radius: 8px;
-  border: 1px solid var(--cinza-200);
-}
-
-.code-description h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.code-description p {
-  color: var(--cinza-600);
-  margin-bottom: 16px;
-  line-height: 1.7;
-}
-
-.code-description ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.code-description li {
-  color: var(--cinza-600);
-  margin-bottom: 8px;
-  padding-left: 24px;
-  position: relative;
-}
-
-.code-description li:before {
-  content: "→";
-  position: absolute;
-  left: 0;
-  color: var(--azul);
-  font-weight: 600;
-}
-
-@media (max-width: 1024px) {
-  .code-grid { grid-template-columns: 1fr; }
-}
-
-/* TESTIMONIALS */
-.testimonials-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
-}
-
-.testimonial-card {
-  background: var(--cinza-50);
-  padding: 32px;
-  border-radius: 12px;
-  border: 1px solid var(--cinza-200);
-}
-
-.testimonial-stars {
-  color: #fbbf24;
-  margin-bottom: 16px;
-  font-size: 18px;
-}
-
-.testimonial-text {
-  font-size: 15px;
-  color: var(--cinza-700);
-  margin-bottom: 20px;
-  line-height: 1.7;
-  font-style: italic;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.testimonial-avatar {
-  width: 40px;
-  height: 40px;
-  background: var(--azul);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--branco);
-  font-weight: 600;
-  font-size: 18px;
-}
-
-.testimonial-info h4 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.testimonial-info p {
-  font-size: 13px;
-  color: var(--cinza-500);
-}
-
-/* CTA SECTION */
-.cta-section {
-  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
-  color: var(--branco);
-  padding: 80px 24px;
-  text-align: center;
-}
-
-.cta-wrapper {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.cta-section h2 {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 24px;
-}
-
-.cta-section p {
-  font-size: 18px;
-  margin-bottom: 40px;
-  opacity: 0.95;
-}
-
-.btn-cta {
-  background: var(--branco);
-  color: var(--azul);
-  padding: 12px 32px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  transition: all 200ms;
-  display: inline-block;
-}
-
-.btn-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-/* FOOTER */
-footer {
-  background: var(--cinza-900);
-  color: var(--branco);
-  padding: 60px 24px 40px;
-  border-top: 1px solid var(--cinza-800);
-}
-
-.footer-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.footer-section h4 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  color: var(--branco);
-}
-
-.footer-section a {
-  display: block;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  font-size: 13px;
-  margin-bottom: 12px;
-  transition: color 200ms;
-}
-
-.footer-section a:hover {
-  color: var(--branco);
-}
-
-.footer-bottom {
-  border-top: 1px solid var(--cinza-800);
-  padding-top: 24px;
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.footer-socials {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 16px;
-}
-
-.footer-socials a {
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  color: var(--branco);
-  text-decoration: none;
-  transition: all 200ms;
-  margin: 0;
-}
-
-.footer-socials a:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* SMOOTH SCROLL */
-html { scroll-behavior: smooth; }
-  </style>
+  <title>BSI Sistemas Automação — Automação Industrial Integrada</title>
+  <meta name="description" content="Automação industrial integrada para indústria de alimentos: Sistema, Processo, Branqueador, Caldeiras e Gestão de Qualidade.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/resend.css">
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-wrapper">
-    <a href="#" class="logo">
-      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI Logo">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="BSI Sistemas Automação">
+      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
     </a>
-    <nav class="nav-menu">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#depoimentos">Depoimentos</a></li>
-      <li><a href="#contato">Pricing</a></li>
-    </nav>
-    <div class="header-actions">
-      <a href="#login" class="btn-ghost">Login</a>
-      <a href="#signup" class="btn-primary">Começar</a>
-    </div>
+    <nav aria-label="Principal"><ul class="nav">
+      <li><button type="button">Recursos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Docs <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+    </ul></nav>
   </div>
 </header>
 
-<!-- HERO -->
+<main>
+
 <section class="hero">
-  <h1>
-    Automação Industrial<br>
-    <span class="highlight">Feita para Alimentos</span>
-  </h1>
-  <p>Plataforma integrada para produção, processo, branqueador, caldeiras e qualidade. Entregue em produção em dias, não meses.</p>
-  <div class="hero-buttons">
-    <a href="#signup" class="btn-large btn-large-primary">Começar Grátis</a>
-    <a href="#docs" class="btn-large btn-large-secondary">Ver Documentação</a>
-  </div>
-  <div class="hero-image">
-    📊 Dashboard em Tempo Real
-  </div>
-</section>
-
-<!-- LOGOS DE CLIENTES -->
-<section class="logos-section">
-  <div class="logos-label">Confiado por empresas líderes</div>
-  <div class="logos-grid">
-    <div class="logo-item">Warner Bros</div>
-    <div class="logo-item">Perdigão</div>
-    <div class="logo-item">BRF</div>
-    <div class="logo-item">JBS</div>
-    <div class="logo-item">Sadia</div>
-    <div class="logo-item">Aurora</div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features" class="features-section">
-  <div class="section-header">
-    <h2>Tudo em Um Lugar</h2>
-    <p>4 aplicações integradas que eliminam silos e garantem rastreabilidade completa.</p>
-  </div>
-
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-card-icon">📦</div>
-      <h3>Sistema de Produção</h3>
-      <p>Controle de matérias-primas, lotes, embalagem e distribuição com rastreabilidade bidirecional.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-card-icon">⚙️</div>
-      <h3>Sistema de Processo</h3>
-      <p>Monitoramento em tempo real de temperatura, tempo e pressão com alertas automáticos.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-card-icon">🔥</div>
-      <h3>Branqueador</h3>
-      <p>Controle de autoclavagem com histórico completo de ciclos e documentação automática.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-card-icon">🌡️</div>
-      <h3>Caldeiras</h3>
-      <p>Monitoramento de caldeiras e aquecedores térmicos com conformidade regulatória ABNT/Anvisa.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-card-icon">✅</div>
-      <h3>Gestão de Qualidade</h3>
-      <p>Não-conformidades, checklists tipados, assinatura eletrônica e retenção de lote.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-card-icon">📱</div>
-      <h3>Mobile-First</h3>
-      <p>Inspeção no chão de fábrica com suporte offline e sincronização automática.</p>
+  <div class="wrap">
+    <a href="sistemas/qualidade.html" class="pill">Novo: Gestão de Qualidade v0.2.9 <span aria-hidden="true">›</span></a>
+    <h1>Automação industrial integrada</h1>
+    <p>Controle completo da produção: da matéria-prima ao produto final. Sistemas conectados para indústria de alimentos e processos.</p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn">Solicitar demonstração</a>
+      <a href="sistemas/qualidade.html" class="btn-text">Conhecer Gestão de Qualidade</a>
     </div>
   </div>
 </section>
 
-<!-- DEPOIMENTOS -->
-<section id="depoimentos" class="testimonials-section">
-  <div class="section-header">
-    <h2>Histórias de Sucesso</h2>
-    <p>Empresas que eliminaram recalls e ganharam eficiência.</p>
-  </div>
+<section id="apps" class="block">
+  <div class="wrap">
+    <h2>Portfólio de aplicações</h2>
+    <p class="lead">Soluções integradas para cada etapa da produção industrial.</p>
 
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"BSI eliminou 80% dos nossos recalls. Rastreabilidade em 3 dias vs. 3 meses antes."</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">VM</div>
-        <div class="testimonial-info">
-          <h4>Vitor Martins</h4>
-          <p>QA Manager, BRF</p>
-        </div>
+    <div class="cards">
+      <a class="card" href="sistemas/sistema.html">
+        <div class="preview" aria-hidden="true"></div>
+        <h3>Sistema</h3>
+        <p>Controle centralizado de produção. Gestão de cargas, autoclaves, monitoramento de parâmetros em tempo real e rastreamento de bateladas.</p>
+        <div class="tags"><span class="tag">Produção</span><span class="tag">Autoclave</span><span class="tag">Rastreio</span></div>
+        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="sistemas/processo.html">
+        <div class="preview"><img src="assets/telas/processo-grafico.png" alt="Gráfico de temperatura e pressão de uma carga" loading="lazy"></div>
+        <h3>Processo</h3>
+        <p>Monitoramento de variáveis de processo. Temperatura, pressão, tempo de ciclo e conformidade com especificações. Alertas automáticos e logs.</p>
+        <div class="tags"><span class="tag">Monitoramento</span><span class="tag">PCC</span><span class="tag">Controle</span></div>
+        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card" href="sistemas/branqueador.html">
+        <div class="preview" aria-hidden="true"></div>
+        <h3>Branqueador</h3>
+        <p>Controle especializado de branqueamento e etapas relacionadas. Dosagem automática, concentração, tempo de exposição e eficácia comprovada.</p>
+        <div class="tags"><span class="tag">Branqueamento</span><span class="tag">Dosagem</span><span class="tag">Controle</span></div>
+        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card half" href="sistemas/qualidade.html">
+        <div class="preview"><img src="assets/telas/qualidade-01.jpg" alt="Tela de listagem de não-conformidades" loading="lazy"></div>
+        <h3>Gestão de Qualidade</h3>
+        <p><strong>Novo:</strong> não-conformidades, rastreabilidade 100%, checklists tipados, plano de ação 5W2H, retenção de lote e monitoramento de PCC.</p>
+        <div class="tags"><span class="tag hl">v0.2.9</span><span class="tag">Qualidade</span><span class="tag">Conformidade</span></div>
+        <span class="more">Ver detalhes e telas <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="card half" href="sistemas/caldeiras.html">
+        <div class="preview" aria-hidden="true"></div>
+        <h3>Caldeiras &amp; Aquecedores Térmicos</h3>
+        <p>App integrado + fornecimento de CLP para monitoramento e controle de caldeiras e aquecedores térmicos. Temperatura, pressão, consumo de vapor, eficiência energética e conformidade com normas de segurança operacional.</p>
+        <div class="tags"><span class="tag">Térmico</span><span class="tag">Segurança</span><span class="tag">Monitoramento</span></div>
+        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="block">
+  <div class="wrap">
+    <h2>Sobre a BSI Sistemas Automação</h2>
+    <p class="lead">Especialistas em automação industrial.</p>
+
+    <div class="about">
+      <div>
+        <p>A BSI Sistemas Automação desenvolve soluções integradas de controle e monitoramento para indústria de alimentos, com foco especial em processos de autoclavagem, branqueamento, controle térmico e conformidade.</p>
+        <p>Nossos sistemas são projetados para garantir segurança alimentar, rastreabilidade completa, conformidade regulatória (MAPA, Anvisa, ISO 22000) e segurança operacional de caldeiras.</p>
+        <ul class="list">
+          <li>Integração entre Sistema, Processo, Branqueador, Caldeiras e Qualidade</li>
+          <li>Rastreabilidade bidirecional (matéria-prima ↔ cliente)</li>
+          <li>Monitoramento em tempo real com alertas automáticos</li>
+          <li>Suporte offline — funciona sem internet constante</li>
+          <li>Mobile-first — inspeção no chão de fábrica</li>
+          <li>Segurança comprovada com assinatura eletrônica</li>
+        </ul>
       </div>
-    </div>
-
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"O ROI chegou em 4 meses. Sem BSI, não tínhamos visibilidade de caldeiras."</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">CN</div>
-        <div class="testimonial-info">
-          <h4>Carlos Neves</h4>
-          <p>Engenheiro de Produção, JBS</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Conformidade Anvisa agora é automática. Auditoria passou sem observação."</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">AS</div>
-        <div class="testimonial-info">
-          <h4>Ana Silva</h4>
-          <p>Supervisora de Qualidade, Perdigão</p>
-        </div>
+      <div class="card">
+        <h3>Stack tecnológico</h3>
+        <ul class="list">
+          <li><span><strong>Java 21</strong> — Backend robusto</span></li>
+          <li><span><strong>Spring Boot 3.3</strong> — Web moderno</span></li>
+          <li><span><strong>MySQL 5.1+</strong> — Banco de dados integrado</span></li>
+          <li><span><strong>Thymeleaf</strong> — Templates server-side</span></li>
+          <li><span><strong>Spring Security</strong> — RBAC completo</span></li>
+          <li><span><strong>SVG/Offline</strong> — Gráficos sem CDN</span></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
-<section id="contato" class="cta-section">
-  <div class="cta-wrapper">
-    <h2>Comece Hoje</h2>
-    <p>Demonstração gratuita. Sem cartão de crédito. Setup em 1 dia.</p>
-    <a href="#signup" class="btn-cta">Solicitar Demo</a>
+<section class="block">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>70-90%</b><span>Redução em recall</span></div>
+      <div class="stat"><b>100%</b><span>Rastreabilidade</span></div>
+      <div class="stat"><b>3-6M</b><span>ROI estimado</span></div>
+      <div class="stat"><b>5</b><span>Apps integrados</span></div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section id="contato" class="block">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2>Solicitar demonstração</h2>
+        <p class="lead" style="margin-bottom:24px">Entre em contato para conhecer os sistemas da BSI.</p>
+        <div class="contact-info">
+          E-mail: <strong>bsisistemaautomacao@gmail.com</strong><br>
+          WhatsApp: <strong>(11) 99999-9999</strong>
+        </div>
+      </div>
+      <form action="https://formspree.io/f/SEU_ID" method="POST">
+        <input type="text" name="nome" placeholder="Seu nome" required>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+        <input type="text" name="empresa" placeholder="Sua empresa" required>
+        <textarea name="mensagem" placeholder="Mensagem (opcional)"></textarea>
+        <button type="submit" class="btn">Enviar solicitação</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <footer>
-  <div class="footer-wrapper">
-    <div class="footer-grid">
-      <div class="footer-section">
-        <h4>Produto</h4>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#docs">Documentação</a>
-        <a href="#changelog">Changelog</a>
-      </div>
-
-      <div class="footer-section">
-        <h4>Empresa</h4>
-        <a href="#about">Sobre</a>
-        <a href="#blog">Blog</a>
-        <a href="#careers">Carreiras</a>
-        <a href="#contact">Contato</a>
-      </div>
-
-      <div class="footer-section">
-        <h4>Recursos</h4>
-        <a href="#docs">Documentação</a>
-        <a href="#api">API Reference</a>
-        <a href="#status">Status</a>
-        <a href="#security">Segurança</a>
-      </div>
-
-      <div class="footer-section">
-        <h4>Legal</h4>
-        <a href="#privacy">Privacidade</a>
-        <a href="#terms">Termos</a>
-        <a href="#gdpr">GDPR</a>
-        <a href="#compliance">Compliance</a>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</p>
-      <p style="margin-top: 8px; font-size: 12px;">
-        📧 bsisistemaautomacao@gmail.com | 📱 (11) 99999-9999
-      </p>
-      <div class="footer-socials">
-        <a href="#twitter" title="Twitter">𝕏</a>
-        <a href="#github" title="GitHub">⚙</a>
-        <a href="#linkedin" title="LinkedIn">in</a>
-      </div>
-    </div>
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</span>
+    <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
   </div>
 </footer>
-
-<script>
-// Smooth scroll para links internos
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (href !== '#' && href !== '#login' && href !== '#signup') {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  });
-});
-</script>
 
 </body>
 </html>
