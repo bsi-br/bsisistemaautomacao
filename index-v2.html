@@ -52,6 +52,15 @@ header {
   color: var(--azul);
   text-decoration: none;
   letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .nav-menu {
@@ -590,7 +599,10 @@ html { scroll-behavior: smooth; }
 <!-- HEADER -->
 <header>
   <div class="header-wrapper">
-    <a href="#" class="logo">🏭 BSI Automação</a>
+    <a href="#" class="logo">
+      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI Logo">
+      BSI Automação
+    </a>
     <nav class="nav-menu">
       <li><a href="#features">Features</a></li>
       <li><a href="#depoimentos">Depoimentos</a></li>
