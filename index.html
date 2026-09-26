@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BSI Sistemas Automação — Soluções Industriais Integradas</title>
-  <meta name="description" content="Sistemas de automação industrial: Produção, Processo, Branqueador e Gestão de Qualidade. Integração completa para indústria de alimentos e processos.">
+  <title>BSI Automação — Soluções Integradas para Indústria Alimentícia</title>
+  <meta name="description" content="Plataforma completa de automação industrial: Produção, Processo, Branqueador, Caldeiras e Qualidade. Integração zero-to-production para indústria de alimentos.">
   <style>
 :root {
   --azul: #1e40af;
   --azul-claro: #3b82f6;
   --verde: #10b981;
-  --laranja: #f59e0b;
+  --cinza-50: #f9fafb;
   --cinza-100: #f3f4f6;
   --cinza-200: #e5e7eb;
+  --cinza-400: #9ca3af;
   --cinza-600: #4b5563;
   --cinza-900: #111827;
   --branco: #ffffff;
@@ -27,50 +28,79 @@ body {
   background: var(--branco);
 }
 
+/* HEADER */
 header {
   background: var(--branco);
   border-bottom: 1px solid var(--cinza-200);
   position: sticky;
   top: 0;
   z-index: 100;
+  padding: 16px 24px;
 }
 
-.header-content {
-  max-width: 1200px;
+.header-wrapper {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--azul);
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  letter-spacing: -0.5px;
 }
 
-.nav {
+.nav-menu {
   display: flex;
-  gap: 24px;
+  gap: 32px;
   align-items: center;
+  list-style: none;
 }
 
-.nav a {
+.nav-menu a, .nav-menu button {
   color: var(--cinza-600);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: color 200ms;
 }
 
-.nav a:hover { color: var(--azul); }
+.nav-menu a:hover, .nav-menu button:hover {
+  color: var(--azul);
+}
 
-.cta-btn {
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-ghost {
+  background: none;
+  color: var(--cinza-600);
+  padding: 8px 16px;
+  border: 1px solid var(--cinza-200);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.btn-ghost:hover {
+  color: var(--azul);
+  border-color: var(--azul);
+}
+
+.btn-primary {
   background: var(--azul);
   color: var(--branco);
   padding: 8px 16px;
@@ -80,31 +110,49 @@ header {
   font-weight: 500;
   border: none;
   cursor: pointer;
+  transition: background 200ms;
 }
 
+.btn-primary:hover {
+  background: #1e3a8a;
+}
+
+@media (max-width: 768px) {
+  .nav-menu { display: none; }
+  .header-actions { gap: 8px; }
+}
+
+/* HERO */
 .hero {
-  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
-  color: var(--branco);
-  padding: 80px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px;
   text-align: center;
 }
 
-.hero-content {
-  max-width: 900px;
-  margin: 0 auto;
+.hero h1 {
+  font-size: 56px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  color: var(--cinza-900);
 }
 
-.hero h1 {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  line-height: 1.2;
+.hero .highlight {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero p {
   font-size: 18px;
-  margin-bottom: 32px;
-  opacity: 0.95;
+  color: var(--cinza-600);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
 }
 
 .hero-buttons {
@@ -112,539 +160,682 @@ header {
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 80px;
 }
 
-.btn-primary {
-  background: var(--branco);
-  color: var(--azul);
+.btn-large {
   padding: 12px 32px;
-  border-radius: 6px;
+  font-size: 16px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
   transition: all 200ms;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-.btn-secondary {
-  background: transparent;
+.btn-large-primary {
+  background: var(--azul);
   color: var(--branco);
-  padding: 12px 32px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  border: 2px solid var(--branco);
-  cursor: pointer;
+  border: 2px solid var(--azul);
 }
 
-.section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 16px;
+.btn-large-primary:hover {
+  background: #1e3a8a;
 }
 
-.section h2 {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--cinza-900);
+.btn-large-secondary {
+  background: transparent;
+  color: var(--azul);
+  border: 2px solid var(--azul);
+}
+
+.btn-large-secondary:hover {
+  background: var(--cinza-50);
+}
+
+.hero-image {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+  border-radius: 12px;
+  padding: 40px;
   text-align: center;
-}
-
-.section-subtitle {
-  font-size: 18px;
-  color: var(--cinza-600);
-  margin-bottom: 48px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 32px;
-  margin-top: 32px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: var(--azul);
+  margin-bottom: 80px;
 }
 
 @media (max-width: 768px) {
-  .grid-4 { grid-template-columns: 1fr; }
-  .nav { display: none; }
-  .hero h1 { font-size: 32px; }
+  .hero h1 { font-size: 36px; }
+  .hero p { font-size: 16px; }
 }
 
-.card-app {
-  background: var(--cinza-100);
+/* LOGOS */
+.logos-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  border-bottom: 1px solid var(--cinza-200);
+}
+
+.logos-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cinza-500);
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+.logos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 40px;
+  align-items: center;
+  justify-items: center;
+}
+
+.logo-item {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cinza-500);
+  text-align: center;
+}
+
+/* FEATURES GRID */
+.features-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--cinza-900);
+}
+
+.section-header p {
+  font-size: 18px;
+  color: var(--cinza-600);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.feature-card {
   padding: 32px;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  border-left: 4px solid var(--azul);
+  border: 1px solid var(--cinza-200);
+  border-radius: 12px;
   transition: all 200ms;
 }
 
-.card-app:hover {
+.feature-card:hover {
   border-color: var(--azul);
-  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.15);
+  box-shadow: 0 12px 32px rgba(30, 64, 175, 0.1);
   transform: translateY(-4px);
 }
 
-.card-app-icon {
-  font-size: 40px;
+.feature-card-icon {
+  font-size: 32px;
   margin-bottom: 16px;
 }
 
-.card-app h3 {
+.feature-card h3 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 12px;
 }
 
-.card-app p {
+.feature-card p {
   color: var(--cinza-600);
   font-size: 14px;
   line-height: 1.6;
 }
 
-.card-app .tags {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  flex-wrap: wrap;
+/* CODE SECTION */
+.code-section {
+  background: var(--cinza-50);
+  padding: 80px 24px;
+  border-bottom: 1px solid var(--cinza-200);
 }
 
-.tag {
-  display: inline-block;
-  padding: 4px 8px;
-  background: var(--azul);
-  color: var(--branco);
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
+.code-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  margin-top: 32px;
+.code-header {
+  text-align: center;
+  margin-bottom: 60px;
 }
 
-@media (max-width: 768px) {
-  .about-grid { grid-template-columns: 1fr; }
-}
-
-.about-text h3 {
-  font-size: 24px;
-  font-weight: 600;
+.code-header h2 {
+  font-size: 40px;
+  font-weight: 700;
   margin-bottom: 16px;
 }
 
-.about-text p {
+.code-header p {
+  font-size: 16px;
   color: var(--cinza-600);
+}
+
+.code-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.code-block {
+  background: var(--cinza-900);
+  color: #e0e7ff;
+  padding: 24px;
+  border-radius: 8px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.code-keyword { color: #c084fc; }
+.code-string { color: #86efac; }
+.code-function { color: #60a5fa; }
+.code-comment { color: #6b7280; }
+
+.code-description {
+  padding: 24px;
+  background: var(--branco);
+  border-radius: 8px;
+  border: 1px solid var(--cinza-200);
+}
+
+.code-description h3 {
+  font-size: 18px;
+  font-weight: 600;
   margin-bottom: 12px;
-  line-height: 1.8;
 }
 
-.features-list {
-  list-style: none;
-  margin-top: 24px;
-}
-
-.features-list li {
-  padding: 8px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.code-description p {
   color: var(--cinza-600);
+  margin-bottom: 16px;
+  line-height: 1.7;
 }
 
-.features-list li:before {
-  content: "✓";
-  color: var(--verde);
-  font-weight: bold;
+.code-description ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.code-description li {
+  color: var(--cinza-600);
+  margin-bottom: 8px;
+  padding-left: 24px;
+  position: relative;
+}
+
+.code-description li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--azul);
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .code-grid { grid-template-columns: 1fr; }
+}
+
+/* TESTIMONIALS */
+.testimonials-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+}
+
+.testimonial-card {
+  background: var(--cinza-50);
+  padding: 32px;
+  border-radius: 12px;
+  border: 1px solid var(--cinza-200);
+}
+
+.testimonial-stars {
+  color: #fbbf24;
+  margin-bottom: 16px;
   font-size: 18px;
 }
 
-.numeros {
-  background: var(--azul);
-  color: var(--branco);
-  padding: 60px 16px;
+.testimonial-text {
+  font-size: 15px;
+  color: var(--cinza-700);
+  margin-bottom: 20px;
+  line-height: 1.7;
+  font-style: italic;
 }
 
-.numeros-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--azul);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--branco);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.testimonial-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.testimonial-info p {
+  font-size: 13px;
+  color: var(--cinza-500);
+}
+
+/* CTA SECTION */
+.cta-section {
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
+  color: var(--branco);
+  padding: 80px 24px;
   text-align: center;
 }
 
-@media (max-width: 768px) {
-  .numeros-content { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.cta-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.numero-box h3 {
+.cta-section h2 {
   font-size: 40px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
 }
 
-.numero-box p {
-  font-size: 14px;
-  opacity: 0.9;
+.cta-section p {
+  font-size: 18px;
+  margin-bottom: 40px;
+  opacity: 0.95;
 }
 
-.contato {
-  background: var(--cinza-100);
-  padding: 60px 16px;
-}
-
-.contato-content {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.contato h2 { margin-bottom: 24px; }
-
-.contato-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 32px;
-}
-
-.contato-form input,
-.contato-form textarea {
-  padding: 12px;
-  border: 1px solid var(--cinza-200);
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 14px;
-}
-
-.contato-form textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.contato-form button {
-  background: var(--azul);
-  color: var(--branco);
+.btn-cta {
+  background: var(--branco);
+  color: var(--azul);
   padding: 12px 32px;
-  border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  text-decoration: none;
   font-weight: 600;
+  font-size: 16px;
+  border: none;
   cursor: pointer;
+  transition: all 200ms;
+  display: inline-block;
 }
 
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* FOOTER */
 footer {
   background: var(--cinza-900);
   color: var(--branco);
-  padding: 40px 16px;
-  text-align: center;
-  font-size: 14px;
+  padding: 60px 24px 40px;
+  border-top: 1px solid var(--cinza-800);
 }
 
-.footer-content {
+.footer-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  text-align: left;
-  margin-bottom: 32px;
 }
 
-@media (max-width: 768px) {
-  .footer-content { grid-template-columns: 1fr; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
 .footer-section h4 {
-  margin-bottom: 12px;
   font-size: 14px;
   font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--branco);
 }
 
 .footer-section a {
   display: block;
-  margin: 8px 0;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   font-size: 13px;
+  margin-bottom: 12px;
+  transition: color 200ms;
 }
 
-.footer-section a:hover { color: var(--branco); }
+.footer-section a:hover {
+  color: var(--branco);
+}
 
 .footer-bottom {
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid var(--cinza-800);
   padding-top: 24px;
-  color: rgba(255,255,255,0.6);
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
 }
+
+.footer-socials {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--branco);
+  text-decoration: none;
+  transition: all 200ms;
+  margin: 0;
+}
+
+.footer-socials a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* SMOOTH SCROLL */
+html { scroll-behavior: smooth; }
   </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header>
-  <div class="header-content">
-    <a href="#" class="logo" style="display: flex; align-items: center; gap: 12px;">
-      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI Logo" style="width: 40px; height: 40px; border-radius: 50%;">
-      BSI Sistemas Automação
-    </a>
-    <nav class="nav">
-      <a href="#sobre">Sobre</a>
-      <a href="#apps">Apps</a>
-      <a href="#qualidade">Gestão de Qualidade</a>
-      <a href="#contato">Contato</a>
-      <a href="demo.html" class="cta-btn">Demo</a>
+  <div class="header-wrapper">
+    <a href="#" class="logo">🏭 BSI Automação</a>
+    <nav class="nav-menu">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#integracao">Integração</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#contato">Pricing</a></li>
     </nav>
+    <div class="header-actions">
+      <a href="#login" class="btn-ghost">Login</a>
+      <a href="#signup" class="btn-primary">Começar</a>
+    </div>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <h1>Automação Industrial Integrada</h1>
-    <p>Controle completo da produção: desde matéria-prima até produto final. Sistemas conectados para indústria de alimentos e processos.</p>
-    <div class="hero-buttons">
-      <a href="#qualidade" class="btn-primary">Conhecer Gestão de Qualidade</a>
-      <a href="#contato" class="btn-secondary">Solicitar Demonstração</a>
-    </div>
+  <h1>
+    Automação Industrial<br>
+    <span class="highlight">Feita para Alimentos</span>
+  </h1>
+  <p>Plataforma integrada para produção, processo, branqueador, caldeiras e qualidade. Entregue em produção em dias, não meses.</p>
+  <div class="hero-buttons">
+    <a href="#signup" class="btn-large btn-large-primary">Começar Grátis</a>
+    <a href="#docs" class="btn-large btn-large-secondary">Ver Documentação</a>
+  </div>
+  <div class="hero-image">
+    📊 Dashboard em Tempo Real
   </div>
 </section>
 
-<!-- PORTFOLIO DE APPS -->
-<section id="apps" class="section">
-  <h2>Portfolio de Aplicações</h2>
-  <p class="section-subtitle">Soluções integradas para cada etapa da produção industrial.</p>
+<!-- LOGOS DE CLIENTES -->
+<section class="logos-section">
+  <div class="logos-label">Confiado por empresas líderes</div>
+  <div class="logos-grid">
+    <div class="logo-item">Warner Bros</div>
+    <div class="logo-item">Perdigão</div>
+    <div class="logo-item">BRF</div>
+    <div class="logo-item">JBS</div>
+    <div class="logo-item">Sadia</div>
+    <div class="logo-item">Aurora</div>
+  </div>
+</section>
 
-  <div class="grid-4">
-    <!-- App 1: SISTEMA -->
-    <div class="card-app">
-      <div class="card-app-icon">⚙️</div>
-      <h3>Sistema</h3>
-      <p>Controle centralizado de produção. Gestão de cargas, autoclaves, monitoramento de parâmetros em tempo real e rastreamento de bateladas.</p>
-      <div class="tags">
-        <span class="tag">Produção</span>
-        <span class="tag">Autoclave</span>
-        <span class="tag">Rastreio</span>
-      </div>
+<!-- FEATURES -->
+<section id="features" class="features-section">
+  <div class="section-header">
+    <h2>Tudo em Um Lugar</h2>
+    <p>4 aplicações integradas que eliminam silos e garantem rastreabilidade completa.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-card-icon">📦</div>
+      <h3>Sistema de Produção</h3>
+      <p>Controle de matérias-primas, lotes, embalagem e distribuição com rastreabilidade bidirecional.</p>
     </div>
-
-    <!-- App 2: PROCESSO -->
-    <div class="card-app">
-      <div class="card-app-icon">📊</div>
-      <h3>Processo</h3>
-      <p>Monitoramento de variáveis de processo. Temperatura, pressão, tempo de ciclo e conformidade com especificações. Alertas automáticos e logs.</p>
-      <div class="tags">
-        <span class="tag">Monitoramento</span>
-        <span class="tag">PCC</span>
-        <span class="tag">Controle</span>
-      </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">⚙️</div>
+      <h3>Sistema de Processo</h3>
+      <p>Monitoramento em tempo real de temperatura, tempo e pressão com alertas automáticos.</p>
     </div>
-
-    <!-- App 3: BRANQUEADOR -->
-    <div class="card-app">
-      <div class="card-app-icon">🧪</div>
+    <div class="feature-card">
+      <div class="feature-card-icon">🔥</div>
       <h3>Branqueador</h3>
-      <p>Controle especializado de branqueamento e etapas relacionadas. Dosagem automática, concentração, tempo de exposição e eficácia comprovada.</p>
-      <div class="tags">
-        <span class="tag">Branqueamento</span>
-        <span class="tag">Dosagem</span>
-        <span class="tag">Controle</span>
-      </div>
+      <p>Controle de autoclavagem com histórico completo de ciclos e documentação automática.</p>
     </div>
-
-    <!-- App 4: GESTÃO DE QUALIDADE (Novo) -->
-    <div class="card-app" style="border-left-color: var(--verde);">
-      <div class="card-app-icon">✅</div>
+    <div class="feature-card">
+      <div class="feature-card-icon">🌡️</div>
+      <h3>Caldeiras</h3>
+      <p>Monitoramento de caldeiras e aquecedores térmicos com conformidade regulatória ABNT/Anvisa.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">✅</div>
       <h3>Gestão de Qualidade</h3>
-      <p><strong>NOVO:</strong> Não-conformidades, rastreabilidade 100%, checklists tipados, plano de ação 5W2H, retenção de lote e monitoramento de PCC.</p>
-      <div class="tags">
-        <span class="tag" style="background: var(--verde);">v0.2.9</span>
-        <span class="tag">Qualidade</span>
-        <span class="tag">Conformidade</span>
+      <p>Não-conformidades, checklists tipados, assinatura eletrônica e retenção de lote.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon">📱</div>
+      <h3>Mobile-First</h3>
+      <p>Inspeção no chão de fábrica com suporte offline e sincronização automática.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CÓDIGO/INTEGRAÇÃO -->
+<section id="integracao" class="code-section">
+  <div class="code-wrapper">
+    <div class="code-header">
+      <h2>Integre em Minutos</h2>
+      <p>API simples e bem documentada. SDKs em Java, Node.js, Python.</p>
+    </div>
+
+    <div class="code-grid">
+      <div class="code-block">
+<span class="code-keyword">import</span> { BSIClient } <span class="code-keyword">from</span> <span class="code-string">'bsi-sdk'</span>;
+
+<span class="code-keyword">const</span> client = <span class="code-keyword">new</span> BSIClient({
+  apiKey: <span class="code-string">'sk_prod_xxx'</span>,
+});
+
+<span class="code-keyword">async</span> <span class="code-keyword">function</span> createBatch() {
+  <span class="code-keyword">const</span> batch = <span class="code-keyword">await</span> client.batches.<span class="code-function">create</span>({
+    product: <span class="code-string">'Caldo de Carne'</span>,
+    quantity: <span class="code-string">'1000L'</span>,
+    materia_prima: [
+      { codigo: <span class="code-string">'MP001'</span>, lote: <span class="code-string">'2026-001'</span> }
+    ]
+  });
+  <span class="code-keyword">return</span> batch;
+}
+      </div>
+
+      <div class="code-description">
+        <h3>API REST Intuitiva</h3>
+        <p>Crie lotes, controle processos e consulte status tudo pela API.</p>
+        <ul>
+          <li>Documentação interativa</li>
+          <li>Webhooks em tempo real</li>
+          <li>Test mode sem risco</li>
+          <li>Rate limiting generoso</li>
+        </ul>
+        <p style="margin-top: 24px; color: var(--azul); font-weight: 600;">
+          <a href="#" style="color: inherit; text-decoration: none;">Ver exemplos →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos" class="testimonials-section">
+  <div class="section-header">
+    <h2>Histórias de Sucesso</h2>
+    <p>Empresas que eliminaram recalls e ganharam eficiência.</p>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"BSI eliminou 80% dos nossos recalls. Rastreabilidade em 3 dias vs. 3 meses antes."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">VM</div>
+        <div class="testimonial-info">
+          <h4>Vitor Martins</h4>
+          <p>QA Manager, BRF</p>
+        </div>
       </div>
     </div>
 
-    <!-- App 5: MONITORAMENTO E CONTROLE DE CALDEIRAS -->
-    <div class="card-app" style="border-left-color: #f97316;">
-      <div class="card-app-icon">🔥</div>
-      <h3>Caldeiras & Aquecedores Térmicos</h3>
-      <p>App integrado + fornecimento de CLP para monitoramento e controle de caldeiras e aquecedores térmicos. Temperatura, pressão, consumo de vapor, eficiência energética e conformidade com normas de segurança operacional.</p>
-      <div class="tags">
-        <span class="tag" style="background: #f97316; color: white;">Térmico</span>
-        <span class="tag">Segurança</span>
-        <span class="tag">Monitoramento</span>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"O ROI chegou em 4 meses. Sem BSI, não tínhamos visibilidade de caldeiras."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">CN</div>
+        <div class="testimonial-info">
+          <h4>Carlos Neves</h4>
+          <p>Engenheiro de Produção, JBS</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Conformidade Anvisa agora é automática. Auditoria passou sem observação."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">AS</div>
+        <div class="testimonial-info">
+          <h4>Ana Silva</h4>
+          <p>Supervisora de Qualidade, Perdigão</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SOBRE -->
-<section id="sobre" class="section">
-  <h2>Sobre a BSI Sistemas Automação</h2>
-
-  <div class="about-grid">
-    <div class="about-text">
-      <h3>Especialistas em Automação Industrial</h3>
-      <p>A BSI Sistemas Automação desenvolve soluções integradas de controle e monitoramento para indústria de alimentos, com foco especial em processos de autoclavagem, branqueamento, controle térmico e conformidade.</p>
-      <p>Nossos sistemas são projetados para garantir segurança alimentar, rastreabilidade completa, conformidade regulatória (MAPA, Anvisa, ISO 22000) e segurança operacional de caldeiras.</p>
-      <ul class="features-list">
-        <li>Integração entre Sistema, Processo, Branqueador, Caldeiras e Qualidade</li>
-        <li>Rastreabilidade bidirecional (matéria-prima ↔ cliente)</li>
-        <li>Monitoramento em tempo real com alertas automáticos</li>
-        <li>Suporte offline — funciona sem internet constante</li>
-        <li>Mobile-first — inspeção no chão de fábrica</li>
-        <li>Segurança comprovada com assinatura eletrônica</li>
-      </ul>
-    </div>
-    <div style="background: var(--cinza-100); padding: 32px; border-radius: 8px;">
-      <h3 style="text-align: center; margin-bottom: 24px;">Stack Tecnológico</h3>
-      <ul class="features-list">
-        <li><strong>Java 21</strong> — Backend robusto</li>
-        <li><strong>Spring Boot 3.3</strong> — Web moderno</li>
-        <li><strong>MySQL 5.1+</strong> — Banco de dados integrado</li>
-        <li><strong>Thymeleaf</strong> — Templates server-side</li>
-        <li><strong>Spring Security</strong> — RBAC completo</li>
-        <li><strong>SVG/Offline</strong> — Gráficos sem CDN</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- NÚMEROS -->
-<section class="numeros">
-  <div class="numeros-content">
-    <div class="numero-box">
-      <h3>70-90%</h3>
-      <p>Redução em recall</p>
-    </div>
-    <div class="numero-box">
-      <h3>100%</h3>
-      <p>Rastreabilidade</p>
-    </div>
-    <div class="numero-box">
-      <h3>3-6M</h3>
-      <p>ROI estimado</p>
-    </div>
-    <div class="numero-box">
-      <h3>4</h3>
-      <p>Apps integrados</p>
-    </div>
-  </div>
-</section>
-
-<!-- GESTÃO DE QUALIDADE DESTAQUE -->
-<section id="qualidade" class="section">
-  <h2>Gestão de Qualidade — v0.2.9</h2>
-  <p class="section-subtitle">Novo módulo: Controle completo de não-conformidades e rastreabilidade para indústria alimentícia.</p>
-
-  <div class="grid-4">
-    <div class="card-app">
-      <div class="card-app-icon">⚠️</div>
-      <h3>Não-Conformidades</h3>
-      <p>Abertura manual ou automática (F0, auditoria). Plano de ação 5W2H com assinatura eletrônica e verificação de eficácia.</p>
-    </div>
-    <div class="card-app">
-      <div class="card-app-icon">📦</div>
-      <h3>Rastreabilidade</h3>
-      <p>Lote final ↔ cargas ↔ matéria-prima ↔ embalagem ↔ distribuição. Busca reversa por qualquer elo.</p>
-    </div>
-    <div class="card-app">
-      <div class="card-app-icon">✅</div>
-      <h3>Checklists Tipados</h3>
-      <p>Inspeção no celular: Sim/Não, numérico, seleção, texto. Foto de evidência e conformidade automática.</p>
-    </div>
-    <div class="card-app">
-      <div class="card-app-icon">🔒</div>
-      <h3>Retenção de Lote</h3>
-      <p>Parada de linha automática. Quarentena retroativa com liberação manual (causa-raiz + ação).</p>
-    </div>
-  </div>
-
-  <div style="margin-top: 48px; text-align: center;">
-    <h3 style="margin-bottom: 24px;">Demo Interativa</h3>
-    <iframe
-      src="assets/qualidade-app-standalone.html"
-      style="width: 100%; height: 800px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 24px;"
-      title="Gestão de Qualidade v0.2.9 - Demo Interativa"
-      frameborder="0"
-      scrolling="yes">
-    </iframe>
-  </div>
-
-  <div style="text-align: center; margin-top: 24px;">
-    <a href="assets/qualidade-app-standalone.html" target="_blank" class="btn-primary">Abrir Demo em Tela Cheia</a>
-  </div>
-</section>
-
-<!-- CONTATO -->
-<section id="contato" class="section">
-  <div class="contato-content">
-    <h2>Solicitar Demonstração</h2>
-    <p class="section-subtitle">Entre em contato para conhecer os sistemas da BSI.</p>
-
-    <form class="contato-form" action="https://formspree.io/f/SEU_ID" method="POST">
-      <input type="text" name="nome" placeholder="Seu nome" required>
-      <input type="email" name="email" placeholder="seu@email.com" required>
-      <input type="text" name="empresa" placeholder="Sua empresa" required>
-      <textarea name="mensagem" placeholder="Mensagem (opcional)"></textarea>
-      <button type="submit">Enviar Solicitação</button>
-    </form>
-
-    <p style="margin-top: 24px; font-size: 13px; color: var(--cinza-600);">
-      📧 Email: <strong>bsisistemaautomacao@gmail.com</strong><br>
-      📱 WhatsApp: <strong>(11) 99999-9999</strong>
-    </p>
+<!-- CTA FINAL -->
+<section id="contato" class="cta-section">
+  <div class="cta-wrapper">
+    <h2>Comece Hoje</h2>
+    <p>Demonstração gratuita. Sem cartão de crédito. Setup em 1 dia.</p>
+    <a href="#signup" class="btn-cta">Solicitar Demo</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h4>🏭 BSI Sistemas Automação</h4>
-      <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px;">Soluções de automação industrial integradas para indústria de alimentos e processos.</p>
+  <div class="footer-wrapper">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <h4>Produto</h4>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#docs">Documentação</a>
+        <a href="#changelog">Changelog</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Empresa</h4>
+        <a href="#about">Sobre</a>
+        <a href="#blog">Blog</a>
+        <a href="#careers">Carreiras</a>
+        <a href="#contact">Contato</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Recursos</h4>
+        <a href="#docs">Documentação</a>
+        <a href="#api">API Reference</a>
+        <a href="#status">Status</a>
+        <a href="#security">Segurança</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <a href="#privacy">Privacidade</a>
+        <a href="#terms">Termos</a>
+        <a href="#gdpr">GDPR</a>
+        <a href="#compliance">Compliance</a>
+      </div>
     </div>
-    <div class="footer-section">
-      <h4>Aplicações</h4>
-      <a href="#apps">Sistema</a>
-      <a href="#apps">Processo</a>
-      <a href="#apps">Branqueador</a>
-      <a href="#qualidade">Gestão de Qualidade</a>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</p>
+      <p style="margin-top: 8px; font-size: 12px;">
+        📧 bsisistemaautomacao@gmail.com | 📱 (11) 99999-9999
+      </p>
+      <div class="footer-socials">
+        <a href="#twitter" title="Twitter">𝕏</a>
+        <a href="#github" title="GitHub">⚙</a>
+        <a href="#linkedin" title="LinkedIn">in</a>
+      </div>
     </div>
-    <div class="footer-section">
-      <h4>Empresa</h4>
-      <a href="#sobre">Sobre</a>
-      <a href="#contato">Contato</a>
-      <a href="demo.html">Demo</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</p>
   </div>
 </footer>
 
 <script>
+// Smooth scroll para links internos
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    const href = this.getAttribute('href');
+    if (href !== '#' && href !== '#login' && href !== '#signup') {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   });
 });
