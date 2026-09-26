@@ -15,13 +15,16 @@ Este arquivo fornece orientação ao Claude Code ao trabalhar com código neste 
 
 ```
 ├── index.html                              # Design original (654 linhas) — colorido, tradicional
-├── index-v2.html                           # Estilo Resend (~900 linhas) — moderno, visual
+├── index-v2.html                           # Estilo resend.com (preto, serifa) — home
+├── sistemas/                               # Uma página por sistema (sistema, processo, branqueador, qualidade, caldeiras)
 ├── index-x-ai.html                         # Estilo X-AI (~700 linhas) — minimalista, clean
 ├── CNAME                                   # Domínio customizado
 ├── README.md                               # Instruções de deployment
 ├── .gitignore                              # Configuração git
 └── assets/
-    └── qualidade-app-standalone.html       # Demo interativa do módulo de qualidade
+    ├── qualidade-app-standalone.html       # Demo interativa do módulo de qualidade
+    ├── resend.css                          # CSS compartilhado por index-v2.html e sistemas/*.html
+    └── telas/                              # Capturas de tela usadas nas páginas de sistema
 ```
 
 ### Três Variações de Design
@@ -33,12 +36,11 @@ Este arquivo fornece orientação ao Claude Code ao trabalhar com código neste 
 - Melhor para: Comunicar produto técnico com muita informação
 - Público: B2B tradicional
 
-**2. index-v2.html** — Estilo Resend
-- Cores: Azul suave (#3b82f6), brancos, cinzas
-- Layout: Grid moderno, cards hover, código interativo
-- Mobile: Totalmente responsivo
-- Melhor para: Atrair developers, showcase de features
-- Público: Dev-friendly, startups tech
+**2. index-v2.html** — Estilo resend.com
+- Fundo preto (`#000`), texto `#f0f0f0`/`#a1a4a5`, títulos em serifa (Instrument Serif), cartões com borda sutil e cantos de 16px
+- Menu igual ao do Resend, sem Pricing/AI/Log in/Get started; itens dos dropdowns ainda a definir (chevrons sem painel)
+- Cada cartão do portfólio abre `sistemas/<nome>.html` (descritivo + telas). A seção de Gestão de Qualidade (recursos, rastreabilidade, demo) fica em `sistemas/qualidade.html`, não na home
+- Estilos em `assets/resend.css` (compartilhado); as páginas de `sistemas/` são geradas por script e devem ser editadas como HTML estático
 
 **3. index-x-ai.html** — Estilo X-AI (Minimalista)
 - Cores: Preto, branco, cinzas (sem cor primária)
@@ -230,9 +232,8 @@ GitHub Pages publica automaticamente da branch `main`.
 | Situação | Use | Razão |
 |---|---|---|
 | Primeira visita / teste | `index.html` | Original, estável |
-| Pitch para investors/founders | `index-v2.html` | Visual moderno, Resend style |
+| Pitch para investors/founders | `index-v2.html` | Visual escuro estilo resend.com |
 | Pitch para C-level/enterprise | `index-x-ai.html` | Minimalista, premium |
-| Site de docs/API | `index-v2.html` | Melhor para developers |
 | Trade show / PDF | `index-x-ai.html` | Preto/branco imprime bem |
 
 ### Como Testar Localmente
@@ -254,17 +255,21 @@ python3 -m http.server 8000
 - Email/WhatsApp: Procure por "bsisistemaautomacao@gmail.com" (linha ~609)
 - Form Formspree: linha 600
 
-#### index-v2.html  
-- Cores: `:root` CSS variables (linhas 9-17)
-- Header nav links: `.nav-menu` (após linha 100)
-- Cards de features: `.feature-grid` (por volta da linha 500)
-- Testemunhas: busque `.testimonial-card` (por volta da linha 800)
+#### index-v2.html
+- Cores/tipografia: `:root` em `assets/resend.css`
+- Menu: `<ul class="nav">` no `<header>` (repetido em cada página de `sistemas/`)
+- Cartões do portfólio: `<div class="cards">` em `#apps`; `.preview` recebe imagem de `assets/telas/`
+- Conteúdo de cada sistema: `sistemas/*.html`. Só `qualidade.html` tem telas reais; Sistema, Branqueador e Caldeiras mostram aviso "em preparação"
 
 #### index-x-ai.html
 - Cores: `:root` CSS variables (linhas 9-15, **sem cor primária**)
 - Adicionar cor primária: mude `--azul: #1e40af` e use em `.feature-item` border
 - Typography: mudar `--preto` para cinza escuro (`#1a1a1a`) para softer
 - Footer: pode adicionar social links em `.footer-socials`
+
+## Deploy por branch
+
+O GitHub Pages publica UMA branch, escolhida em Settings > Pages. Hoje: `v2/resend-style`, onde `index.html` é o `index-v2.html` da main (`git show main:index-v2.html > index.html`), mais `assets/` e `sistemas/`. Ao mudar o design, atualizar a main e a branch publicada e conferir com `git show <branch>:index.html`. Outras branches: `v1/original`, `redesign/x-ai-style`.
 
 ## Próximas Melhorias Sugeridas
 

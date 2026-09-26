@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processo — BSI Sistemas Automação</title>
+  <meta name="description" content="Supervisório de processo BSI: leitura em tempo real de CLPs, alarmes, gráficos e gestão de cargas de autoclaves.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/resend.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../" class="logo" aria-label="BSI Sistemas Automação — início">
+      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
+    </a>
+    <nav aria-label="Principal"><ul class="nav"><li><button type="button">Recursos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Docs <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li></ul></nav>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="../">Início</a><span>/</span><a href="../#apps">Portfólio</a><span>/</span><span>Processo</span></div>
+    <h1>Processo</h1>
+    <p>Supervisório que lê em tempo real os CLPs das autoclaves, exibe temperatura, pressão, setpoint e andamento de cada uma e grava as leituras no banco a cada minuto. Também controla a abertura, a alteração e o fechamento das cargas.</p>
+    <div class="tags"><span class="tag">Monitoramento</span><span class="tag">PCC</span><span class="tag">Controle</span></div>
+    <div class="hero-actions">
+      <a href="../#contato" class="btn">Solicitar demonstração</a>
+      <a href="../#apps" class="btn-text">← Todos os sistemas</a>
+    </div>
+  </div>
+</section>
+
+<section class="block"><div class="wrap"><h2>Como funciona</h2><div class="two-col"><div class="card static"><h3>Monitoramento em tempo real</h3><ul><li><span>Um cartão por autoclave com número, temperatura, setpoint, pressão, tempo de processo, F0 e luz de alarme</span></li><li><span>Alarmes por cor: <strong>vermelha</strong> acima do processo mais a tolerância, <strong>azul</strong> ao atingir a temperatura de processo, <strong>amarela</strong> aquecendo acima de 45 °C</span></li><li><span>Avisos como “Sensor PT100 com defeito” e “Abertura de carga se faz necessário”</span></li><li><span>Leitura contínua dos CLPs via Modbus, com filtro para suavizar ruído</span></li></ul></div><div class="card static"><h3>Gravação confiável</h3><ul><li><span>Temperatura e pressão gravadas a cada minuto, apenas leituras válidas</span></li><li><span>Se o banco de dados cair, as leituras são guardadas em disco e enviadas automaticamente quando a conexão voltar</span></li><li><span>Indicador visual de conexão com o banco (“Banco OK” / “Banco OFF”)</span></li><li><span>Estado ao vivo atualizado a cada 5 segundos para o aplicativo de tablet</span></li></ul></div><div class="card static"><h3>Gestão de cargas</h3><ul><li><span><strong>Abrir</strong> — produto, cestos, operador e data/hora; envia o setpoint de pressão do produto ao CLP</span></li><li><span><strong>Alterar</strong> — edição dos dados da carga em processo</span></li><li><span><strong>Finalizar</strong> — bloqueado enquanto a temperatura estiver alta (45 °C ou mais); pede confirmação e login</span></li><li><span>Gráficos da carga com zoom e relatório de acompanhamento de cargas</span></li></ul></div><div class="card static"><h3>Recursos de acesso restrito</h3><ul><li><span><strong>Análise de dados</strong> — registros de temperatura e pressão de uma carga</span></li><li><span><strong>Ajustes</strong> — valor somado à leitura por autoclave, com efeito imediato</span></li><li><span><strong>Isolar escravos</strong> — retira um CLP em manutenção da varredura sem parar o programa</span></li><li><span><strong>Manutenção</strong> — ordens preventivas, corretivas ou urgentes por autoclave</span></li></ul></div></div></div></section><section class="block"><div class="wrap"><h2>Telas</h2><div class="gallery"><figure class="full"><img src="../assets/telas/processo-grafico.png" alt="Gráfico de temperatura e pressão de uma carga" loading="lazy"><figcaption><b>Gráfico da carga.</b> Temperatura (verde, eixo à esquerda) e pressão (vermelha, eixo à direita) ao longo do ciclo, com zoom por arrastar.</figcaption></figure></div></div></section><section class="block"><div class="wrap"><div class="notice"><strong>Mais telas em preparação.</strong> A tela principal com os cartões das autoclaves será publicada aqui.</div></div></section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</span>
+    <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
