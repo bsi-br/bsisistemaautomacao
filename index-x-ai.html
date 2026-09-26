@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSI — Automação para Indústria de Alimentos</title>
+  <meta name="description" content="Plataforma de automação industrial integrada. Produção, Processo, Branqueador, Caldeiras, Qualidade.">
+  <style>
+:root {
+  --preto: #000000;
+  --branco: #ffffff;
+  --cinza-50: #fafafa;
+  --cinza-100: #f5f5f5;
+  --cinza-200: #eeeeee;
+  --cinza-500: #757575;
+  --cinza-900: #212121;
+  --azul: #1e40af;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  line-height: 1.5;
+  color: var(--preto);
+  background: var(--branco);
+  font-weight: 400;
+}
+
+/* HEADER */
+header {
+  border-bottom: 1px solid var(--cinza-200);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  background: var(--branco);
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-decoration: none;
+  color: var(--preto);
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav a {
+  font-size: 13px;
+  color: var(--preto);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 200ms;
+}
+
+.nav a:hover {
+  color: var(--cinza-500);
+}
+
+.header-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 200ms;
+  display: inline-block;
+}
+
+.btn-secondary {
+  color: var(--preto);
+  border: 1px solid var(--preto);
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background: var(--preto);
+  color: var(--branco);
+}
+
+.btn-primary {
+  background: var(--preto);
+  color: var(--branco);
+}
+
+.btn-primary:hover {
+  background: var(--cinza-900);
+}
+
+@media (max-width: 768px) {
+  .nav { display: none; }
+}
+
+/* HERO */
+.hero {
+  padding: 120px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 72px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  max-width: 900px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: var(--cinza-500);
+  max-width: 600px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 80px;
+}
+
+.btn-hero {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 200ms;
+  border: 1px solid var(--preto);
+}
+
+.btn-hero-primary {
+  background: var(--preto);
+  color: var(--branco);
+}
+
+.btn-hero-primary:hover {
+  background: var(--cinza-900);
+}
+
+.btn-hero-secondary {
+  background: transparent;
+  color: var(--preto);
+}
+
+.btn-hero-secondary:hover {
+  background: var(--cinza-100);
+}
+
+.hero-visual {
+  background: var(--cinza-100);
+  border: 1px solid var(--cinza-200);
+  border-radius: 4px;
+  padding: 120px 24px;
+  text-align: center;
+  font-size: 64px;
+  margin-bottom: 80px;
+  margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 40px; }
+  .hero p { font-size: 16px; }
+  .hero-visual { padding: 60px 24px; }
+}
+
+/* SECTION */
+.section {
+  padding: 80px 24px;
+  border-bottom: 1px solid var(--cinza-200);
+}
+
+.section-max {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 48px;
+  letter-spacing: -1px;
+}
+
+.section p {
+  font-size: 16px;
+  color: var(--cinza-500);
+  line-height: 1.6;
+}
+
+/* FEATURES GRID */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.feature-item {
+  border-left: 2px solid var(--preto);
+  padding-left: 24px;
+}
+
+.feature-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  color: var(--cinza-500);
+  line-height: 1.6;
+}
+
+/* NUMBERED LIST */
+.numbered-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.numbered-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.number {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--cinza-200);
+  margin-bottom: 12px;
+}
+
+.numbered-item h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.numbered-item p {
+  font-size: 13px;
+  color: var(--cinza-500);
+  line-height: 1.6;
+}
+
+/* TWO COLUMN */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 48px;
+}
+
+.two-column-content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.two-column-content p {
+  margin-bottom: 16px;
+}
+
+.two-column-visual {
+  background: var(--cinza-100);
+  border: 1px solid var(--cinza-200);
+  border-radius: 4px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+}
+
+@media (max-width: 1024px) {
+  .two-column {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .two-column-visual { height: 300px; }
+}
+
+/* TESTIMONIALS */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.testimonial {
+  padding: 32px;
+  border: 1px solid var(--cinza-200);
+  border-radius: 4px;
+}
+
+.testimonial p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.testimonial-author {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.testimonial-title {
+  font-size: 11px;
+  color: var(--cinza-500);
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+/* CTA SECTION */
+.cta {
+  padding: 80px 24px;
+  text-align: center;
+  border-top: 1px solid var(--cinza-200);
+}
+
+.cta-max {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta h2 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+}
+
+.cta p {
+  font-size: 16px;
+  color: var(--cinza-500);
+  margin-bottom: 32px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 32px;
+  background: var(--preto);
+  color: var(--branco);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 200ms;
+}
+
+.cta-button:hover {
+  background: var(--cinza-900);
+}
+
+/* FOOTER */
+footer {
+  background: var(--preto);
+  color: var(--branco);
+  padding: 60px 24px 40px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h4 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.footer-section a {
+  display: block;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 200ms;
+}
+
+.footer-section a:hover {
+  color: var(--branco);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 24px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.footer-info {
+  margin-top: 12px;
+}
+
+.footer-info a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
+.footer-info a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-content">
+    <div class="logo">BSI</div>
+    <nav class="nav">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#como-funciona">Como Funciona</a></li>
+      <li><a href="#cases">Cases</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </nav>
+    <div class="header-buttons">
+      <a href="#" class="btn btn-secondary">Login</a>
+      <a href="#" class="btn btn-primary">Começar</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Automação Industrial</h1>
+  <p>Plataforma integrada para produção, controle de processos, caldeiras e qualidade. Zero downtime. Rastreabilidade completa.</p>
+
+  <div class="hero-cta">
+    <a href="#" class="btn-hero btn-hero-primary">Começar Grátis</a>
+    <a href="#" class="btn-hero btn-hero-secondary">Ver Demo</a>
+  </div>
+
+  <div class="hero-visual">📊</div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section">
+  <div class="section-max">
+    <h2>Tudo Integrado</h2>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <h3>Sistema de Produção</h3>
+        <p>Controle completo de matérias-primas, lotes, embalagem e distribuição com rastreabilidade bidirecional.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Processo e Branqueador</h3>
+        <p>Monitoramento em tempo real com histórico de ciclos, alertas automáticos e documentação integrada.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Caldeiras</h3>
+        <p>Conformidade regulatória ABNT/Anvisa com monitoramento de temperatura, pressão e segurança operacional.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Gestão de Qualidade</h3>
+        <p>Não-conformidades, checklists tipados, assinatura eletrônica e retenção automática de lotes.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Mobile First</h3>
+        <p>Inspeção no chão de fábrica com suporte offline. Sincronização automática quando conectado.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Analytics</h3>
+        <p>Dashboard em tempo real com KPIs, histórico completo e relatórios customizáveis para auditorias.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona" class="section">
+  <div class="section-max">
+    <h2>Como Funciona</h2>
+
+    <div class="numbered-list">
+      <div class="numbered-item">
+        <div class="number">01</div>
+        <h3>Setup</h3>
+        <p>Configuração em 1 dia. Integramos com seu ERP ou começamos do zero.</p>
+      </div>
+
+      <div class="numbered-item">
+        <div class="number">02</div>
+        <h3>Treinamento</h3>
+        <p>Sua equipe aprende em poucas horas. Interface intuitiva, mobile-first.</p>
+      </div>
+
+      <div class="numbered-item">
+        <div class="number">03</div>
+        <h3>Produção</h3>
+        <p>Deploy em produção. Rastreabilidade 100% desde o primeiro lote.</p>
+      </div>
+
+      <div class="numbered-item">
+        <div class="number">04</div>
+        <h3>ROI</h3>
+        <p>3-6 meses para recuperar investimento. 70-90% redução em recalls.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK TÉCNICO -->
+<section class="section">
+  <div class="section-max">
+    <h2>Construído para Escala</h2>
+
+    <div class="two-column">
+      <div class="two-column-content">
+        <h3>Backend Robusto</h3>
+        <p>Java 21 com Spring Boot 3.3. MySQL integrado. Processamento em tempo real com WebSockets.</p>
+
+        <h3 style="margin-top: 32px;">Segurança Completa</h3>
+        <p>Spring Security com RBAC. Assinatura eletrônica integrada. Auditoria completa de todas as operações.</p>
+
+        <h3 style="margin-top: 32px;">Offline First</h3>
+        <p>Funciona sem internet. Sincronização automática quando conectado. Zero perda de dados.</p>
+      </div>
+
+      <div class="two-column-visual">⚙️</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="section">
+  <div class="section-max">
+    <h2>Resultados Reais</h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <p>"Eliminamos 80% dos recalls. Rastreabilidade que antes levava 3 meses agora sai em 3 dias. BSI é obrigatória para qualquer fábrica séria."</p>
+        <div class="testimonial-author">Vitor Martins</div>
+        <div class="testimonial-title">QA Manager, BRF</div>
+      </div>
+
+      <div class="testimonial">
+        <p>"O ROI chegou em 4 meses. Sem visibilidade de caldeiras antes. Agora temos histórico completo e conformidade Anvisa automática."</p>
+        <div class="testimonial-author">Carlos Neves</div>
+        <div class="testimonial-title">Engenheiro, JBS</div>
+      </div>
+
+      <div class="testimonial">
+        <p>"Auditoria passou de primeira. Conformidade ISO 22000 é automática agora. BSI eliminou o trabalho manual de documentação."</p>
+        <div class="testimonial-author">Ana Silva</div>
+        <div class="testimonial-title">Supervisora de Qualidade, Perdigão</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="pricing" class="cta">
+  <div class="cta-max">
+    <h2>Pronto para começar?</h2>
+    <p>Não precisa de cartão de crédito. Demo gratuita. Setup em 1 dia.</p>
+    <a href="#" class="cta-button">Solicitar Demonstração</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <h4>Produto</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">API</a>
+        <a href="#">Status</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Empresa</h4>
+        <a href="#">Sobre</a>
+        <a href="#">Blog</a>
+        <a href="#">Carreiras</a>
+        <a href="#">Contato</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Recursos</h4>
+        <a href="#">Documentação</a>
+        <a href="#">Guias</a>
+        <a href="#">Casos</a>
+        <a href="#">FAQ</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+        <a href="#">GDPR</a>
+        <a href="#">Segurança</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 BSI Sistemas Automação</p>
+      <div class="footer-info">
+        <p>
+          📧 <a href="mailto:contato@bsisistemaautomacao.com">contato@bsisistemaautomacao.com</a> |
+          📱 <a href="tel:+551199999999">(11) 99999-9999</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href !== '#') {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+});
+</script>
+
+</body>
+</html>
