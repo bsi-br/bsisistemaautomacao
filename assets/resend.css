@@ -388,8 +388,7 @@ a.card:hover .more { gap: 10px; }
   align-items: center;
   justify-content: center;
 }
-.photo-round img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
-.photo-round img.zoom-out { width: 68%; height: 68%; object-fit: contain; }
+.photo-round img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block; }
 .photo-wide {
   aspect-ratio: 16 / 9;
   border-radius: var(--radius);
