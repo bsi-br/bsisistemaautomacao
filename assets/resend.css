@@ -71,6 +71,32 @@ header {
 .nav button:hover { color: var(--muted); }
 .nav svg { width: 10px; height: 10px; opacity: 0.6; }
 
+.nav li { position: relative; }
+.nav .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  padding: 8px;
+  margin-top: 6px;
+  background: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+.nav li.has-dropdown:hover .dropdown,
+.nav li.has-dropdown:focus-within .dropdown { display: block; }
+.nav .dropdown a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font: 400 14px var(--sans);
+  color: var(--text);
+  transition: background 150ms;
+}
+.nav .dropdown a:hover { background: var(--surface-hover); }
+
 /* BOTÕES */
 .btn {
   display: inline-flex;
@@ -328,6 +354,27 @@ a.card:hover .more { gap: 10px; }
   font-size: 15px;
 }
 .notice strong { color: var(--text); font-weight: 500; }
+
+/* FOTO A DEFINIR (placeholder até a imagem real ser adicionada) */
+.photo-slot {
+  aspect-ratio: 16 / 9;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.photo-slot.round {
+  aspect-ratio: 1 / 1;
+  max-width: 200px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
 
 @media (max-width: 900px) {
   .page-hero h1 { font-size: 56px; }
