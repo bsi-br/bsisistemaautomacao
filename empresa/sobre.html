@@ -46,7 +46,7 @@
     <p class="lead">Uma dupla de fundadores com experiência prática em automação industrial e software para a indústria de alimentos.</p>
     <div style="display:flex; gap:40px; justify-content:center; flex-wrap:wrap">
       <div style="text-align:center">
-        <div class="photo-round"><img class="shrink-15" id="foto-julio" src="../assets/pessoas/julio.jpg" alt="Julio Steinert, fundador da BSI Automação"></div>
+        <div class="photo-round"><img class="shrink-15" src="../assets/pessoas/julio.jpg" alt="Julio Steinert, fundador da BSI Automação"></div>
         <p style="margin-top:12px; font-size:15px; color:var(--text)">Julio Steinert</p>
       </div>
       <div style="text-align:center">
@@ -108,47 +108,6 @@
     <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
   </div>
 </footer>
-
-<script>
-if (location.search.includes('ajustar')) {
-  var img = document.getElementById('foto-julio');
-  var estado = { zoom: 85, h: 0, v: -10 };
-
-  function aplicar() {
-    img.style.transform = 'scale(' + (estado.zoom / 100) + ') translate(' + estado.h + '%, ' + estado.v + '%)';
-    document.getElementById('painel-valor').textContent =
-      '.photo-round img.shrink-15 { object-fit: contain; transform: scale(' + (estado.zoom / 100).toFixed(2) + ') translate(' + estado.h + '%, ' + estado.v + '%); }';
-  }
-
-  var painel = document.createElement('div');
-  painel.style.cssText = 'position:fixed; bottom:16px; right:16px; z-index:999; background:#111; border:1px solid #333; border-radius:12px; padding:16px; width:280px; font:13px sans-serif; color:#eee;';
-  painel.innerHTML =
-    '<div style="margin-bottom:8px; font-weight:600">Ajuste da foto (Julio)</div>' +
-    '<label>Zoom <span id="v-zoom">' + estado.zoom + '</span>%<br><input id="s-zoom" type="range" min="50" max="200" value="' + estado.zoom + '" style="width:100%"></label>' +
-    '<label>Horizontal (H) <span id="v-h">' + estado.h + '</span>%<br><input id="s-h" type="range" min="-50" max="50" value="' + estado.h + '" style="width:100%"></label>' +
-    '<label>Vertical (V) <span id="v-v">' + estado.v + '</span>%<br><input id="s-v" type="range" min="-50" max="50" value="' + estado.v + '" style="width:100%"></label>' +
-    '<div id="painel-valor" style="margin-top:10px; padding:8px; background:#000; border-radius:8px; font:11px monospace; word-break:break-all"></div>';
-  document.body.appendChild(painel);
-
-  document.getElementById('s-zoom').addEventListener('input', function (e) {
-    estado.zoom = Number(e.target.value);
-    document.getElementById('v-zoom').textContent = estado.zoom;
-    aplicar();
-  });
-  document.getElementById('s-h').addEventListener('input', function (e) {
-    estado.h = Number(e.target.value);
-    document.getElementById('v-h').textContent = estado.h;
-    aplicar();
-  });
-  document.getElementById('s-v').addEventListener('input', function (e) {
-    estado.v = Number(e.target.value);
-    document.getElementById('v-v').textContent = estado.v;
-    aplicar();
-  });
-
-  aplicar();
-}
-</script>
 
 </body>
 </html>
