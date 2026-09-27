@@ -376,6 +376,22 @@ a.card:hover .more { gap: 10px; }
   margin: 0 auto;
 }
 
+/* FOTO REAL (substitui o photo-slot quando a imagem é definida) */
+.photo-round {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.photo-round img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-wide {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.photo-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
 @media (max-width: 900px) {
   .page-hero h1 { font-size: 56px; }
   .two-col, .gallery { grid-template-columns: 1fr; }
