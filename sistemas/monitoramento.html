@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoramento e Controle de Autoclaves — BSI Sistemas Automação</title>
+  <meta name="description" content="Sistema e Processo integrados: cadastro, cargas, auditoria e relatórios de um lado; leitura em tempo real dos CLPs, alarmes e gestão de cargas do outro.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/resend.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../index-v2-lab.html" class="logo" aria-label="BSI Sistemas Automação — início">
+      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
+    </a>
+    <nav aria-label="Principal"><ul class="nav"><li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Portfólio <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
+      <div class="dropdown mega">
+        <div class="mega-list">
+          <span class="mega-list-label active">Automação</span>
+        </div>
+        <div class="mega-cards">
+          <a class="mega-card" href="../sistemas/monitoramento.html"><h4>Monitoramento e Controle de Autoclaves</h4><p>Cadastro, cargas, temperatura, pressão e ciclo em tempo real — sistema e processo integrados.</p></a>
+          <a class="mega-card" href="../sistemas/branqueador-lab.html"><h4>Branqueador</h4><p>Dosagem e controle de branqueamento.</p></a>
+          <a class="mega-card" href="../sistemas/caldeiras-lab.html"><h4>Caldeiras</h4><p>Monitoramento térmico e de segurança.</p></a>
+          <a class="mega-card" href="../sistemas/secadores.html"><h4>Secadores Industriais</h4><p>Temperatura, umidade e tempo de ciclo de secagem.</p></a>
+        </div>
+      </div>
+    </li><li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button><div class="dropdown"><a href="../empresa/sobre-lab.html">Sobre</a></div></li><li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Docs <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li></ul></nav>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index-v2-lab.html">Início</a><span>/</span><a href="../index-v2-lab.html">Portfólio</a><span>/</span><span>Monitoramento e Controle de Autoclaves</span></div>
+    <h1>Monitoramento e Controle de Autoclaves</h1>
+    <p>Sistema e Processo são dois lados do mesmo controle: o Processo lê os CLPs em tempo real, abre/altera/fecha a carga e grava cada leitura; o Sistema cadastra, audita e gera relatórios sobre esses mesmos dados. Juntos cobrem o ciclo completo, do chão de fábrica ao relatório final.</p>
+    <div class="tags"><span class="tag">Produção</span><span class="tag">Autoclave</span><span class="tag">Monitoramento</span><span class="tag">PCC</span><span class="tag">Rastreio</span></div>
+    <div class="hero-actions">
+      <a href="../index-v2-lab.html#contato" class="btn">Solicitar demonstração</a>
+      <a href="../index-v2-lab.html" class="btn-text">← Todos os sistemas</a>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">Processo</div>
+    <h2>Leitura em tempo real e controle da carga</h2>
+    <p class="lead">Supervisório que lê em tempo real os CLPs das autoclaves, exibe temperatura, pressão, setpoint e andamento de cada uma e grava as leituras no banco a cada minuto. Também controla a abertura, a alteração e o fechamento das cargas.</p>
+    <div class="two-col">
+      <div class="card static"><h3>Monitoramento em tempo real</h3><ul><li><span>Um cartão por autoclave com número, temperatura, setpoint, pressão, tempo de processo, F0 e luz de alarme</span></li><li><span>Alarmes por cor: <strong>vermelha</strong> acima do processo mais a tolerância, <strong>azul</strong> ao atingir a temperatura de processo, <strong>amarela</strong> aquecendo acima de 45 °C</span></li><li><span>Avisos como "Sensor PT100 com defeito" e "Abertura de carga se faz necessário"</span></li><li><span>Leitura contínua dos CLPs via Modbus, com filtro para suavizar ruído</span></li></ul></div>
+      <div class="card static"><h3>Gravação confiável</h3><ul><li><span>Temperatura e pressão gravadas a cada minuto, apenas leituras válidas</span></li><li><span>Se o banco de dados cair, as leituras são guardadas em disco e enviadas automaticamente quando a conexão voltar</span></li><li><span>Indicador visual de conexão com o banco ("Banco OK" / "Banco OFF")</span></li><li><span>Estado ao vivo atualizado a cada 5 segundos para o aplicativo de tablet</span></li></ul></div>
+      <div class="card static"><h3>Gestão de cargas</h3><ul><li><span><strong>Abrir</strong> — produto, cestos, operador e data/hora; envia o setpoint de pressão do produto ao CLP</span></li><li><span><strong>Alterar</strong> — edição dos dados da carga em processo</span></li><li><span><strong>Finalizar</strong> — bloqueado enquanto a temperatura estiver alta (45 °C ou mais); pede confirmação e login</span></li><li><span>Gráficos da carga com zoom e relatório de acompanhamento de cargas</span></li></ul></div>
+      <div class="card static"><h3>Recursos de acesso restrito</h3><ul><li><span><strong>Análise de dados</strong> — registros de temperatura e pressão de uma carga</span></li><li><span><strong>Ajustes</strong> — valor somado à leitura por autoclave, com efeito imediato</span></li><li><span><strong>Isolar escravos</strong> — retira um CLP em manutenção da varredura sem parar o programa</span></li><li><span><strong>Manutenção</strong> — ordens preventivas, corretivas ou urgentes por autoclave</span></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2>Telas do Processo</h2>
+    <div class="gallery">
+      <figure class="full">
+        <img src="../assets/telas/processo-grafico.png" alt="Gráfico de temperatura e pressão de uma carga" loading="lazy">
+        <figcaption><b>Gráfico da carga.</b> Temperatura (verde, eixo à esquerda) e pressão (vermelha, eixo à direita) ao longo do ciclo, com zoom por arrastar.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">Rastreabilidade</div>
+    <h2>Visibilidade detalhada de cada carga e etapa.</h2>
+    <p class="lead">Cada leitura de temperatura e pressão é gravada, permitindo entender exatamente o que aconteceu do início ao fim do processo — os mesmos dados que alimentam a Gestão de Qualidade.</p>
+
+    <div class="obs-panel">
+      <div class="obs-sidebar">
+        <div class="obs-crumb">Cargas / <b>Carga 4821</b></div>
+        <div class="obs-tabs">
+          <span class="obs-tab active">Leituras <span class="obs-count">187</span></span>
+          <span class="obs-tab">Métricas</span>
+        </div>
+        <ul class="obs-list">
+          <li class="obs-item active"><span>Carga 4821 · Autoclave 03</span><span class="obs-status status-running">Em operação</span></li>
+          <li class="obs-item"><span>Carga 4820 · Autoclave 01</span><span class="obs-status status-ok">Fechada</span></li>
+          <li class="obs-item"><span>Carga 4819 · Autoclave 02</span><span class="obs-status status-ok">Fechada</span></li>
+          <li class="obs-item"><span>Carga 4818 · Autoclave 04</span><span class="obs-status status-alarm">Cancelada</span></li>
+          <li class="obs-item"><span>Carga 4817 · Autoclave 01</span><span class="obs-status status-ok">Fechada</span></li>
+          <li class="obs-item"><span>Carga 4816 · Autoclave 03</span><span class="obs-status status-ok">Fechada</span></li>
+        </ul>
+      </div>
+      <div class="obs-detail">
+        <div class="obs-leituras-view">
+          <div class="obs-event">
+            <span class="obs-dot"></span>
+            <div>
+              <b>Carga aberta</b>
+              <div class="obs-time">Hoje, às 08:12</div>
+            </div>
+          </div>
+          <div class="obs-label">Dados da carga</div>
+          <pre class="obs-json">{
+  "idBatelada": 4821,
+  "safra": "2026",
+  "idAutoclave": 3,
+  "dsProduto": "Milho Verde Conserva 400g",
+  "unidade": "Conservas Oderich",
+  "operador": "Jeferson"
+}</pre>
+          <div class="obs-event">
+            <span class="obs-dot"></span>
+            <div>
+              <b>Temperatura de processo atingida</b>
+              <div class="obs-time">121 °C · aguardando tempo de esterilização</div>
+            </div>
+          </div>
+          <div class="obs-status-grid">
+            <div>
+              <span class="obs-mini-label">Status</span>
+              <span class="obs-status status-running">Em operação</span>
+            </div>
+            <div>
+              <span class="obs-mini-label">F0 acumulado</span>
+              <b>9,8</b> <span class="obs-time">mín. do produto: 8,0 (atingido)</span>
+            </div>
+          </div>
+        </div>
+        <div class="obs-metricas-view" style="display: none;">
+          <div class="obs-metrics-chart">
+            <div class="obs-metrics-header">
+              <div class="obs-metric-box">
+                <div class="obs-metric-label">Total de cargas</div>
+                <div class="obs-metric-value">187</div>
+              </div>
+              <div class="obs-metric-box">
+                <div class="obs-metric-label">Cargas fechadas</div>
+                <div class="obs-metric-value">180</div>
+              </div>
+              <div class="obs-metric-box">
+                <div class="obs-metric-label">Em operação</div>
+                <div class="obs-metric-value">1</div>
+              </div>
+              <div class="obs-metric-box">
+                <div class="obs-metric-label">Canceladas</div>
+                <div class="obs-metric-value">6</div>
+              </div>
+            </div>
+            <div class="obs-metrics-by-autoclave">
+              <div class="obs-metrics-title">Cargas por autoclave</div>
+              <div class="obs-bar-chart">
+                <div class="obs-bar-item">
+                  <label>Autoclave 01</label>
+                  <div class="obs-bar-track">
+                    <div class="obs-bar-fill" style="width: 48%"></div>
+                  </div>
+                  <span class="obs-bar-value">48</span>
+                </div>
+                <div class="obs-bar-item">
+                  <label>Autoclave 02</label>
+                  <div class="obs-bar-track">
+                    <div class="obs-bar-fill" style="width: 42%"></div>
+                  </div>
+                  <span class="obs-bar-value">42</span>
+                </div>
+                <div class="obs-bar-item">
+                  <label>Autoclave 03</label>
+                  <div class="obs-bar-track">
+                    <div class="obs-bar-fill" style="width: 58%"></div>
+                  </div>
+                  <span class="obs-bar-value">58</span>
+                </div>
+                <div class="obs-bar-item">
+                  <label>Autoclave 04</label>
+                  <div class="obs-bar-track">
+                    <div class="obs-bar-fill" style="width: 39%"></div>
+                  </div>
+                  <span class="obs-bar-value">39</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">Sistema</div>
+    <h2>Cadastro, auditoria e relatórios</h2>
+    <p class="lead">Supervisório de cadastro, consulta e auditoria de autoclaves. Acompanha o processo de esterilização e cozimento, registra as leituras de temperatura e pressão de cada carga e oferece gráficos, relatórios e auditoria.</p>
+    <div class="two-col">
+      <div class="card static"><h3>Cadastros</h3><ul><li><span><strong>Empresa e localidades</strong> — empresa, filial, município e área</span></li><li><span><strong>Usuários e acesso</strong> — usuários, tipos, perfis de permissão e menu</span></li><li><span><strong>Produção</strong> — produtos, safra, motivos e tipos de operação</span></li><li><span><strong>Equipamentos</strong> — autoclaves, controladores (Modbus RTU ou TCP), branqueadores e manutenções</span></li></ul></div>
+      <div class="card static"><h3>Cargas (batelada)</h3><ul><li><span>Registro de cada carga processada: identificação, produto, datas de início e fim, operadores, cestos e status</span></li><li><span>Opção <strong>Análise de dados</strong> para marcar cargas que serão analisadas em detalhe</span></li><li><span><strong>Monitora Autoclaves</strong> — espelho somente leitura da tela de processo, atualizado a cada 5 segundos</span></li></ul></div>
+      <div class="card static"><h3>Gráficos e análise</h3><ul><li><span>Gráfico de temperatura e pressão por carga</span></li><li><span>Gráfico entre datas (intervalo de até 24 horas), com balão de leitura e zoom</span></li><li><span>Consulta de cargas por data, produto, equipamento, operador, lote e safra</span></li><li><span>Exportação para Excel e PDF de letalidade (F acumulado) assinado pelo usuário</span></li></ul></div>
+      <div class="card static"><h3>Auditoria e relatórios</h3><ul><li><span>Auditoria e consulta de cargas auditadas</span></li><li><span><strong>Log de operações</strong> — login, telas abertas e cada inclusão, alteração ou exclusão, com valor anterior e novo</span></li><li><span>Relatórios de manutenções, letalidade e esterilização, carga por autoclave, auditoria e IF</span></li><li><span>Prévia de impressão em folha antes de imprimir</span></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="block"><div class="wrap"><div class="notice"><strong>Mais telas em preparação.</strong> As capturas de tela do Sistema e a tela principal com os cartões das autoclaves do Processo serão publicadas aqui.</div></div></section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</span>
+    <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  var OPEN_DELAY = 60;
+  var CLOSE_DELAY = 260;
+  document.querySelectorAll(".nav li.has-dropdown").forEach(function (li) {
+    var openTimer, closeTimer;
+    function open() {
+      clearTimeout(closeTimer);
+      openTimer = setTimeout(function () { li.classList.add("open"); }, OPEN_DELAY);
+    }
+    function close() {
+      clearTimeout(openTimer);
+      closeTimer = setTimeout(function () { li.classList.remove("open"); }, CLOSE_DELAY);
+    }
+    li.addEventListener("mouseenter", open);
+    li.addEventListener("mouseleave", close);
+    li.addEventListener("focusin", open);
+    li.addEventListener("focusout", close);
+  });
+
+  var tabs = document.querySelectorAll(".obs-tab");
+  if (tabs.length > 0) {
+    tabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function (e) {
+        e.preventDefault();
+        tabs.forEach(function (t) { t.classList.remove("active"); });
+        tab.classList.add("active");
+
+        var detailPane = document.querySelector(".obs-detail");
+        var leituraView = document.querySelector(".obs-leituras-view");
+        var metricasView = document.querySelector(".obs-metricas-view");
+
+        if (index === 0) {
+          leituraView.style.display = "block";
+          metricasView.style.display = "none";
+        } else {
+          leituraView.style.display = "none";
+          metricasView.style.display = "block";
+        }
+      });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
