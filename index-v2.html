@@ -18,7 +18,19 @@
       <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
     </a>
     <nav aria-label="Principal"><ul class="nav">
-      <li><button type="button">Recursos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Recursos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
+        <div class="dropdown mega">
+          <div class="mega-list">
+            <span class="mega-list-label active">Automação</span>
+          </div>
+          <div class="mega-cards">
+            <a class="mega-card" href="sistemas/sistema.html"><h4>Sistema</h4><p>Cadastro, cargas e rastreamento de bateladas.</p></a>
+            <a class="mega-card" href="sistemas/processo.html"><h4>Processo</h4><p>Temperatura, pressão e ciclo em tempo real.</p></a>
+            <a class="mega-card" href="sistemas/branqueador.html"><h4>Branqueador</h4><p>Dosagem e controle de branqueamento.</p></a>
+            <a class="mega-card" href="sistemas/caldeiras.html"><h4>Caldeiras</h4><p>Monitoramento térmico e de segurança.</p></a>
+          </div>
+        </div>
+      </li>
       <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button><div class="dropdown"><a href="empresa/sobre.html">Sobre</a></div></li>
       <li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
       <li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
@@ -31,56 +43,12 @@
 
 <section class="hero">
   <div class="wrap">
+    <div id="bsi3d" class="hero-3d" aria-hidden="true"></div>
     <h1>Automação industrial integrada</h1>
     <p>Controle completo da produção: da matéria-prima ao produto final. Sistemas conectados para indústria de alimentos e processos.</p>
     <div class="hero-actions">
       <a href="#contato" class="btn">Solicitar demonstração</a>
       <a href="sistemas/qualidade.html" class="btn-text">Conhecer Gestão de Qualidade</a>
-    </div>
-  </div>
-</section>
-
-<section id="apps" class="block">
-  <div class="wrap">
-    <h2>Portfólio de aplicações</h2>
-    <p class="lead">Soluções integradas para cada etapa da produção industrial.</p>
-
-    <div class="cards">
-      <a class="card half" href="sistemas/sistema.html">
-        <div class="preview"><img src="assets/telas/sistema-menu.png" alt="Tela de menu do BSI Sistema, com módulos de Administração, Gerais e Anos Anteriores" loading="lazy"></div>
-        <h3>Sistema</h3>
-        <p>Controle centralizado de produção. Gestão de cargas, autoclaves, monitoramento de parâmetros em tempo real e rastreamento de bateladas.</p>
-        <div class="tags"><span class="tag">Produção</span><span class="tag">Autoclave</span><span class="tag">Rastreio</span></div>
-        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card half" href="sistemas/processo.html">
-        <div class="preview"><img src="assets/telas/processo-grafico.png" alt="Gráfico de temperatura e pressão de uma carga" loading="lazy"></div>
-        <h3>Processo</h3>
-        <p>Monitoramento de variáveis de processo. Temperatura, pressão, tempo de ciclo e conformidade com especificações. Alertas automáticos e logs.</p>
-        <div class="tags"><span class="tag">Monitoramento</span><span class="tag">PCC</span><span class="tag">Controle</span></div>
-        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card half" href="sistemas/branqueador.html">
-        <div class="preview contain"><img src="assets/telas/branqueador-controle.jpg" alt="Painel de controle dos branqueadores e resfriadores" loading="lazy"></div>
-        <h3>Branqueador</h3>
-        <p>Controle especializado de branqueamento e etapas relacionadas. Dosagem automática, concentração, tempo de exposição e eficácia comprovada.</p>
-        <div class="tags"><span class="tag">Branqueamento</span><span class="tag">Dosagem</span><span class="tag">Controle</span></div>
-        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card half" href="sistemas/qualidade.html">
-        <div class="preview"><img src="assets/telas/qualidade-01.jpg" alt="Tela de listagem de não-conformidades" loading="lazy"></div>
-        <h3>Gestão de Qualidade</h3>
-        <p><strong>Novo:</strong> não-conformidades, rastreabilidade 100%, checklists tipados, plano de ação 5W2H, retenção de lote e monitoramento de PCC.</p>
-        <div class="tags"><span class="tag hl">v0.2.9</span><span class="tag">Qualidade</span><span class="tag">Conformidade</span></div>
-        <span class="more">Ver detalhes e telas <span aria-hidden="true">→</span></span>
-      </a>
-      <a class="card half" href="sistemas/caldeiras.html">
-        <div class="preview"><img src="assets/telas/caldeira-blucontrol.png" alt="Painel de controle BluControl de caldeiras" loading="lazy"></div>
-        <h3>Caldeiras &amp; Aquecedores Térmicos</h3>
-        <p>App integrado + fornecimento de CLP para monitoramento e controle de caldeiras e aquecedores térmicos. Temperatura, pressão, consumo de vapor, eficiência energética e conformidade com normas de segurança operacional.</p>
-        <div class="tags"><span class="tag">Térmico</span><span class="tag">Segurança</span><span class="tag">Monitoramento</span></div>
-        <span class="more">Ver detalhes <span aria-hidden="true">→</span></span>
-      </a>
     </div>
   </div>
 </section>
@@ -160,6 +128,152 @@
     <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
   </div>
 </footer>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+
+const container = document.getElementById("bsi3d");
+if (container && window.WebGLRenderingContext) {
+  const size = 136;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 0, 8);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(size, size);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  container.appendChild(renderer.domElement);
+
+  // material único cinza-carvão (quase preto) — o gradiente até o cinza claro
+  // vem da luz batendo nas facetas do bevel, igual ao cubo do resend.com/home,
+  // não de cores diferentes pintadas em cada letra
+  // luzes mais fracas: assim o pulso de tonalidade (material.color, no
+  // animate()) fica visível em vez de ser "engolido" pelo brilho especular
+  scene.add(new THREE.AmbientLight(0xffffff, 0.15));
+  const key = new THREE.DirectionalLight(0xffffff, 1.3);
+  key.position.set(3, 5, 5);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.5);
+  fill.position.set(-3, 1, 4);
+  scene.add(fill);
+  const rim = new THREE.DirectionalLight(0xffffff, 0.6);
+  rim.position.set(-2, -3, -4);
+  scene.add(rim);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  // gradiente "pintado" por vértice (escuro embaixo → claro em cima), pra não
+  // depender do ângulo da luz — em vez de um material único, cada vértice
+  // recebe uma cor interpolada conforme sua altura na letra
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    vertexColors: true,
+    metalness: 0.3,
+    roughness: 0.42,
+  });
+  const DARK = new THREE.Color(0x121212);
+  const LIGHT = new THREE.Color(0xd8d8d8);
+  const LETTER_SPACING = 0.35;
+
+  function paintVerticalGradient(geometry) {
+    const pos = geometry.attributes.position;
+    const minY = geometry.boundingBox.min.y;
+    const maxY = geometry.boundingBox.max.y;
+    const span = Math.max(maxY - minY, 0.0001);
+    const colors = new Float32Array(pos.count * 3);
+    const c = new THREE.Color();
+    for (let i = 0; i < pos.count; i++) {
+      const t = (pos.getY(i) - minY) / span;
+      c.copy(DARK).lerp(LIGHT, t);
+      colors[i * 3] = c.r;
+      colors[i * 3 + 1] = c.g;
+      colors[i * 3 + 2] = c.b;
+    }
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  }
+
+  new FontLoader().load(
+    "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json",
+    (font) => {
+      let cursorX = 0;
+      "BSI".split("").forEach((char) => {
+        const geometry = new TextGeometry(char, {
+          font,
+          size: 2.2,
+          height: 0.9,
+          curveSegments: 8,
+          bevelEnabled: true,
+          bevelThickness: 0.08,
+          bevelSize: 0.06,
+          bevelSegments: 3,
+        });
+        geometry.computeBoundingBox();
+        const width = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+        paintVerticalGradient(geometry);
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.x = cursorX;
+        group.add(mesh);
+        cursorX += width + LETTER_SPACING;
+      });
+      // centraliza o grupo inteiro (nos 3 eixos) em torno do pivô de rotação,
+      // usando a caixa delimitadora real — TextGeometry não nasce centrada
+      // nem no X nem no Y
+      const box = new THREE.Box3().setFromObject(group);
+      const center = box.getCenter(new THREE.Vector3());
+      group.children.forEach((m) => { m.position.sub(center); });
+      renderer.render(scene, camera);
+      if (!reduceMotion) requestAnimationFrame(animate);
+    }
+  );
+
+  function animate(t) {
+    requestAnimationFrame(animate);
+    group.rotation.y += 0.012;
+    group.rotation.x = Math.sin((t || 0) * 0.0006) * 0.15;
+    // tonalidade pulsa entre bem claro e bem escuro conforme a peça gira —
+    // multiplica o gradiente de vértice (material.color é o tint global)
+    const cycle = (Math.sin(group.rotation.y) + 1) / 2; // 0..1
+    const shade = 0.05 + cycle * 0.95; // quase preto no vale, quase branco no pico
+    material.color.setScalar(shade);
+    renderer.render(scene, camera);
+  }
+}
+</script>
+
+<script>
+(function () {
+  var OPEN_DELAY = 60;
+  var CLOSE_DELAY = 260;
+  document.querySelectorAll(".nav li.has-dropdown").forEach(function (li) {
+    var openTimer, closeTimer;
+    function open() {
+      clearTimeout(closeTimer);
+      openTimer = setTimeout(function () { li.classList.add("open"); }, OPEN_DELAY);
+    }
+    function close() {
+      clearTimeout(openTimer);
+      closeTimer = setTimeout(function () { li.classList.remove("open"); }, CLOSE_DELAY);
+    }
+    li.addEventListener("mouseenter", open);
+    li.addEventListener("mouseleave", close);
+    li.addEventListener("focusin", open);
+    li.addEventListener("focusout", close);
+  });
+})();
+</script>
 
 </body>
 </html>
