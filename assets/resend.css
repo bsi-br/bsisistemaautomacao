@@ -80,14 +80,18 @@ header {
   transform: translateX(-50%);
   min-width: 180px;
   padding: 8px;
-  margin-top: 6px;
+  /* sem margin-top: um gap aqui tira o mouse do hover antes de alcançar o card.
+     o respiro visual vem do padding-top, que ainda conta como área "dentro" do dropdown. */
+  padding-top: 14px;
+  margin-top: -6px;
   background: #0a0a0a;
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 .nav li.has-dropdown:hover .dropdown,
-.nav li.has-dropdown:focus-within .dropdown { display: block; }
+.nav li.has-dropdown:focus-within .dropdown,
+.nav li.has-dropdown.open .dropdown { display: block; }
 .nav .dropdown a {
   display: block;
   padding: 9px 12px;
@@ -97,6 +101,60 @@ header {
   transition: background 150ms;
 }
 .nav .dropdown a:hover { background: var(--surface-hover); }
+
+/* MEGA MENU (estilo resend.com: card translúcido com lista + previews) */
+.nav .dropdown.mega {
+  display: none;
+  min-width: 520px;
+  padding: 12px;
+  padding-top: 18px;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.nav li.has-dropdown:hover .dropdown.mega,
+.nav li.has-dropdown:focus-within .dropdown.mega,
+.nav li.has-dropdown.open .dropdown.mega { display: flex; }
+.mega-list {
+  width: 150px;
+  flex: none;
+  border-right: 1px solid var(--border-soft);
+  padding-right: 8px;
+  margin-right: 8px;
+}
+.mega-list a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font: 400 14px var(--sans);
+  color: var(--text);
+  transition: background 150ms;
+}
+.mega-list a:hover, .mega-list a.active { background: var(--surface-hover); }
+.mega-cards {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.mega-card {
+  display: block;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  transition: background 150ms, border-color 150ms;
+}
+.mega-card:hover { background: var(--surface-hover); border-color: var(--border); }
+.mega-card h4 { font: 500 14px var(--sans); color: var(--text); margin-bottom: 4px; }
+.mega-card p { font: 400 13px var(--sans); color: var(--muted); line-height: 1.4; }
+.mega-list-label {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font: 400 14px var(--sans);
+  color: var(--muted);
+}
 
 /* BOTÕES */
 .btn {
@@ -119,6 +177,20 @@ header {
 
 /* HERO */
 .hero { position: relative; overflow: hidden; }
+
+.hero-3d {
+  width: 168px;
+  height: 168px;
+  margin-bottom: 28px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-3d canvas { display: block; border-radius: 8px; }
 
 .hero::before {
   content: "";
@@ -347,6 +419,157 @@ a.card:hover .more { gap: 10px; }
 .gallery img { width: 100%; display: block; border-radius: 10px; }
 .gallery figcaption { padding: 12px 8px 6px; font-size: 14px; color: var(--muted); }
 .gallery figcaption b { color: var(--text); font-weight: 500; }
+
+/* PAINEL DE OBSERVABILIDADE (estilo resend.com/home: lista de execuções +
+   detalhe da etapa selecionada) — aqui mostra leituras/etapas de uma carga */
+.obs-panel {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  min-height: 420px;
+}
+.obs-sidebar {
+  width: 380px;
+  flex: none;
+  border-right: 1px solid var(--border-soft);
+  padding: 16px;
+}
+.obs-crumb { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.obs-crumb b { color: var(--text); font-weight: 500; }
+.obs-tabs { display: flex; gap: 16px; margin-bottom: 12px; border-bottom: 1px solid var(--border-soft); padding-bottom: 10px; }
+.obs-tab { font-size: 14px; color: var(--muted); }
+.obs-tab.active { color: var(--text); font-weight: 500; }
+.obs-count { color: var(--muted); font-weight: 400; margin-left: 4px; }
+.obs-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.obs-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.obs-item.active { background: var(--surface-hover); color: var(--text); }
+.obs-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.status-running { background: rgba(70, 200, 130, 0.16); color: #6fdba0; } /* em operação */
+.status-ok { background: rgba(93, 143, 255, 0.18); color: #8fb2ff; } /* fechada */
+.status-alarm { background: rgba(255, 90, 90, 0.16); color: #ff8f8f; } /* cancelada */
+.obs-detail { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; }
+.obs-event { display: flex; gap: 12px; padding: 4px 0; }
+.obs-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #6fdba0; margin-top: 6px; flex: none;
+  box-shadow: 0 0 0 3px rgba(111, 219, 160, 0.15);
+}
+.obs-event b { font-size: 14px; color: var(--text); font-weight: 500; }
+.obs-time { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.obs-label { font-size: 12px; color: var(--muted); margin: 10px 0 6px 20px; }
+.obs-json {
+  margin: 0 0 12px 20px;
+  padding: 14px;
+  background: #0a0a0a;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  font: 400 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #c9d6ff;
+  overflow-x: auto;
+}
+.obs-status-grid {
+  margin: 12px 0 0 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  gap: 40px;
+}
+.obs-mini-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+
+/* MÉTRICAS */
+.obs-metrics-chart { padding: 20px 24px; }
+.obs-metrics-header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.obs-metric-box {
+  padding: 16px;
+  background: #0a0a0a;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  text-align: center;
+}
+.obs-metric-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: block;
+}
+.obs-metric-value {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text);
+}
+.obs-metrics-by-autoclave {
+  margin-top: 32px;
+}
+.obs-metrics-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.obs-bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.obs-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.obs-bar-item label {
+  width: 100px;
+  font-size: 13px;
+  color: var(--text);
+  flex: none;
+}
+.obs-bar-track {
+  flex: 1;
+  height: 24px;
+  background: #0a0a0a;
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.obs-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6fdba0, #5ed89f);
+  border-radius: 6px;
+}
+.obs-bar-value {
+  width: 40px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+  flex: none;
+}
+
+@media (max-width: 720px) {
+  .obs-panel { flex-direction: column; min-height: 0; }
+  .obs-sidebar { width: auto; border-right: 0; border-bottom: 1px solid var(--border-soft); }
+  .obs-metrics-header { grid-template-columns: repeat(2, 1fr); }
+}
 
 .notice {
   border: 1px dashed rgba(255, 255, 255, 0.2);

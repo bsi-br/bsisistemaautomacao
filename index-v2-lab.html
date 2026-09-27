@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSI Sistemas Automação — Automação Industrial Integrada</title>
+  <meta name="description" content="Automação industrial integrada para indústria de alimentos: Sistema, Processo, Branqueador, Caldeiras e Gestão de Qualidade.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/resend.css">
+  <style>
+    /* override só desta página-laboratório: 3D grande, à direita, sem card */
+    .hero-3d {
+      position: absolute;
+      top: 28%;
+      right: -140px;
+      transform: translateY(-50%);
+      width: 504px;
+      height: 504px;
+      margin-bottom: 0;
+      padding: 0;
+      background: none;
+      border: none;
+      border-radius: 0;
+    }
+    @media (max-width: 900px) {
+      .hero-3d { display: none; }
+    }
+    /* dá espaço pro 3D à direita: título quebra a linha mais cedo em vez de
+       passar por baixo da peça */
+    .hero h1 { max-width: 560px; }
+    /* .mega-list-label agora vive em assets/resend.css (compartilhado com
+       as páginas de sistemas/ e empresa/) */
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="BSI Sistemas Automação">
+      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
+    </a>
+    <nav aria-label="Principal"><ul class="nav">
+      <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Portfólio <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
+        <div class="dropdown mega">
+          <div class="mega-list">
+            <span class="mega-list-label active">Automação</span>
+          </div>
+          <div class="mega-cards">
+            <a class="mega-card" href="sistemas/monitoramento.html"><h4>Monitoramento e Controle de Autoclaves</h4><p>Cadastro, cargas, temperatura, pressão e ciclo em tempo real — sistema e processo integrados.</p></a>
+            <a class="mega-card" href="sistemas/branqueador-lab.html"><h4>Branqueador</h4><p>Dosagem e controle de branqueamento.</p></a>
+            <a class="mega-card" href="sistemas/caldeiras-lab.html"><h4>Caldeiras</h4><p>Monitoramento térmico e de segurança.</p></a>
+            <a class="mega-card" href="sistemas/secadores.html"><h4>Secadores Industriais</h4><p>Temperatura, umidade e tempo de ciclo de secagem.</p></a>
+          </div>
+        </div>
+      </li>
+      <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button><div class="dropdown"><a href="empresa/sobre-lab.html">Sobre</a></div></li>
+      <li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Docs <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap">
+    <div id="bsi3d" class="hero-3d" aria-hidden="true"></div>
+    <h1>Automação industrial integrada</h1>
+    <p>Controle completo da produção: da matéria-prima ao produto final. Sistemas conectados para indústria de alimentos e processos.</p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn">Solicitar demonstração</a>
+      <a href="sistemas/qualidade.html" class="btn-text">Conhecer Gestão de Qualidade</a>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="block">
+  <div class="wrap">
+    <h2>Sobre a BSI Sistemas Automação</h2>
+    <p class="lead">Especialistas em automação industrial.</p>
+
+    <div class="about">
+      <div>
+        <p>A BSI Sistemas Automação desenvolve soluções integradas de controle e monitoramento para indústria de alimentos, com foco especial em processos de autoclavagem, branqueamento, controle térmico e conformidade.</p>
+        <p>Nossos sistemas são projetados para garantir segurança alimentar, rastreabilidade completa, conformidade regulatória (MAPA, Anvisa, ISO 22000) e segurança operacional de caldeiras.</p>
+        <ul class="list">
+          <li>Integração entre Sistema, Processo, Branqueador, Caldeiras e Qualidade</li>
+          <li>Rastreabilidade bidirecional (matéria-prima ↔ cliente)</li>
+          <li>Monitoramento em tempo real com alertas automáticos</li>
+          <li>Suporte offline — funciona sem internet constante</li>
+          <li>Mobile-first — inspeção no chão de fábrica</li>
+          <li>Segurança comprovada com assinatura eletrônica</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Stack tecnológico</h3>
+        <ul class="list">
+          <li><span><strong>Java 21</strong> — Backend robusto</span></li>
+          <li><span><strong>Spring Boot 3.3</strong> — Web moderno</span></li>
+          <li><span><strong>MySQL 5.1+</strong> — Banco de dados integrado</span></li>
+          <li><span><strong>Thymeleaf</strong> — Templates server-side</span></li>
+          <li><span><strong>Spring Security</strong> — RBAC completo</span></li>
+          <li><span><strong>SVG/Offline</strong> — Gráficos sem CDN</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>70-90%</b><span>Redução em recall</span></div>
+      <div class="stat"><b>100%</b><span>Rastreabilidade</span></div>
+      <div class="stat"><b>3-6M</b><span>ROI estimado</span></div>
+      <div class="stat"><b>5</b><span>Apps integrados</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="block">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2>Solicitar demonstração</h2>
+        <p class="lead" style="margin-bottom:24px">Entre em contato para conhecer os sistemas da BSI.</p>
+        <div class="contact-info">
+          E-mail: <strong>bsisistemaautomacao@gmail.com</strong><br>
+          Telefone: <strong>(51) 99816-6777</strong> / <strong>(51) 99576-0181</strong><br>
+          WhatsApp: <strong>+55 51 99816-6777</strong>
+        </div>
+      </div>
+      <form action="https://formspree.io/f/SEU_ID" method="POST">
+        <input type="text" name="nome" placeholder="Seu nome" required>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+        <input type="text" name="empresa" placeholder="Sua empresa" required>
+        <textarea name="mensagem" placeholder="Mensagem (opcional)"></textarea>
+        <button type="submit" class="btn">Enviar solicitação</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</span>
+    <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
+  </div>
+</footer>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+
+const container = document.getElementById("bsi3d");
+if (container && window.WebGLRenderingContext) {
+  const size = 408; // 3x do tamanho original (136px)
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 0, 8);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(size, size);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  container.appendChild(renderer.domElement);
+
+  // material único cinza-carvão (quase preto) — o gradiente até o cinza claro
+  // vem da luz batendo nas facetas do bevel, igual ao cubo do resend.com/home,
+  // não de cores diferentes pintadas em cada letra
+  // luzes mais fracas: assim o pulso de tonalidade (material.color, no
+  // animate()) fica visível em vez de ser "engolido" pelo brilho especular
+  scene.add(new THREE.AmbientLight(0xffffff, 0.15));
+  const key = new THREE.DirectionalLight(0xffffff, 1.3);
+  key.position.set(3, 5, 5);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.5);
+  fill.position.set(-3, 1, 4);
+  scene.add(fill);
+  const rim = new THREE.DirectionalLight(0xffffff, 0.6);
+  rim.position.set(-2, -3, -4);
+  scene.add(rim);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  // gradiente "pintado" por vértice (escuro embaixo → claro em cima), pra não
+  // depender do ângulo da luz — em vez de um material único, cada vértice
+  // recebe uma cor interpolada conforme sua altura na letra
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    vertexColors: true,
+    metalness: 0.3,
+    roughness: 0.42,
+  });
+  const DARK = new THREE.Color(0x121212);
+  const LIGHT = new THREE.Color(0xd8d8d8);
+  const LETTER_SPACING = 0.35;
+
+  function paintVerticalGradient(geometry) {
+    const pos = geometry.attributes.position;
+    const minY = geometry.boundingBox.min.y;
+    const maxY = geometry.boundingBox.max.y;
+    const span = Math.max(maxY - minY, 0.0001);
+    const colors = new Float32Array(pos.count * 3);
+    const c = new THREE.Color();
+    for (let i = 0; i < pos.count; i++) {
+      const t = (pos.getY(i) - minY) / span;
+      c.copy(DARK).lerp(LIGHT, t);
+      colors[i * 3] = c.r;
+      colors[i * 3 + 1] = c.g;
+      colors[i * 3 + 2] = c.b;
+    }
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  }
+
+  new FontLoader().load(
+    "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json",
+    (font) => {
+      let cursorX = 0;
+      "BSI".split("").forEach((char) => {
+        const geometry = new TextGeometry(char, {
+          font,
+          size: 2.2,
+          height: 0.9,
+          curveSegments: 8,
+          bevelEnabled: true,
+          bevelThickness: 0.08,
+          bevelSize: 0.06,
+          bevelSegments: 3,
+        });
+        geometry.computeBoundingBox();
+        const width = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+        paintVerticalGradient(geometry);
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.x = cursorX;
+        group.add(mesh);
+        cursorX += width + LETTER_SPACING;
+      });
+      // centraliza o grupo inteiro (nos 3 eixos) em torno do pivô de rotação,
+      // usando a caixa delimitadora real — TextGeometry não nasce centrada
+      // nem no X nem no Y
+      const box = new THREE.Box3().setFromObject(group);
+      const center = box.getCenter(new THREE.Vector3());
+      group.children.forEach((m) => { m.position.sub(center); });
+      renderer.render(scene, camera);
+      if (!reduceMotion) requestAnimationFrame(animate);
+    }
+  );
+
+  function animate(t) {
+    requestAnimationFrame(animate);
+    group.rotation.y += 0.012;
+    group.rotation.x = Math.sin((t || 0) * 0.0006) * 0.15;
+    // tonalidade pulsa entre bem claro e bem escuro conforme a peça gira —
+    // multiplica o gradiente de vértice (material.color é o tint global)
+    const cycle = (Math.sin(group.rotation.y) + 1) / 2; // 0..1
+    const shade = 0.05 + cycle * 0.95; // quase preto no vale, quase branco no pico
+    material.color.setScalar(shade);
+    renderer.render(scene, camera);
+  }
+}
+</script>
+
+<script>
+(function () {
+  var OPEN_DELAY = 60;
+  var CLOSE_DELAY = 260;
+  document.querySelectorAll(".nav li.has-dropdown").forEach(function (li) {
+    var openTimer, closeTimer;
+    function open() {
+      clearTimeout(closeTimer);
+      openTimer = setTimeout(function () { li.classList.add("open"); }, OPEN_DELAY);
+    }
+    function close() {
+      clearTimeout(openTimer);
+      closeTimer = setTimeout(function () { li.classList.remove("open"); }, CLOSE_DELAY);
+    }
+    li.addEventListener("mouseenter", open);
+    li.addEventListener("mouseleave", close);
+    li.addEventListener("focusin", open);
+    li.addEventListener("focusout", close);
+  });
+})();
+</script>
+
+</body>
+</html>

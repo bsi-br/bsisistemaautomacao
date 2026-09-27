@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caldeiras & Aquecedores Térmicos — BSI Sistemas Automação</title>
+  <meta name="description" content="Monitoramento e controle de caldeiras e aquecedores térmicos: app integrado e fornecimento de CLP.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/resend.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../index-v2-lab.html" class="logo" aria-label="BSI Sistemas Automação — início">
+      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
+    </a>
+    <nav aria-label="Principal"><ul class="nav"><li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Portfólio <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
+      <div class="dropdown mega">
+        <div class="mega-list">
+          <span class="mega-list-label active">Automação</span>
+        </div>
+        <div class="mega-cards">
+          <a class="mega-card" href="../sistemas/monitoramento.html"><h4>Monitoramento e Controle de Autoclaves</h4><p>Cadastro, cargas, temperatura, pressão e ciclo em tempo real — sistema e processo integrados.</p></a>
+          <a class="mega-card" href="../sistemas/branqueador-lab.html"><h4>Branqueador</h4><p>Dosagem e controle de branqueamento.</p></a>
+          <a class="mega-card" href="../sistemas/caldeiras-lab.html"><h4>Caldeiras</h4><p>Monitoramento térmico e de segurança.</p></a>
+          <a class="mega-card" href="../sistemas/secadores.html"><h4>Secadores Industriais</h4><p>Temperatura, umidade e tempo de ciclo de secagem.</p></a>
+        </div>
+      </div>
+    </li><li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button><div class="dropdown"><a href="../empresa/sobre-lab.html">Sobre</a></div></li><li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li><li><button type="button">Docs <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li></ul></nav>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index-v2-lab.html">Início</a><span>/</span><a href="../index-v2-lab.html">Portfólio</a><span>/</span><span>Caldeiras & Aquecedores Térmicos</span></div>
+    <h1>Caldeiras & Aquecedores Térmicos</h1>
+    <p>App integrado + fornecimento de CLP para monitoramento e controle de caldeiras e aquecedores térmicos. Temperatura, pressão, consumo de vapor, eficiência energética e conformidade com normas de segurança operacional.</p>
+    <div class="tags"><span class="tag">Térmico</span><span class="tag">Segurança</span><span class="tag">Monitoramento</span></div>
+    <div class="hero-actions">
+      <a href="../index-v2-lab.html#contato" class="btn">Solicitar demonstração</a>
+      <a href="../index-v2-lab.html" class="btn-text">← Todos os sistemas</a>
+    </div>
+  </div>
+</section>
+
+<section class="block"><div class="wrap"><div class="notice"><strong>Descritivo e telas em preparação.</strong> A documentação deste sistema será publicada nesta página.</div></div></section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</span>
+    <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  var OPEN_DELAY = 60;
+  var CLOSE_DELAY = 260;
+  document.querySelectorAll(".nav li.has-dropdown").forEach(function (li) {
+    var openTimer, closeTimer;
+    function open() {
+      clearTimeout(closeTimer);
+      openTimer = setTimeout(function () { li.classList.add("open"); }, OPEN_DELAY);
+    }
+    function close() {
+      clearTimeout(openTimer);
+      closeTimer = setTimeout(function () { li.classList.remove("open"); }, CLOSE_DELAY);
+    }
+    li.addEventListener("mouseenter", open);
+    li.addEventListener("mouseleave", close);
+    li.addEventListener("focusin", open);
+    li.addEventListener("focusout", close);
+  });
+})();
+</script>
+
+</body>
+</html>
