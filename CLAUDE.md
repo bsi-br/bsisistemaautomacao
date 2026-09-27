@@ -40,7 +40,7 @@ Este arquivo fornece orientação ao Claude Code ao trabalhar com código neste 
 - Fundo preto (`#000`), texto `#f0f0f0`/`#a1a4a5`, títulos em serifa (Instrument Serif), cartões com borda sutil e cantos de 16px
 - Menu igual ao do Resend, sem Pricing/AI/Log in/Get started; itens dos dropdowns ainda a definir (chevrons sem painel)
 - Cada cartão do portfólio abre `sistemas/<nome>.html` (descritivo + telas). A seção de Gestão de Qualidade (recursos, rastreabilidade, demo) fica em `sistemas/qualidade.html`, não na home
-- Estilos em `assets/resend.css` (compartilhado); as páginas de `sistemas/` são geradas por script e devem ser editadas como HTML estático
+- Estilos em `assets/resend.css` (compartilhado). Não há script gerador: cada página de `sistemas/` é HTML estático próprio, e o bloco `<header>`/`<nav>` é duplicado literalmente em `index-v2.html` + nas 5 páginas de `sistemas/*.html`. Ao mudar o menu (itens, links, logo), replicar a edição manualmente nos 6 arquivos
 
 **3. index-x-ai.html** — Estilo X-AI (Minimalista)
 - Cores: Preto, branco, cinzas (sem cor primária)
