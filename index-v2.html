@@ -26,11 +26,24 @@
       border-radius: 0;
     }
     @media (max-width: 900px) {
-      .hero-3d { display: none; }
+      /* no mobile o 3D sai do posicionamento absoluto e volta ao fluxo
+         normal, acima do título (a div já vem antes do h1 no HTML) */
+      .hero-3d {
+        display: block;
+        position: static;
+        transform: none;
+        width: 220px;
+        height: 220px;
+        margin: 0 auto 24px;
+      }
+      .hero-3d canvas { width: 100% !important; height: 100% !important; }
     }
     /* dá espaço pro 3D à direita: título quebra a linha mais cedo em vez de
        passar por baixo da peça */
     .hero h1 { max-width: 560px; }
+    @media (max-width: 900px) {
+      .hero h1 { max-width: none; }
+    }
   </style>
 </head>
 <body>
