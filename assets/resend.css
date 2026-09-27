@@ -389,7 +389,7 @@ a.card:hover .more { gap: 10px; }
   justify-content: center;
 }
 .photo-round img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block; }
-.photo-round img.shrink-15 { transform: scale(0.75) translateY(-10%); }
+.photo-round img.shrink-15 { object-fit: contain; transform: scale(0.75) translateY(-10%); }
 .photo-wide {
   aspect-ratio: 16 / 9;
   border-radius: var(--radius);
