@@ -76,7 +76,8 @@ header {
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   min-width: 180px;
   padding: 8px;
   margin-top: 6px;
