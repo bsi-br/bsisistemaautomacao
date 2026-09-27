@@ -3,651 +3,276 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BSI Sistemas Automação — Soluções Industriais Integradas</title>
-  <meta name="description" content="Sistemas de automação industrial: Produção, Processo, Branqueador e Gestão de Qualidade. Integração completa para indústria de alimentos e processos.">
-  <style>
-:root {
-  --azul: #1e40af;
-  --azul-claro: #3b82f6;
-  --verde: #10b981;
-  --laranja: #f59e0b;
-  --cinza-100: #f3f4f6;
-  --cinza-200: #e5e7eb;
-  --cinza-600: #4b5563;
-  --cinza-900: #111827;
-  --branco: #ffffff;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.6;
-  color: var(--cinza-900);
-  background: var(--branco);
-}
-
-header {
-  background: var(--branco);
-  border-bottom: 1px solid var(--cinza-200);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--azul);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-
-.nav a {
-  color: var(--cinza-600);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 200ms;
-}
-
-.nav a:hover { color: var(--azul); }
-
-.cta-btn {
-  background: var(--azul);
-  color: var(--branco);
-  padding: 8px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-}
-
-.hero {
-  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-claro) 100%);
-  color: var(--branco);
-  padding: 80px 16px;
-  text-align: center;
-}
-
-.hero-content {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.hero h1 {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-
-.hero p {
-  font-size: 18px;
-  margin-bottom: 32px;
-  opacity: 0.95;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  background: var(--branco);
-  color: var(--azul);
-  padding: 12px 32px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  transition: all 200ms;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--branco);
-  padding: 12px 32px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 16px;
-  border: 2px solid var(--branco);
-  cursor: pointer;
-}
-
-.section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 16px;
-}
-
-.section h2 {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--cinza-900);
-  text-align: center;
-}
-
-.section-subtitle {
-  font-size: 18px;
-  color: var(--cinza-600);
-  margin-bottom: 48px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 32px;
-  margin-top: 32px;
-}
-
-@media (max-width: 768px) {
-  .grid-4 { grid-template-columns: 1fr; }
-  .nav { display: none; }
-  .hero h1 { font-size: 32px; }
-}
-
-.card-app {
-  background: var(--cinza-100);
-  padding: 32px;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  border-left: 4px solid var(--azul);
-  transition: all 200ms;
-}
-
-.card-app:hover {
-  border-color: var(--azul);
-  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.15);
-  transform: translateY(-4px);
-}
-
-.card-app-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
-}
-
-.card-app h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.card-app p {
-  color: var(--cinza-600);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.card-app .tags {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-}
-
-.tag {
-  display: inline-block;
-  padding: 4px 8px;
-  background: var(--azul);
-  color: var(--branco);
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  margin-top: 32px;
-}
-
-@media (max-width: 768px) {
-  .about-grid { grid-template-columns: 1fr; }
-}
-
-.about-text h3 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.about-text p {
-  color: var(--cinza-600);
-  margin-bottom: 12px;
-  line-height: 1.8;
-}
-
-.features-list {
-  list-style: none;
-  margin-top: 24px;
-}
-
-.features-list li {
-  padding: 8px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--cinza-600);
-}
-
-.features-list li:before {
-  content: "✓";
-  color: var(--verde);
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.numeros {
-  background: var(--azul);
-  color: var(--branco);
-  padding: 60px 16px;
-}
-
-.numeros-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  text-align: center;
-}
-
-@media (max-width: 768px) {
-  .numeros-content { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-}
-
-.numero-box h3 {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.numero-box p {
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-.contato {
-  background: var(--cinza-100);
-  padding: 60px 16px;
-}
-
-.contato-content {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.contato h2 { margin-bottom: 24px; }
-
-.contato-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 32px;
-}
-
-.contato-form input,
-.contato-form textarea {
-  padding: 12px;
-  border: 1px solid var(--cinza-200);
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 14px;
-}
-
-.contato-form textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.contato-form button {
-  background: var(--azul);
-  color: var(--branco);
-  padding: 12px 32px;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-footer {
-  background: var(--cinza-900);
-  color: var(--branco);
-  padding: 40px 16px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  text-align: left;
-  margin-bottom: 32px;
-}
-
-@media (max-width: 768px) {
-  .footer-content { grid-template-columns: 1fr; }
-}
-
-.footer-section h4 {
-  margin-bottom: 12px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.footer-section a {
-  display: block;
-  margin: 8px 0;
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
-  font-size: 13px;
-}
-
-.footer-section a:hover { color: var(--branco); }
-
-.footer-bottom {
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  padding-top: 24px;
-  color: rgba(255,255,255,0.6);
-}
-  </style>
+  <title>BSI Sistemas Automação — Automação Industrial Integrada</title>
+  <meta name="description" content="Automação industrial integrada para indústria de alimentos: Sistema, Processo, Branqueador, Caldeiras e Gestão de Qualidade.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/resend.css">
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-content">
-    <a href="#" class="logo" style="display: flex; align-items: center; gap: 12px;">
-      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI Logo" style="width: 40px; height: 40px; border-radius: 50%;">
-      BSI Sistemas Automação
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="BSI Sistemas Automação">
+      <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
     </a>
-    <nav class="nav">
-      <a href="#sobre">Sobre</a>
-      <a href="#apps">Apps</a>
-      <a href="#qualidade">Gestão de Qualidade</a>
-      <a href="#contato">Contato</a>
-      <a href="demo.html" class="cta-btn">Demo</a>
-    </nav>
+    <nav aria-label="Principal"><ul class="nav">
+      <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Recursos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
+        <div class="dropdown mega">
+          <div class="mega-list">
+            <span class="mega-list-label active">Automação</span>
+          </div>
+          <div class="mega-cards">
+            <a class="mega-card" href="sistemas/sistema.html"><h4>Sistema</h4><p>Cadastro, cargas e rastreamento de bateladas.</p></a>
+            <a class="mega-card" href="sistemas/processo.html"><h4>Processo</h4><p>Temperatura, pressão e ciclo em tempo real.</p></a>
+            <a class="mega-card" href="sistemas/branqueador.html"><h4>Branqueador</h4><p>Dosagem e controle de branqueamento.</p></a>
+            <a class="mega-card" href="sistemas/caldeiras.html"><h4>Caldeiras</h4><p>Monitoramento térmico e de segurança.</p></a>
+          </div>
+        </div>
+      </li>
+      <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button><div class="dropdown"><a href="empresa/sobre.html">Sobre</a></div></li>
+      <li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button">Docs <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+    </ul></nav>
   </div>
 </header>
 
-<!-- HERO -->
+<main>
+
 <section class="hero">
-  <div class="hero-content">
-    <h1>Automação Industrial Integrada</h1>
-    <p>Controle completo da produção: desde matéria-prima até produto final. Sistemas conectados para indústria de alimentos e processos.</p>
-    <div class="hero-buttons">
-      <a href="#qualidade" class="btn-primary">Conhecer Gestão de Qualidade</a>
-      <a href="#contato" class="btn-secondary">Solicitar Demonstração</a>
+  <div class="wrap">
+    <div id="bsi3d" class="hero-3d" aria-hidden="true"></div>
+    <h1>Automação industrial integrada</h1>
+    <p>Controle completo da produção: da matéria-prima ao produto final. Sistemas conectados para indústria de alimentos e processos.</p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn">Solicitar demonstração</a>
+      <a href="sistemas/qualidade.html" class="btn-text">Conhecer Gestão de Qualidade</a>
     </div>
   </div>
 </section>
 
-<!-- PORTFOLIO DE APPS -->
-<section id="apps" class="section">
-  <h2>Portfolio de Aplicações</h2>
-  <p class="section-subtitle">Soluções integradas para cada etapa da produção industrial.</p>
+<section id="sobre" class="block">
+  <div class="wrap">
+    <h2>Sobre a BSI Sistemas Automação</h2>
+    <p class="lead">Especialistas em automação industrial.</p>
 
-  <div class="grid-4">
-    <!-- App 1: SISTEMA -->
-    <div class="card-app">
-      <div class="card-app-icon">⚙️</div>
-      <h3>Sistema</h3>
-      <p>Controle centralizado de produção. Gestão de cargas, autoclaves, monitoramento de parâmetros em tempo real e rastreamento de bateladas.</p>
-      <div class="tags">
-        <span class="tag">Produção</span>
-        <span class="tag">Autoclave</span>
-        <span class="tag">Rastreio</span>
+    <div class="about">
+      <div>
+        <p>A BSI Sistemas Automação desenvolve soluções integradas de controle e monitoramento para indústria de alimentos, com foco especial em processos de autoclavagem, branqueamento, controle térmico e conformidade.</p>
+        <p>Nossos sistemas são projetados para garantir segurança alimentar, rastreabilidade completa, conformidade regulatória (MAPA, Anvisa, ISO 22000) e segurança operacional de caldeiras.</p>
+        <ul class="list">
+          <li>Integração entre Sistema, Processo, Branqueador, Caldeiras e Qualidade</li>
+          <li>Rastreabilidade bidirecional (matéria-prima ↔ cliente)</li>
+          <li>Monitoramento em tempo real com alertas automáticos</li>
+          <li>Suporte offline — funciona sem internet constante</li>
+          <li>Mobile-first — inspeção no chão de fábrica</li>
+          <li>Segurança comprovada com assinatura eletrônica</li>
+        </ul>
       </div>
-    </div>
-
-    <!-- App 2: PROCESSO -->
-    <div class="card-app">
-      <div class="card-app-icon">📊</div>
-      <h3>Processo</h3>
-      <p>Monitoramento de variáveis de processo. Temperatura, pressão, tempo de ciclo e conformidade com especificações. Alertas automáticos e logs.</p>
-      <div class="tags">
-        <span class="tag">Monitoramento</span>
-        <span class="tag">PCC</span>
-        <span class="tag">Controle</span>
-      </div>
-    </div>
-
-    <!-- App 3: BRANQUEADOR -->
-    <div class="card-app">
-      <div class="card-app-icon">🧪</div>
-      <h3>Branqueador</h3>
-      <p>Controle especializado de branqueamento e etapas relacionadas. Dosagem automática, concentração, tempo de exposição e eficácia comprovada.</p>
-      <div class="tags">
-        <span class="tag">Branqueamento</span>
-        <span class="tag">Dosagem</span>
-        <span class="tag">Controle</span>
-      </div>
-    </div>
-
-    <!-- App 4: GESTÃO DE QUALIDADE (Novo) -->
-    <div class="card-app" style="border-left-color: var(--verde);">
-      <div class="card-app-icon">✅</div>
-      <h3>Gestão de Qualidade</h3>
-      <p><strong>NOVO:</strong> Não-conformidades, rastreabilidade 100%, checklists tipados, plano de ação 5W2H, retenção de lote e monitoramento de PCC.</p>
-      <div class="tags">
-        <span class="tag" style="background: var(--verde);">v0.2.9</span>
-        <span class="tag">Qualidade</span>
-        <span class="tag">Conformidade</span>
-      </div>
-    </div>
-
-    <!-- App 5: MONITORAMENTO E CONTROLE DE CALDEIRAS -->
-    <div class="card-app" style="border-left-color: #f97316;">
-      <div class="card-app-icon">🔥</div>
-      <h3>Caldeiras & Aquecedores Térmicos</h3>
-      <p>App integrado + fornecimento de CLP para monitoramento e controle de caldeiras e aquecedores térmicos. Temperatura, pressão, consumo de vapor, eficiência energética e conformidade com normas de segurança operacional.</p>
-      <div class="tags">
-        <span class="tag" style="background: #f97316; color: white;">Térmico</span>
-        <span class="tag">Segurança</span>
-        <span class="tag">Monitoramento</span>
+      <div class="card">
+        <h3>Stack tecnológico</h3>
+        <ul class="list">
+          <li><span><strong>Java 21</strong> — Backend robusto</span></li>
+          <li><span><strong>Spring Boot 3.3</strong> — Web moderno</span></li>
+          <li><span><strong>MySQL 5.1+</strong> — Banco de dados integrado</span></li>
+          <li><span><strong>Thymeleaf</strong> — Templates server-side</span></li>
+          <li><span><strong>Spring Security</strong> — RBAC completo</span></li>
+          <li><span><strong>SVG/Offline</strong> — Gráficos sem CDN</span></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SOBRE -->
-<section id="sobre" class="section">
-  <h2>Sobre a BSI Sistemas Automação</h2>
-
-  <div class="about-grid">
-    <div class="about-text">
-      <h3>Especialistas em Automação Industrial</h3>
-      <p>A BSI Sistemas Automação desenvolve soluções integradas de controle e monitoramento para indústria de alimentos, com foco especial em processos de autoclavagem, branqueamento, controle térmico e conformidade.</p>
-      <p>Nossos sistemas são projetados para garantir segurança alimentar, rastreabilidade completa, conformidade regulatória (MAPA, Anvisa, ISO 22000) e segurança operacional de caldeiras.</p>
-      <ul class="features-list">
-        <li>Integração entre Sistema, Processo, Branqueador, Caldeiras e Qualidade</li>
-        <li>Rastreabilidade bidirecional (matéria-prima ↔ cliente)</li>
-        <li>Monitoramento em tempo real com alertas automáticos</li>
-        <li>Suporte offline — funciona sem internet constante</li>
-        <li>Mobile-first — inspeção no chão de fábrica</li>
-        <li>Segurança comprovada com assinatura eletrônica</li>
-      </ul>
-    </div>
-    <div style="background: var(--cinza-100); padding: 32px; border-radius: 8px;">
-      <h3 style="text-align: center; margin-bottom: 24px;">Stack Tecnológico</h3>
-      <ul class="features-list">
-        <li><strong>Java 21</strong> — Backend robusto</li>
-        <li><strong>Spring Boot 3.3</strong> — Web moderno</li>
-        <li><strong>MySQL 5.1+</strong> — Banco de dados integrado</li>
-        <li><strong>Thymeleaf</strong> — Templates server-side</li>
-        <li><strong>Spring Security</strong> — RBAC completo</li>
-        <li><strong>SVG/Offline</strong> — Gráficos sem CDN</li>
-      </ul>
+<section class="block">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>70-90%</b><span>Redução em recall</span></div>
+      <div class="stat"><b>100%</b><span>Rastreabilidade</span></div>
+      <div class="stat"><b>3-6M</b><span>ROI estimado</span></div>
+      <div class="stat"><b>5</b><span>Apps integrados</span></div>
     </div>
   </div>
 </section>
 
-<!-- NÚMEROS -->
-<section class="numeros">
-  <div class="numeros-content">
-    <div class="numero-box">
-      <h3>70-90%</h3>
-      <p>Redução em recall</p>
-    </div>
-    <div class="numero-box">
-      <h3>100%</h3>
-      <p>Rastreabilidade</p>
-    </div>
-    <div class="numero-box">
-      <h3>3-6M</h3>
-      <p>ROI estimado</p>
-    </div>
-    <div class="numero-box">
-      <h3>4</h3>
-      <p>Apps integrados</p>
+<section id="contato" class="block">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2>Solicitar demonstração</h2>
+        <p class="lead" style="margin-bottom:24px">Entre em contato para conhecer os sistemas da BSI.</p>
+        <div class="contact-info">
+          E-mail: <strong>bsisistemaautomacao@gmail.com</strong><br>
+          Telefone: <strong>(51) 99816-6777</strong> / <strong>(51) 99576-0181</strong><br>
+          WhatsApp: <strong>+55 51 99816-6777</strong>
+        </div>
+      </div>
+      <form action="https://formspree.io/f/SEU_ID" method="POST">
+        <input type="text" name="nome" placeholder="Seu nome" required>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+        <input type="text" name="empresa" placeholder="Sua empresa" required>
+        <textarea name="mensagem" placeholder="Mensagem (opcional)"></textarea>
+        <button type="submit" class="btn">Enviar solicitação</button>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- GESTÃO DE QUALIDADE DESTAQUE -->
-<section id="qualidade" class="section">
-  <h2>Gestão de Qualidade — v0.2.9</h2>
-  <p class="section-subtitle">Novo módulo: Controle completo de não-conformidades e rastreabilidade para indústria alimentícia.</p>
+</main>
 
-  <div class="grid-4">
-    <div class="card-app">
-      <div class="card-app-icon">⚠️</div>
-      <h3>Não-Conformidades</h3>
-      <p>Abertura manual ou automática (F0, auditoria). Plano de ação 5W2H com assinatura eletrônica e verificação de eficácia.</p>
-    </div>
-    <div class="card-app">
-      <div class="card-app-icon">📦</div>
-      <h3>Rastreabilidade</h3>
-      <p>Lote final ↔ cargas ↔ matéria-prima ↔ embalagem ↔ distribuição. Busca reversa por qualquer elo.</p>
-    </div>
-    <div class="card-app">
-      <div class="card-app-icon">✅</div>
-      <h3>Checklists Tipados</h3>
-      <p>Inspeção no celular: Sim/Não, numérico, seleção, texto. Foto de evidência e conformidade automática.</p>
-    </div>
-    <div class="card-app">
-      <div class="card-app-icon">🔒</div>
-      <h3>Retenção de Lote</h3>
-      <p>Parada de linha automática. Quarentena retroativa com liberação manual (causa-raiz + ação).</p>
-    </div>
-  </div>
-
-  <div style="margin-top: 48px; text-align: center;">
-    <h3 style="margin-bottom: 24px;">Demo Interativa</h3>
-    <iframe
-      src="assets/qualidade-app-standalone.html"
-      style="width: 100%; height: 800px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 24px;"
-      title="Gestão de Qualidade v0.2.9 - Demo Interativa"
-      frameborder="0"
-      scrolling="yes">
-    </iframe>
-  </div>
-
-  <div style="text-align: center; margin-top: 24px;">
-    <a href="assets/qualidade-app-standalone.html" target="_blank" class="btn-primary">Abrir Demo em Tela Cheia</a>
-  </div>
-</section>
-
-<!-- CONTATO -->
-<section id="contato" class="section">
-  <div class="contato-content">
-    <h2>Solicitar Demonstração</h2>
-    <p class="section-subtitle">Entre em contato para conhecer os sistemas da BSI.</p>
-
-    <form class="contato-form" action="https://formspree.io/f/SEU_ID" method="POST">
-      <input type="text" name="nome" placeholder="Seu nome" required>
-      <input type="email" name="email" placeholder="seu@email.com" required>
-      <input type="text" name="empresa" placeholder="Sua empresa" required>
-      <textarea name="mensagem" placeholder="Mensagem (opcional)"></textarea>
-      <button type="submit">Enviar Solicitação</button>
-    </form>
-
-    <p style="margin-top: 24px; font-size: 13px; color: var(--cinza-600);">
-      📧 Email: <strong>bsisistemaautomacao@gmail.com</strong><br>
-      📱 WhatsApp: <strong>+55 51 99816-6777</strong>
-    </p>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h4>🏭 BSI Sistemas Automação</h4>
-      <p style="font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px;">Soluções de automação industrial integradas para indústria de alimentos e processos.</p>
-    </div>
-    <div class="footer-section">
-      <h4>Aplicações</h4>
-      <a href="#apps">Sistema</a>
-      <a href="#apps">Processo</a>
-      <a href="#apps">Branqueador</a>
-      <a href="#qualidade">Gestão de Qualidade</a>
-    </div>
-    <div class="footer-section">
-      <h4>Empresa</h4>
-      <a href="#sobre">Sobre</a>
-      <a href="#contato">Contato</a>
-      <a href="demo.html">Demo</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</p>
+  <div class="wrap footer-inner">
+    <span>&copy; 2026 BSI Sistemas Automação. Todos os direitos reservados.</span>
+    <a href="mailto:bsisistemaautomacao@gmail.com">bsisistemaautomacao@gmail.com</a>
   </div>
 </footer>
 
-<script>
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+
+const container = document.getElementById("bsi3d");
+if (container && window.WebGLRenderingContext) {
+  const size = 136;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 0, 8);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(size, size);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  container.appendChild(renderer.domElement);
+
+  // material único cinza-carvão (quase preto) — o gradiente até o cinza claro
+  // vem da luz batendo nas facetas do bevel, igual ao cubo do resend.com/home,
+  // não de cores diferentes pintadas em cada letra
+  // luzes mais fracas: assim o pulso de tonalidade (material.color, no
+  // animate()) fica visível em vez de ser "engolido" pelo brilho especular
+  scene.add(new THREE.AmbientLight(0xffffff, 0.15));
+  const key = new THREE.DirectionalLight(0xffffff, 1.3);
+  key.position.set(3, 5, 5);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.5);
+  fill.position.set(-3, 1, 4);
+  scene.add(fill);
+  const rim = new THREE.DirectionalLight(0xffffff, 0.6);
+  rim.position.set(-2, -3, -4);
+  scene.add(rim);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  // gradiente "pintado" por vértice (escuro embaixo → claro em cima), pra não
+  // depender do ângulo da luz — em vez de um material único, cada vértice
+  // recebe uma cor interpolada conforme sua altura na letra
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    vertexColors: true,
+    metalness: 0.3,
+    roughness: 0.42,
   });
-});
+  const DARK = new THREE.Color(0x121212);
+  const LIGHT = new THREE.Color(0xd8d8d8);
+  const LETTER_SPACING = 0.35;
+
+  function paintVerticalGradient(geometry) {
+    const pos = geometry.attributes.position;
+    const minY = geometry.boundingBox.min.y;
+    const maxY = geometry.boundingBox.max.y;
+    const span = Math.max(maxY - minY, 0.0001);
+    const colors = new Float32Array(pos.count * 3);
+    const c = new THREE.Color();
+    for (let i = 0; i < pos.count; i++) {
+      const t = (pos.getY(i) - minY) / span;
+      c.copy(DARK).lerp(LIGHT, t);
+      colors[i * 3] = c.r;
+      colors[i * 3 + 1] = c.g;
+      colors[i * 3 + 2] = c.b;
+    }
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  }
+
+  new FontLoader().load(
+    "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json",
+    (font) => {
+      let cursorX = 0;
+      "BSI".split("").forEach((char) => {
+        const geometry = new TextGeometry(char, {
+          font,
+          size: 2.2,
+          height: 0.9,
+          curveSegments: 8,
+          bevelEnabled: true,
+          bevelThickness: 0.08,
+          bevelSize: 0.06,
+          bevelSegments: 3,
+        });
+        geometry.computeBoundingBox();
+        const width = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+        paintVerticalGradient(geometry);
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.x = cursorX;
+        group.add(mesh);
+        cursorX += width + LETTER_SPACING;
+      });
+      // centraliza o grupo inteiro (nos 3 eixos) em torno do pivô de rotação,
+      // usando a caixa delimitadora real — TextGeometry não nasce centrada
+      // nem no X nem no Y
+      const box = new THREE.Box3().setFromObject(group);
+      const center = box.getCenter(new THREE.Vector3());
+      group.children.forEach((m) => { m.position.sub(center); });
+      renderer.render(scene, camera);
+      if (!reduceMotion) requestAnimationFrame(animate);
+    }
+  );
+
+  function animate(t) {
+    requestAnimationFrame(animate);
+    group.rotation.y += 0.012;
+    group.rotation.x = Math.sin((t || 0) * 0.0006) * 0.15;
+    // tonalidade pulsa entre bem claro e bem escuro conforme a peça gira —
+    // multiplica o gradiente de vértice (material.color é o tint global)
+    const cycle = (Math.sin(group.rotation.y) + 1) / 2; // 0..1
+    const shade = 0.05 + cycle * 0.95; // quase preto no vale, quase branco no pico
+    material.color.setScalar(shade);
+    renderer.render(scene, camera);
+  }
+}
+</script>
+
+<script>
+(function () {
+  var OPEN_DELAY = 60;
+  var CLOSE_DELAY = 260;
+  document.querySelectorAll(".nav li.has-dropdown").forEach(function (li) {
+    var openTimer, closeTimer;
+    function open() {
+      clearTimeout(closeTimer);
+      openTimer = setTimeout(function () { li.classList.add("open"); }, OPEN_DELAY);
+    }
+    function close() {
+      clearTimeout(openTimer);
+      closeTimer = setTimeout(function () { li.classList.remove("open"); }, CLOSE_DELAY);
+    }
+    li.addEventListener("mouseenter", open);
+    li.addEventListener("mouseleave", close);
+    li.addEventListener("focusin", open);
+    li.addEventListener("focusout", close);
+  });
+})();
 </script>
 
 </body>
