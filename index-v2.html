@@ -9,6 +9,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/resend.css">
+  <style>
+    /* hero 3D grande, à direita, sem card — sobrescreve o .hero-3d padrão
+       (card 168x168) usado nas páginas de sistemas/ */
+    .hero-3d {
+      position: absolute;
+      top: 28%;
+      right: -140px;
+      transform: translateY(-50%);
+      width: 504px;
+      height: 504px;
+      margin-bottom: 0;
+      padding: 0;
+      background: none;
+      border: none;
+      border-radius: 0;
+    }
+    @media (max-width: 900px) {
+      .hero-3d { display: none; }
+    }
+    /* dá espaço pro 3D à direita: título quebra a linha mais cedo em vez de
+       passar por baixo da peça */
+    .hero h1 { max-width: 560px; }
+  </style>
 </head>
 <body>
 
@@ -18,7 +41,7 @@
       <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
     </a>
     <nav aria-label="Principal"><ul class="nav">
-      <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Recursos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
+      <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Portfólio <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
         <div class="dropdown mega">
           <div class="mega-list">
             <span class="mega-list-label active">Automação</span>
@@ -144,7 +167,7 @@ import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
 const container = document.getElementById("bsi3d");
 if (container && window.WebGLRenderingContext) {
-  const size = 136;
+  const size = 408; // 3x do tamanho card (136px)
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const scene = new THREE.Scene();
