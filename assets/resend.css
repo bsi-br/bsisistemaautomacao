@@ -504,11 +504,52 @@ a.card:hover .more { gap: 10px; }
 .card li strong { color: var(--text); font-weight: 500; }
 
 .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.gallery figure { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 8px; }
+.gallery figure { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 8px; overflow: hidden; }
 .gallery figure.full { grid-column: 1 / -1; }
-.gallery img { width: 100%; display: block; border-radius: 10px; }
+.gallery img { width: 100%; display: block; border-radius: 10px; cursor: zoom-in; transition: transform 0.25s ease; }
+.gallery img:hover { transform: scale(1.04); }
 .gallery figcaption { padding: 12px 8px 6px; font-size: 14px; color: var(--muted); }
 .gallery figcaption b { color: var(--text); font-weight: 500; }
+
+/* LIGHTBOX — zoom das telas ao clicar */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(4px);
+  padding: 48px 24px;
+  cursor: zoom-out;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-overlay.is-open { display: flex; }
+.lightbox-overlay img {
+  max-width: 100%;
+  max-height: calc(100vh - 96px);
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+@media (max-width: 720px) {
+  .lightbox-overlay { padding: 24px 12px; }
+  .lightbox-close { top: 12px; right: 12px; }
+}
 
 /* PAINEL DE OBSERVABILIDADE (estilo resend.com/home: lista de execuções +
    detalhe da etapa selecionada) — aqui mostra leituras/etapas de uma carga */

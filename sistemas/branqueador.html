@@ -111,5 +111,34 @@
 </script>
 
 
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById("lightboxOverlay");
+  var img = document.getElementById("lightboxImg");
+  var closeBtn = document.getElementById("lightboxClose");
+  if (!overlay || !img) return;
+  function openLightbox(src, alt) {
+    img.src = src;
+    img.alt = alt || "";
+    overlay.classList.add("is-open");
+  }
+  function closeLightbox() {
+    overlay.classList.remove("is-open");
+    img.src = "";
+  }
+  document.querySelectorAll(".gallery img").forEach(function (el) {
+    el.addEventListener("click", function () { openLightbox(el.src, el.alt); });
+  });
+  overlay.addEventListener("click", closeLightbox);
+  closeBtn.addEventListener("click", function (e) { e.stopPropagation(); closeLightbox(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
+})();
+</script>
+
 </body>
 </html>
