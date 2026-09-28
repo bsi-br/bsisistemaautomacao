@@ -387,14 +387,17 @@ footer { border-top: 1px solid var(--border-soft); padding: 40px 0; color: var(-
   .header-inner { justify-content: flex-start; }
 
   /* nav vira overlay full-screen abaixo do header, aberto/fechado pelo
-     botão hambúrguer (ver JS no fim de cada página) */
+     botão hambúrguer (ver JS no fim de cada página). height explícito em
+     vez de confiar no auto-stretch de top+bottom: com overflow-y:auto o
+     Chrome estava colapsando a altura para o tamanho do 1º item (48px)
+     em vez de esticar até bottom:0, cortando o resto do menu */
   nav#mainNav {
     display: none;
     position: fixed;
     top: 78px;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: calc(100vh - 78px);
     background: rgba(0, 0, 0, 0.97);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
