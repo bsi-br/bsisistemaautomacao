@@ -69,6 +69,21 @@
 
 <section class="block">
   <div class="wrap">
+    <div class="eyebrow">Controle</div>
+    <h2>O processo de controle da autoclave</h2>
+    <p class="lead">Além de exibir os dados, o supervisório participa ativamente do controle de cada autoclave — do disparo do ciclo até o encerramento seguro da carga.</p>
+    <div class="two-col">
+      <div class="card static"><h3>Leitura e comunicação</h3><ul><li><span>Varredura periódica dos CLPs das autoclaves via Modbus RTU (serial), lendo temperatura, pressão e status de cada uma</span></li><li><span>Filtro que suaviza oscilações de leitura antes de exibir e gravar os valores</span></li><li><span>Escravos com falha de comunicação podem ser isolados individualmente, sem interromper a varredura das demais</span></li></ul></div>
+      <div class="card static"><h3>Escrita de setpoint</h3><ul><li><span>Ao abrir uma carga, o setpoint de temperatura/pressão do produto é enviado ao CLP, que assume o controle físico do aquecimento</span></li><li><span>A escrita só ocorre quando o valor muda, preservando a vida útil da memória do CLP</span></li><li><span>Alterações de carga em andamento reenviam o novo setpoint automaticamente</span></li></ul></div>
+      <div class="card static"><h3>Intertravamento de segurança</h3><ul><li><span>O fechamento/finalização da carga é bloqueado enquanto a temperatura estiver acima de 45 °C, evitando abertura em condição de risco</span></li><li><span>Ações críticas (finalizar carga, isolar escravo) exigem confirmação e login do operador</span></li><li><span>Alarmes visuais por cor indicam desvios de processo em tempo real, antes que se tornem um problema</span></li></ul></div>
+      <div class="card static"><h3>Acompanhamento do ciclo</h3><ul><li><span>Cálculo contínuo do F0 (letalidade acumulada) durante a esterilização, exibido junto ao cartão da autoclave</span></li><li><span>Tempo de processo, setpoint e pressão acompanhados em tempo real até o fim do ciclo</span></li><li><span>Todo o histórico da carga fica disponível para consulta e rastreabilidade posterior</span></li></ul></div>
+    </div>
+    <div class="notice" style="margin-top:24px;">Mais informações técnicas sobre o processo de controle estão disponíveis no aplicativo, na pasta <strong>autoclaves/processo-autoclaves</strong>.</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
     <h2>Telas do Processo</h2>
     <div class="gallery">
       <figure class="full">
