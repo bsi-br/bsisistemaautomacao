@@ -200,14 +200,14 @@ if (container && window.WebGLRenderingContext) {
   // luzes mais fracas: assim o pulso de tonalidade (material.color, no
   // animate()) fica visível em vez de ser "engolido" pelo brilho especular
   // (reduzidas de novo — peça pedida "mais escura")
-  scene.add(new THREE.AmbientLight(0xffffff, 0.12));
-  const key = new THREE.DirectionalLight(0xffffff, 1.1);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.08));
+  const key = new THREE.DirectionalLight(0xffffff, 0.8);
   key.position.set(3, 5, 5);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0xffffff, 0.4);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.25);
   fill.position.set(-3, 1, 4);
   scene.add(fill);
-  const rim = new THREE.DirectionalLight(0xffffff, 0.5);
+  const rim = new THREE.DirectionalLight(0xffffff, 0.3);
   rim.position.set(-2, -3, -4);
   scene.add(rim);
 
@@ -223,11 +223,9 @@ if (container && window.WebGLRenderingContext) {
     metalness: 0.3,
     roughness: 0.46,
   });
-  // gradiente mais escuro de ponta a ponta (era 0x121212 → 0xd8d8d8) — o topo
-  // deixou de chegar perto do branco, pra peça ficar mais escura mas ainda
-  // visível contra o fundo preto da seção
-  const DARK = new THREE.Color(0x0d0d0d);
-  const LIGHT = new THREE.Color(0xa0a0a0);
+  // gradiente ainda mais escuro (era 0xa0a0a0) — quase nenhuma reflexão clara
+  const DARK = new THREE.Color(0x0a0a0a);
+  const LIGHT = new THREE.Color(0x5a5a5a);
 
   function paintVerticalGradient(geometry) {
     const pos = geometry.attributes.position;
@@ -374,11 +372,38 @@ if (container && window.WebGLRenderingContext) {
 
   const ASSEMBLE_MS = 1600;
   let startTime = null;
+  let totalYRotation = 0;
   function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+
+  function resetAssembly(currentTime) {
+    startTime = currentTime;
+    group.children.forEach((m) => {
+      const dir = new THREE.Vector3(
+        Math.random() * 2 - 1,
+        Math.random() * 2 - 1,
+        Math.random() * 2 - 1
+      ).normalize();
+      const dist = 3.5 + Math.random() * 3.5;
+      m.userData.start = m.userData.target.clone().addScaledVector(dir, dist);
+      m.userData.startRot = new THREE.Euler(
+        (Math.random() * 2 - 1) * Math.PI,
+        (Math.random() * 2 - 1) * Math.PI,
+        (Math.random() * 2 - 1) * Math.PI
+      );
+    });
+  }
 
   function animate(t) {
     requestAnimationFrame(animate);
     if (startTime === null) startTime = t || 0;
+
+    // a cada 2 rotações (4π rad), fragmenta novamente
+    totalYRotation += 0.012;
+    if (totalYRotation >= Math.PI * 4) {
+      totalYRotation = 0;
+      resetAssembly(t);
+    }
+
     const progress = Math.min(((t || 0) - startTime) / ASSEMBLE_MS, 1);
     if (progress < 1) {
       const eased = easeOutCubic(progress);
@@ -393,11 +418,9 @@ if (container && window.WebGLRenderingContext) {
     }
     group.rotation.y += 0.012;
     group.rotation.x = Math.sin((t || 0) * 0.0006) * 0.15;
-    // tonalidade pulsa entre escuro e claro conforme a peça gira — multiplica
-    // o gradiente de vértice (material.color é o tint global). Teto mais
-    // baixo (era 0.05 + cycle*0.95) pra peça nunca chegar perto do branco
+    // tonalidade mínima ainda mais escura, pulso reduzido
     const cycle = (Math.sin(group.rotation.y) + 1) / 2; // 0..1
-    const shade = 0.05 + cycle * 0.75;
+    const shade = 0.02 + cycle * 0.45;
     material.color.setScalar(shade);
     renderer.render(scene, camera);
   }
