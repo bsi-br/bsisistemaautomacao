@@ -529,7 +529,7 @@ a.card:hover .more { gap: 10px; }
 .obs-crumb { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
 .obs-crumb b { color: var(--text); font-weight: 500; }
 .obs-tabs { display: flex; gap: 16px; margin-bottom: 12px; border-bottom: 1px solid var(--border-soft); padding-bottom: 10px; }
-.obs-tab { font-size: 14px; color: var(--muted); }
+.obs-tab { font-size: 14px; color: var(--muted); cursor: default; }
 .obs-tab.active { color: var(--text); font-weight: 500; }
 .obs-count { color: var(--muted); font-weight: 400; margin-left: 4px; }
 .obs-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
@@ -554,7 +554,7 @@ a.card:hover .more { gap: 10px; }
 .status-running { background: rgba(70, 200, 130, 0.16); color: #6fdba0; } /* em operação */
 .status-ok { background: rgba(93, 143, 255, 0.18); color: #8fb2ff; } /* fechada */
 .status-alarm { background: rgba(255, 90, 90, 0.16); color: #ff8f8f; } /* cancelada */
-.obs-detail { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; }
+.obs-detail { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px; cursor: default; }
 .obs-event { display: flex; gap: 12px; padding: 4px 0; }
 .obs-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -597,6 +597,7 @@ a.card:hover .more { gap: 10px; }
   border: 1px solid var(--border-soft);
   border-radius: 10px;
   text-align: center;
+  cursor: default;
 }
 .obs-metric-label {
   font-size: 12px;
