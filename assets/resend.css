@@ -529,7 +529,7 @@ a.card:hover .more { gap: 10px; }
 .obs-crumb { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
 .obs-crumb b { color: var(--text); font-weight: 500; }
 .obs-tabs { display: flex; gap: 16px; margin-bottom: 12px; border-bottom: 1px solid var(--border-soft); padding-bottom: 10px; }
-.obs-tab { font-size: 14px; color: var(--muted); cursor: default; }
+.obs-tab { font-size: 14px; color: var(--muted); cursor: pointer; }
 .obs-tab.active { color: var(--text); font-weight: 500; }
 .obs-count { color: var(--muted); font-weight: 400; margin-left: 4px; }
 .obs-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
