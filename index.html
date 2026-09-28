@@ -372,7 +372,7 @@ if (container && window.WebGLRenderingContext) {
 
   const ASSEMBLE_MS = 1600;
   let startTime = null;
-  let totalYRotation = 0;
+  let lastRotationCheck = 0;
   function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
 
   function resetAssembly(currentTime) {
@@ -397,10 +397,12 @@ if (container && window.WebGLRenderingContext) {
     requestAnimationFrame(animate);
     if (startTime === null) startTime = t || 0;
 
-    // a cada 2 rotações (4π rad), fragmenta novamente
-    totalYRotation += 0.012;
-    if (totalYRotation >= Math.PI * 4) {
-      totalYRotation = 0;
+    // avança a rotação primeiro pra contar as voltas
+    group.rotation.y += 0.012;
+
+    // a cada 2 rotações completas (group.rotation.y >= 4π), fragmenta novamente
+    if (group.rotation.y - lastRotationCheck >= Math.PI * 4) {
+      lastRotationCheck = group.rotation.y;
       resetAssembly(t);
     }
 
@@ -416,7 +418,6 @@ if (container && window.WebGLRenderingContext) {
         );
       });
     }
-    group.rotation.y += 0.012;
     group.rotation.x = Math.sin((t || 0) * 0.0006) * 0.15;
     // tonalidade mínima ainda mais escura, pulso reduzido
     const cycle = (Math.sin(group.rotation.y) + 1) / 2; // 0..1
