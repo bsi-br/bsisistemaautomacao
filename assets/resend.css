@@ -418,10 +418,13 @@ footer { border-top: 1px solid var(--border-soft); padding: 40px 0; color: var(-
   .nav li.has-dropdown.open > button svg { transform: rotate(180deg); }
 
   /* dropdowns (inclui mega-menu) viram blocos inline expansíveis, sem
-     posicionamento absoluto nem hover — abrem só por toque (JS) */
+     posicionamento absoluto nem hover — abrem só por toque (JS).
+     !important necessário: as regras :hover/:focus-within do desktop têm
+     especificidade maior que ".nav .dropdown" sozinho e vazavam em touch
+     (o botão ganha foco ao ser tocado, ativando :focus-within) */
   .nav .dropdown,
   .nav .dropdown.mega {
-    display: none;
+    display: none !important;
     position: static;
     transform: none;
     min-width: auto;

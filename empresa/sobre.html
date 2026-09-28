@@ -120,10 +120,12 @@
   document.querySelectorAll(".nav li.has-dropdown").forEach(function (li) {
     var openTimer, closeTimer;
     function open() {
+      if (window.innerWidth <= 720) return; // mobile: só o clique (outro listener) controla
       clearTimeout(closeTimer);
       openTimer = setTimeout(function () { li.classList.add("open"); }, OPEN_DELAY);
     }
     function close() {
+      if (window.innerWidth <= 720) return;
       clearTimeout(openTimer);
       closeTimer = setTimeout(function () { li.classList.remove("open"); }, CLOSE_DELAY);
     }
