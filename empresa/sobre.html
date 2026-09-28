@@ -17,7 +17,12 @@
     <a href="../index-v2.html" class="logo" aria-label="BSI Sistemas Automação — início">
       <img src="https://avatars.githubusercontent.com/u/77200229?s=200&v=4" alt="BSI">
     </a>
-    <nav aria-label="Principal"><ul class="nav"><li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Portfólio <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mainNav">
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+    </button>
+    <nav aria-label="Principal" id="mainNav"><ul class="nav"><li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Portfólio <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button>
       <div class="dropdown mega">
         <div class="mega-list">
           <span class="mega-list-label active">Automação</span>
@@ -129,6 +134,30 @@
   });
 })();
 </script>
+
+<script>
+(function () {
+  var menuToggle = document.getElementById("menuToggle");
+  var mainNav = document.getElementById("mainNav");
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener("click", function () {
+      var isOpen = mainNav.classList.toggle("nav-open");
+      menuToggle.classList.toggle("is-open", isOpen);
+      menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  }
+  // em mobile não há hover: clique no botão do item expande/recolhe o dropdown
+  document.querySelectorAll(".nav li.has-dropdown > button").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      if (window.innerWidth <= 720) {
+        e.preventDefault();
+        btn.closest("li").classList.toggle("open");
+      }
+    });
+  });
+})();
+</script>
+
 
 </body>
 </html>
