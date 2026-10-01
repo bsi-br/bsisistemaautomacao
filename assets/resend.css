@@ -103,8 +103,17 @@ header {
   position: relative;
 }
 
-.logo { position: absolute; left: 24px; display: flex; align-items: center; }
-.logo img { width: 60px; height: 60px; border-radius: 50%; display: block; }
+.logo {
+  position: absolute;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  font: 600 20px/1.2 var(--sans); /* ~1.33× nav 15px */
+  letter-spacing: -0.02em;
+  color: var(--text);
+  white-space: nowrap;
+}
+.logo:hover { color: var(--text); }
 
 /* MENU HAMBÚRGUER — só aparece em mobile (ver @media 720px) */
 .menu-toggle {
@@ -344,7 +353,8 @@ span.nav-disabled.btn-text {
 
 
 /* Full-bleed neon data river — structural mid-hero band (not photo overlay)
-   Contrast: glow #004D66, core #006680 (deeper vs white text); particles #33BBDD / #66CCEE
+   Dark: glow #004D66, core #006680; particles #33BBDD / #66CCEE
+   Light: industrial amber glow/core #C45C26; particles #E07A45 / #E8945C
    Soft edge fade ~18–24% each side; --neon-boost / --neon-jx|--neon-jy from JS */
 .hero-neon-river {
   --neon-boost: 1;
@@ -389,6 +399,15 @@ span.nav-disabled.btn-text {
   );
 }
 
+/* Light mode: industrial amber neon (blue reads poorly on white) */
+[data-theme="light"] .hero-neon-river {
+  --neon-glow: #C45C26;
+  --neon-core: #C45C26;
+  --neon-particle: #E07A45;
+  --neon-particle-hi: #E8945C;
+}
+
+
 .hero-neon-river::before {
   content: "";
   position: absolute;
@@ -401,19 +420,19 @@ span.nav-disabled.btn-text {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 77, 102, 0.04) 8%,
-    rgba(0, 77, 102, 0.18) 16%,
-    rgba(0, 102, 128, 0.48) 30%,
-    rgba(0, 102, 128, 0.88) 50%,
-    rgba(0, 102, 128, 0.48) 70%,
-    rgba(0, 77, 102, 0.18) 84%,
-    rgba(0, 77, 102, 0.04) 92%,
+    color-mix(in srgb, var(--neon-glow) 4%, transparent) 8%,
+    color-mix(in srgb, var(--neon-glow) 18%, transparent) 16%,
+    color-mix(in srgb, var(--neon-core) 48%, transparent) 30%,
+    color-mix(in srgb, var(--neon-core) 88%, transparent) 50%,
+    color-mix(in srgb, var(--neon-core) 48%, transparent) 70%,
+    color-mix(in srgb, var(--neon-glow) 18%, transparent) 84%,
+    color-mix(in srgb, var(--neon-glow) 4%, transparent) 92%,
     transparent 100%
   );
   box-shadow:
-    0 0 18px 3px rgba(0, 77, 102, 0.58),
-    0 0 48px 10px rgba(0, 77, 102, 0.34),
-    0 0 90px 22px rgba(0, 102, 128, 0.18);
+    0 0 18px 3px color-mix(in srgb, var(--neon-glow) 58%, transparent),
+    0 0 48px 10px color-mix(in srgb, var(--neon-glow) 34%, transparent),
+    0 0 90px 22px color-mix(in srgb, var(--neon-core) 18%, transparent);
   filter: blur(6px);
   animation: neon-pulse 2.8s ease-in-out infinite;
 }
@@ -428,9 +447,9 @@ span.nav-disabled.btn-text {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 77, 102, 0.03) 10%,
-    rgba(0, 102, 128, 0.16) 50%,
-    rgba(0, 77, 102, 0.03) 90%,
+    color-mix(in srgb, var(--neon-glow) 3%, transparent) 10%,
+    color-mix(in srgb, var(--neon-core) 16%, transparent) 50%,
+    color-mix(in srgb, var(--neon-glow) 3%, transparent) 90%,
     transparent 100%
   );
   filter: blur(28px);
@@ -508,8 +527,8 @@ span.nav-disabled.btn-text {
   border-radius: 1.5px;
   background: var(--neon-particle-hi, #66CCEE);
   box-shadow:
-    0 0 6px 1px rgba(51, 187, 221, 0.95),
-    0 0 14px 3px rgba(0, 77, 102, 0.55);
+    0 0 6px 1px color-mix(in srgb, var(--neon-particle-hi) 95%, transparent),
+    0 0 14px 3px color-mix(in srgb, var(--neon-glow) 55%, transparent);
   opacity: 0;
   /* Individual translate composes with keyframe transform (qubit jitter) */
   translate: var(--neon-jx) var(--neon-jy);
@@ -523,8 +542,8 @@ span.nav-disabled.btn-text {
 .neon-packet:nth-child(odd) {
   background: var(--neon-particle, #33BBDD);
   box-shadow:
-    0 0 6px 1px rgba(51, 187, 221, 0.9),
-    0 0 12px 2px rgba(0, 102, 128, 0.5);
+    0 0 6px 1px color-mix(in srgb, var(--neon-particle) 90%, transparent),
+    0 0 12px 2px color-mix(in srgb, var(--neon-core) 50%, transparent);
 }
 .neon-packet:nth-child(1) { animation-delay: 0s; top: 44%; width: 6px; height: 6px; }
 .neon-packet:nth-child(2) { animation-delay: 0.7s; top: 50%; width: 5px; height: 5px; }
