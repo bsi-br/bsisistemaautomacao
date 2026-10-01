@@ -115,9 +115,9 @@ header {
 }
 .logo:hover { color: #ffffff; }
 [data-theme="light"] .logo {
-  color: #0A0A0A; /* Felipe: black wordmark on light */
+  color: #111111; /* Felipe: light wordmark = --text */
 }
-[data-theme="light"] .logo:hover { color: #0A0A0A; }
+[data-theme="light"] .logo:hover { color: #111111; }
 
 /* MENU HAMBÚRGUER — só aparece em mobile (ver @media 720px) */
 .menu-toggle {
