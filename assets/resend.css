@@ -631,29 +631,31 @@ span.nav-disabled.btn-text {
   animation: mote-breathe 2.6s ease-in-out infinite;
 }
 .glow-mote.is-carrying::after {
-  /* Blue packet visibly carried outside the pipe */
+  /* Blue packet glued to mote — must read clearly as "holding" */
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -2px;
-  width: 7px;
-  height: 7px;
-  margin-left: -3.5px;
-  border-radius: 1.5px;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 2px;
   background: var(--neon-particle-hi, #66CCEE);
   box-shadow:
-    0 0 6px 1px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 95%, transparent),
-    0 0 14px 3px color-mix(in srgb, var(--neon-glow, #004D66) 55%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 70%, #fff),
+    0 0 8px 2px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 95%, transparent),
+    0 0 16px 4px color-mix(in srgb, var(--neon-glow, #004D66) 60%, transparent);
   pointer-events: none;
+  z-index: 1;
 }
 .glow-mote.is-analyzing {
-  filter: drop-shadow(0 0 6px rgba(255, 210, 70, 0.55));
+  filter: drop-shadow(0 0 7px rgba(255, 210, 70, 0.65));
 }
 .glow-mote.is-analyzing::after {
-  width: 8px;
-  height: 8px;
-  margin-left: -4px;
-  bottom: -4px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  bottom: -6px;
 }
 .neon-packet.is-held {
   /* Removed from channel flow while mote analyzes outside the pipe */
@@ -669,11 +671,10 @@ span.nav-disabled.btn-text {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glow-motes,
   .glow-mote {
-    display: none !important;
     animation: none !important;
   }
+  /* Keep motes visible (static). JS skips chase/grab when reduce matches. */
 }
 
 @media (max-width: 720px) {
