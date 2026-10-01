@@ -108,16 +108,17 @@ header {
   left: 24px;
   display: flex;
   align-items: center;
-  font: 600 20px/1.2 var(--sans); /* ~1.33× nav 15px */
-  letter-spacing: -0.02em;
-  color: #f0f0f0; /* dark theme wordmark */
-  white-space: nowrap;
+  text-decoration: none;
 }
-.logo:hover { color: #ffffff; }
-[data-theme="light"] .logo {
-  color: #111111; /* Felipe: light wordmark = --text */
+.logo-mark {
+  height: 28px;
+  width: auto;
+  display: block;
 }
-[data-theme="light"] .logo:hover { color: #111111; }
+/* Dark theme (default): white mark; light theme: black mark */
+.logo-mark--light { display: none; }
+[data-theme="light"] .logo-mark--dark { display: none; }
+[data-theme="light"] .logo-mark--light { display: block; }
 
 /* MENU HAMBÚRGUER — só aparece em mobile (ver @media 720px) */
 .menu-toggle {

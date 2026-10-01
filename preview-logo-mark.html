@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview — BSI mark header</title>
+  <link rel="stylesheet" href="assets/resend.css">
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg, #0a0a0a); color: var(--text, #f0f0f0); }
+    .preview-bar { padding: 16px 24px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #333; }
+    .preview-bar button { cursor: pointer; padding: 8px 14px; }
+    .note { padding: 24px; max-width: 640px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div class="preview-bar">
+    <strong>Logo mark preview</strong>
+    <button type="button" id="toDark">Dark</button>
+    <button type="button" id="toLight">Light</button>
+  </div>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="BSI Sistemas Automação">
+        <img class="logo-mark logo-mark--dark" src="assets/bsi-mark-white.svg" width="89" height="32" alt="" decoding="async">
+        <img class="logo-mark logo-mark--light" src="assets/bsi-mark-black.svg" width="89" height="32" alt="" decoding="async">
+      </a>
+      <nav id="mainNav" aria-label="Principal" style="display:flex;gap:16px;margin-left:auto;padding-right:24px">
+        <a href="#">Sistemas</a>
+        <a href="#">Empresa</a>
+      </nav>
+    </div>
+  </header>
+  <div class="note">
+    <p>Clean geometric BSI mark (no blue box). Toggle theme to verify white mark on dark / black mark on light.</p>
+    <p>Open <code>index.html</code> or this file via a local static server so <code>/assets/</code> paths resolve on production pages.</p>
+  </div>
+  <script>
+    const root = document.documentElement;
+    document.getElementById('toDark').onclick = () => root.setAttribute('data-theme', 'dark');
+    document.getElementById('toLight').onclick = () => root.setAttribute('data-theme', 'light');
+  </script>
+</body>
+</html>
