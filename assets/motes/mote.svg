@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+     role="img" aria-label="Gold glow mote with turquoise winglets">
+  <defs>
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE46A" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#FFBE32" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFB428" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- turquoise winglets (tiny) -->
+  <ellipse cx="6.2" cy="11.2" rx="4.2" ry="2.1" fill="#40DCD2" fill-opacity="0.38" transform="rotate(-22 6.2 11.2)"/>
+  <ellipse cx="17.8" cy="11.2" rx="4.2" ry="2.1" fill="#40DCD2" fill-opacity="0.38" transform="rotate(22 17.8 11.2)"/>
+  <!-- gold glow (same language as .neon-packet) -->
+  <circle cx="12" cy="12" r="7" fill="url(#goldGlow)"/>
+  <rect x="9.2" y="9.2" width="5.6" height="5.6" rx="1.4" fill="#FFD246"/>
+  <rect x="9.7" y="9.5" width="2.2" height="1.4" rx="0.5" fill="#FFFADC" fill-opacity="0.85"/>
+</svg>

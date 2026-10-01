@@ -587,6 +587,100 @@ span.nav-disabled.btn-text {
   .neon-packet { width: 4px; height: 4px; }
 }
 
+
+/* Glow motes — gold core + tiny turquoise wings over neon river */
+.glow-motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+.glow-mote {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  pointer-events: none;
+  background-image: url("/assets/motes/mote.svg");
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  background-position: center;
+  filter: drop-shadow(0 0 4px rgba(255, 210, 70, 0.35));
+  will-change: left, top;
+  opacity: 0.92;
+}
+/* Prefer SVG for fly/idle; spritesheet for grab/glance/return */
+.glow-mote[data-frame="0"] {
+  background-image: url("/assets/motes/mote.svg");
+  background-size: 24px 24px;
+  background-position: center;
+}
+.glow-mote[data-frame="1"],
+.glow-mote[data-frame="2"],
+.glow-mote[data-frame="3"] {
+  background-image: url("/assets/motes/mote-spritesheet-32.png");
+  background-size: 96px 24px; /* 4 frames × 24px from 128×32 sheet */
+}
+.glow-mote[data-frame="1"] { background-position: -24px 0; }
+.glow-mote[data-frame="2"] { background-position: -48px 0; }
+.glow-mote[data-frame="3"] { background-position: -72px 0; }
+.glow-mote.is-idle {
+  animation: mote-breathe 2.6s ease-in-out infinite;
+}
+.glow-mote.is-carrying::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: 55%;
+  width: 6px;
+  height: 6px;
+  border-radius: 1.5px;
+  background: var(--neon-particle-hi, #66CCEE);
+  box-shadow:
+    0 0 5px 1px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 90%, transparent),
+    0 0 10px 2px color-mix(in srgb, var(--neon-glow, #004D66) 50%, transparent);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.neon-packet.is-held {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+@keyframes mote-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.88; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-motes,
+  .glow-mote {
+    display: none !important;
+    animation: none !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .glow-mote {
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+  }
+  .glow-mote[data-frame="0"] {
+    background-size: 20px 20px;
+  }
+  .glow-mote[data-frame="1"],
+  .glow-mote[data-frame="2"],
+  .glow-mote[data-frame="3"] {
+    background-size: 80px 20px;
+  }
+  .glow-mote[data-frame="1"] { background-position: -20px 0; }
+  .glow-mote[data-frame="2"] { background-position: -40px 0; }
+  .glow-mote[data-frame="3"] { background-position: -60px 0; }
+}
+
 /* SEÇÕES */
 section.block { padding: 96px 0; border-top: 1px solid var(--border-soft); }
 
