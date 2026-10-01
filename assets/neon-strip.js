@@ -14,7 +14,7 @@
   var hero = river.closest(".hero") || document.body;
 
   // Speed: 1 = idle, SPEED_CEILING = max mouse boost
-  var SPEED_CEILING = 2.4;
+  var SPEED_CEILING = 2.8;
   var BOOST_ATTACK = 0.085;
   var BOOST_DECAY = 0.035;
   var MOVE_SCALE = 0.012;
@@ -59,7 +59,7 @@
       el.style.height = size + "px";
       el.style.top = 40 + ((i * 17) % 16) + "%";
       el.style.animationDelay = (i * 0.37).toFixed(2) + "s";
-      el.style.animationDuration = (4.1 + (i % 5) * 0.28).toFixed(2) + "s";
+      el.style.animationDuration = (2.2 + (i % 5) * 0.15).toFixed(2) + "s";
       container.appendChild(el);
       packets.push(el);
     }
@@ -71,6 +71,7 @@
   function applyDensity(count) {
     var n = Math.max(IDLE_COUNT, Math.min(MAX_COUNT, Math.round(count)));
     for (var i = 0; i < packets.length; i++) {
+      if (packets[i].classList.contains("is-exploding")) continue;
       if (i < n) {
         packets[i].classList.remove("is-dormant");
       } else {
@@ -85,6 +86,7 @@
   function setPlaybackRate(rate) {
     for (var i = 0; i < packets.length; i++) {
       if (packets[i].classList.contains("is-dormant")) continue;
+      if (packets[i].classList.contains("is-exploding")) continue;
       var anims = packets[i].getAnimations ? packets[i].getAnimations() : [];
       for (var a = 0; a < anims.length; a++) {
         anims[a].playbackRate = rate;
@@ -155,9 +157,45 @@
     }
   }
 
+
+  function onRiverClick(e) {
+    if (reduce.matches) return;
+    var clickX = e.clientX;
+    var best = null;
+    var bestDist = Infinity;
+    for (var i = 0; i < packets.length; i++) {
+      var el = packets[i];
+      if (el.classList.contains("is-dormant") || el.classList.contains("is-exploding")) continue;
+      var rect = el.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var dist = Math.abs(cx - clickX);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = el;
+      }
+    }
+    if (!best) return;
+    var target = best;
+    var savedDuration = target.style.animationDuration;
+    var savedDelay = target.style.animationDelay;
+    target.classList.add("is-exploding");
+    function onExplodeEnd(ev) {
+      if (ev.animationName && ev.animationName !== "neon-explode") return;
+      target.removeEventListener("animationend", onExplodeEnd);
+      target.classList.remove("is-exploding");
+      target.style.animation = "none";
+      void target.offsetWidth;
+      target.style.animation = "";
+      if (savedDuration) target.style.animationDuration = savedDuration;
+      if (savedDelay) target.style.animationDelay = savedDelay;
+    }
+    target.addEventListener("animationend", onExplodeEnd);
+  }
+
   function onReduceChange() {
     if (reduce.matches) {
       hero.removeEventListener("mousemove", onMove);
+      river.removeEventListener("click", onRiverClick);
       if (raf) cancelAnimationFrame(raf);
       raf = 0;
       boost = 1;
@@ -166,11 +204,13 @@
       river.style.setProperty("--neon-boost", "1");
       setPlaybackRate(1);
       packets.forEach(function (el) {
+        el.classList.remove("is-exploding");
         el.style.setProperty("--neon-jx", "0px");
         el.style.setProperty("--neon-jy", "0px");
       });
     } else {
       hero.addEventListener("mousemove", onMove, { passive: true });
+      river.addEventListener("click", onRiverClick);
     }
   }
 
@@ -178,6 +218,7 @@
   applyDensity(IDLE_COUNT);
 
   hero.addEventListener("mousemove", onMove, { passive: true });
+  river.addEventListener("click", onRiverClick);
   if (typeof reduce.addEventListener === "function") {
     reduce.addEventListener("change", onReduceChange);
   } else if (typeof reduce.addListener === "function") {
