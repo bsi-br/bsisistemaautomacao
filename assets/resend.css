@@ -344,12 +344,12 @@ span.nav-disabled.btn-text {
 
 
 /* Full-bleed neon data river — structural mid-hero band (not photo overlay)
-   Contrast: glow #0077AA, core #0099CC; particles #33BBDD / #66CCEE
-   Edge fade ~5% each side; --neon-boost / --neon-jx|--neon-jy from JS */
+   Contrast: glow #004D66, core #006680 (deeper vs white text); particles #33BBDD / #66CCEE
+   Soft edge fade ~18–24% each side; --neon-boost / --neon-jx|--neon-jy from JS */
 .hero-neon-river {
   --neon-boost: 1;
-  --neon-glow: #0077AA;
-  --neon-core: #0099CC;
+  --neon-glow: #004D66;
+  --neon-core: #006680;
   --neon-particle: #33BBDD;
   --neon-particle-hi: #66CCEE;
   position: absolute;
@@ -364,15 +364,27 @@ span.nav-disabled.btn-text {
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    #000 5%,
-    #000 95%,
+    rgba(0, 0, 0, 0.08) 6%,
+    rgba(0, 0, 0, 0.28) 12%,
+    rgba(0, 0, 0, 0.62) 18%,
+    #000 24%,
+    #000 76%,
+    rgba(0, 0, 0, 0.62) 82%,
+    rgba(0, 0, 0, 0.28) 88%,
+    rgba(0, 0, 0, 0.08) 94%,
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    #000 5%,
-    #000 95%,
+    rgba(0, 0, 0, 0.08) 6%,
+    rgba(0, 0, 0, 0.28) 12%,
+    rgba(0, 0, 0, 0.62) 18%,
+    #000 24%,
+    #000 76%,
+    rgba(0, 0, 0, 0.62) 82%,
+    rgba(0, 0, 0, 0.28) 88%,
+    rgba(0, 0, 0, 0.08) 94%,
     transparent 100%
   );
 }
@@ -389,17 +401,19 @@ span.nav-disabled.btn-text {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 119, 170, 0.12) 5%,
-    rgba(0, 153, 204, 0.55) 28%,
-    rgba(0, 153, 204, 0.9) 50%,
-    rgba(0, 153, 204, 0.55) 72%,
-    rgba(0, 119, 170, 0.12) 95%,
+    rgba(0, 77, 102, 0.04) 8%,
+    rgba(0, 77, 102, 0.18) 16%,
+    rgba(0, 102, 128, 0.48) 30%,
+    rgba(0, 102, 128, 0.88) 50%,
+    rgba(0, 102, 128, 0.48) 70%,
+    rgba(0, 77, 102, 0.18) 84%,
+    rgba(0, 77, 102, 0.04) 92%,
     transparent 100%
   );
   box-shadow:
-    0 0 18px 3px rgba(0, 119, 170, 0.55),
-    0 0 48px 10px rgba(0, 119, 170, 0.32),
-    0 0 90px 22px rgba(0, 153, 204, 0.16);
+    0 0 18px 3px rgba(0, 77, 102, 0.58),
+    0 0 48px 10px rgba(0, 77, 102, 0.34),
+    0 0 90px 22px rgba(0, 102, 128, 0.18);
   filter: blur(6px);
   animation: neon-pulse 2.8s ease-in-out infinite;
 }
@@ -414,9 +428,9 @@ span.nav-disabled.btn-text {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 119, 170, 0.06) 5%,
-    rgba(0, 153, 204, 0.18) 50%,
-    rgba(0, 119, 170, 0.06) 95%,
+    rgba(0, 77, 102, 0.03) 10%,
+    rgba(0, 102, 128, 0.16) 50%,
+    rgba(0, 77, 102, 0.03) 90%,
     transparent 100%
   );
   filter: blur(28px);
@@ -495,17 +509,22 @@ span.nav-disabled.btn-text {
   background: var(--neon-particle-hi, #66CCEE);
   box-shadow:
     0 0 6px 1px rgba(51, 187, 221, 0.95),
-    0 0 14px 3px rgba(0, 119, 170, 0.55);
+    0 0 14px 3px rgba(0, 77, 102, 0.55);
   opacity: 0;
   /* Individual translate composes with keyframe transform (qubit jitter) */
   translate: var(--neon-jx) var(--neon-jy);
   animation: neon-flow 4.5s linear infinite;
 }
+.neon-packet.is-dormant {
+  animation: none !important;
+  opacity: 0 !important;
+  visibility: hidden;
+}
 .neon-packet:nth-child(odd) {
   background: var(--neon-particle, #33BBDD);
   box-shadow:
     0 0 6px 1px rgba(51, 187, 221, 0.9),
-    0 0 12px 2px rgba(0, 153, 204, 0.5);
+    0 0 12px 2px rgba(0, 102, 128, 0.5);
 }
 .neon-packet:nth-child(1) { animation-delay: 0s; top: 44%; width: 6px; height: 6px; }
 .neon-packet:nth-child(2) { animation-delay: 0.7s; top: 50%; width: 5px; height: 5px; }
