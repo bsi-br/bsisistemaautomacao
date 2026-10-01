@@ -360,8 +360,8 @@ span.nav-disabled.btn-text {
 
 /* Full-bleed neon data river — structural mid-hero band (not photo overlay)
    Dark: glow #004D66, core #006680; particles #33BBDD / #66CCEE
-   Light: light blue neon canal #5BA8C8 / #6BB8D6; particles #8FCEE6 / #B0E0F0
-   Soft edge fade ~18–24% each side; --neon-boost / --neon-jx|--neon-jy from JS */
+   Light: graphite packets (#5B6470 / #374151) + soft blue-gray canal; wider edge fade (~36% each side)
+   Dark soft edge fade ~18–24% each side; --neon-boost / --neon-jx|--neon-jy from JS */
 .hero-neon-river {
   --neon-boost: 1;
   --neon-glow: #004D66;
@@ -405,12 +405,76 @@ span.nav-disabled.btn-text {
   );
 }
 
-/* Light mode: graphite packets (soft blue-gray canal glow) */
+/* Light mode: graphite packets (soft blue-gray canal glow) + wider soft edge fade */
 [data-theme="light"] .hero-neon-river {
   --neon-glow: #6B7280;      /* soft graphite glow */
   --neon-core: #4B5563;
   --neon-particle: #5B6470;
   --neon-particle-hi: #374151; /* grafite */
+  /* Wider softer side fade (~36% each side) so rotated overflow:hidden tips disappear */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 8%,
+    rgba(0, 0, 0, 0.12) 16%,
+    rgba(0, 0, 0, 0.32) 24%,
+    rgba(0, 0, 0, 0.62) 30%,
+    #000 36%,
+    #000 64%,
+    rgba(0, 0, 0, 0.62) 70%,
+    rgba(0, 0, 0, 0.32) 76%,
+    rgba(0, 0, 0, 0.12) 84%,
+    rgba(0, 0, 0, 0.03) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 8%,
+    rgba(0, 0, 0, 0.12) 16%,
+    rgba(0, 0, 0, 0.32) 24%,
+    rgba(0, 0, 0, 0.62) 30%,
+    #000 36%,
+    #000 64%,
+    rgba(0, 0, 0, 0.62) 70%,
+    rgba(0, 0, 0, 0.32) 76%,
+    rgba(0, 0, 0, 0.12) 84%,
+    rgba(0, 0, 0, 0.03) 92%,
+    transparent 100%
+  );
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
+
+/* Light: soften canal glow so it doesn't punch hard at the faded ends */
+[data-theme="light"] .hero-neon-river::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 14%,
+    color-mix(in srgb, var(--neon-glow) 3%, transparent) 22%,
+    color-mix(in srgb, var(--neon-glow) 12%, transparent) 30%,
+    color-mix(in srgb, var(--neon-core) 40%, transparent) 40%,
+    color-mix(in srgb, var(--neon-core) 82%, transparent) 50%,
+    color-mix(in srgb, var(--neon-core) 40%, transparent) 60%,
+    color-mix(in srgb, var(--neon-glow) 12%, transparent) 70%,
+    color-mix(in srgb, var(--neon-glow) 3%, transparent) 78%,
+    transparent 86%,
+    transparent 100%
+  );
+}
+
+[data-theme="light"] .hero-neon-river::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 18%,
+    color-mix(in srgb, var(--neon-glow) 2%, transparent) 28%,
+    color-mix(in srgb, var(--neon-core) 12%, transparent) 50%,
+    color-mix(in srgb, var(--neon-glow) 2%, transparent) 72%,
+    transparent 82%,
+    transparent 100%
+  );
 }
 
 
