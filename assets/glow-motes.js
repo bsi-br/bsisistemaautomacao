@@ -10,13 +10,13 @@
 
   var MOTE_COUNT = 2;
   var SIZE = 24;
-  var HALF = SIZE / 2;
   var IDLE_MIN_MS = 8000;
   var IDLE_MAX_MS = 20000;
-  var GLANCE_MIN_MS = 400;
-  var GLANCE_MAX_MS = 900;
+  var GLANCE_MIN_MS = 650;
+  var GLANCE_MAX_MS = 1200;
   var APPROACH_MS = 1400;
-  var RETURN_MS = 1100;
+  var LIFT_MS = 520;
+  var RETURN_MS = 1200;
   var STAGGER_MS = 4500;
 
   var layer = document.createElement("div");
@@ -40,25 +40,29 @@
     return { w: river.clientWidth || 1, h: river.clientHeight || 1 };
   }
 
+  /** Visual center of packet relative to river (animation-aware). */
   function packetCenter(el) {
+    var rr = river.getBoundingClientRect();
+    var pr = el.getBoundingClientRect();
     return {
-      x: el.offsetLeft + el.offsetWidth / 2,
-      y: el.offsetTop + el.offsetHeight / 2
+      x: pr.left - rr.left + pr.width / 2,
+      y: pr.top - rr.top + pr.height / 2
     };
   }
 
   function activePackets() {
     var all = container.querySelectorAll(".neon-packet");
     var out = [];
+    var rs = riverSize();
     for (var i = 0; i < all.length; i++) {
       var el = all[i];
       if (el.classList.contains("is-dormant")) continue;
       if (el.classList.contains("is-held")) continue;
       var op = getComputedStyle(el).opacity;
-      if (parseFloat(op) < 0.15) continue;
+      if (parseFloat(op) < 0.2) continue;
       var cs = packetCenter(el);
-      var rs = riverSize();
-      if (cs.x < rs.w * 0.08 || cs.x > rs.w * 0.92) continue;
+      if (cs.x < rs.w * 0.1 || cs.x > rs.w * 0.9) continue;
+      if (cs.y < 0 || cs.y > rs.h) continue;
       out.push(el);
     }
     return out;
@@ -94,7 +98,6 @@
 
   function animateTo(el, from, to, ms, onDone) {
     var t0 = performance.now();
-    // Soft bezier via mid control offset
     var cx = (from.x + to.x) / 2 + (to.y - from.y) * 0.35 + rand(-12, 12);
     var cy = (from.y + to.y) / 2 - Math.abs(to.x - from.x) * 0.12 - rand(6, 22);
 
@@ -114,6 +117,29 @@
     requestAnimationFrame(step);
   }
 
+  function holdPacket(packet) {
+    // Leave the pipe: stop flow animation + hide in-channel blob
+    packet.classList.add("is-held");
+    packet.style.animation = "none";
+    packet.style.translate = "none";
+  }
+
+  function releasePacket(packet, drop, moteEl) {
+    if (!packet) return;
+    if (moteEl) moteEl.classList.remove("is-carrying", "is-analyzing");
+    // Re-enter channel near drop X so return is visible (not a mid-flow pop)
+    var rs = riverSize();
+    var pct = clamp((drop.x / rs.w) * 100, 4, 96);
+    packet.style.left = pct + "%";
+    packet.style.top = clamp(drop.y, rs.h * 0.4, rs.h * 0.58) + "px";
+    packet.classList.remove("is-held");
+    // Restart neon-flow from this X
+    packet.style.animation = "none";
+    void packet.offsetWidth;
+    packet.style.animation = "";
+    packet.style.translate = "";
+  }
+
   function createMote(index) {
     var el = document.createElement("div");
     el.className = "glow-mote is-idle";
@@ -124,7 +150,7 @@
     var rs = riverSize();
     var pos = {
       x: rand(rs.w * 0.18, rs.w * 0.82),
-      y: rand(rs.h * 0.28, rs.h * 0.62)
+      y: rand(rs.h * 0.22, rs.h * 0.48)
     };
     setPos(el, pos.x, pos.y);
 
@@ -139,11 +165,12 @@
       var rs2 = riverSize();
       var t = now * 0.001;
       var ampX = rs2.w * 0.035;
-      var ampY = rs2.h * 0.12;
+      var ampY = rs2.h * 0.1;
+      // Idle stays mostly above mid-pipe so it doesn't fight channel blobs
       pos.x = idleOrigin.x + Math.sin(t * 0.35 + idlePhase) * ampX + Math.sin(t * 0.17 + idlePhase * 1.3) * ampX * 0.4;
       pos.y = idleOrigin.y + Math.cos(t * 0.42 + idlePhase) * ampY + Math.sin(t * 0.23 + idlePhase) * ampY * 0.35;
       pos.x = clamp(pos.x, rs2.w * 0.1, rs2.w * 0.9);
-      pos.y = clamp(pos.y, rs2.h * 0.18, rs2.h * 0.72);
+      pos.y = clamp(pos.y, rs2.h * 0.08, rs2.h * 0.42);
       setPos(el, pos.x, pos.y);
       idleRaf = requestAnimationFrame(idleTick);
     }
@@ -151,7 +178,7 @@
     function startIdle() {
       busy = false;
       el.classList.add("is-idle");
-      el.classList.remove("is-carrying", "is-action");
+      el.classList.remove("is-carrying", "is-action", "is-analyzing");
       setFrame(el, 0);
       idleOrigin.x = pos.x;
       idleOrigin.y = pos.y;
@@ -167,12 +194,6 @@
       }
     }
 
-    function releasePacket(packet) {
-      if (!packet) return;
-      packet.classList.remove("is-held");
-      el.classList.remove("is-carrying");
-    }
-
     function runCycle() {
       if (stopped) return;
       stopIdle();
@@ -181,11 +202,10 @@
 
       var packet = pickPacket(pos);
       if (!packet) {
-        // No packet — soft wander hop then retry later
         var rs3 = riverSize();
         var hop = {
           x: clamp(pos.x + rand(-80, 80), rs3.w * 0.12, rs3.w * 0.88),
-          y: clamp(rand(rs3.h * 0.3, rs3.h * 0.58), rs3.h * 0.2, rs3.h * 0.7)
+          y: clamp(rand(rs3.h * 0.12, rs3.h * 0.38), rs3.h * 0.08, rs3.h * 0.45)
         };
         animateTo(el, pos, hop, 1600, function () {
           pos = hop;
@@ -196,35 +216,51 @@
       }
 
       var target = packetCenter(packet);
-      // Aim slightly above packet for a soft approach
-      var approach = { x: target.x, y: target.y - 4 };
+      var approach = { x: target.x, y: target.y };
 
       animateTo(el, pos, approach, APPROACH_MS + rand(-200, 200), function () {
-        pos = { x: approach.x, y: approach.y };
+        // Refresh target in case packet moved during approach
+        if (!packet.classList.contains("is-held") && document.body.contains(packet)) {
+          target = packetCenter(packet);
+        }
+        pos = { x: target.x, y: target.y };
+        setPos(el, pos.x, pos.y);
 
-        // Grab
-        packet.classList.add("is-held");
+        // 1) Grab: take blue ball OUT of the pipe
+        holdPacket(packet);
         el.classList.add("is-carrying");
         setFrame(el, 1);
 
-        // Short lift while grabbing
-        var lift = { x: pos.x + rand(-10, 10), y: clamp(pos.y - rand(10, 22), 8, riverSize().h * 0.45) };
-        animateTo(el, pos, lift, 380, function () {
-          pos = lift;
-          setFrame(el, 2); // glance
+        var rsLift = riverSize();
+        // Clear of the channel band (packets sit ~40–55% down)
+        var analyze = {
+          x: clamp(pos.x + rand(-18, 18), rsLift.w * 0.12, rsLift.w * 0.88),
+          y: clamp(rsLift.h * rand(0.06, 0.16), 4, rsLift.h * 0.22)
+        };
+
+        animateTo(el, pos, analyze, LIFT_MS + rand(-40, 80), function () {
+          pos = analyze;
+          // 2) Analyze outside the pipe
+          setFrame(el, 2);
+          el.classList.add("is-analyzing");
 
           var glanceMs = rand(GLANCE_MIN_MS, GLANCE_MAX_MS);
           setTimeout(function () {
-            setFrame(el, 3); // return pose
+            el.classList.remove("is-analyzing");
+            setFrame(el, 3);
             var rs4 = riverSize();
+            // 3) Return to channel mid-line and put packet back in flow
             var drop = {
-              x: clamp(pos.x + rand(-40, 40), rs4.w * 0.15, rs4.w * 0.85),
-              y: rs4.h * 0.48 + rand(-6, 6)
+              x: clamp(pos.x + rand(-36, 36), rs4.w * 0.15, rs4.w * 0.85),
+              y: rs4.h * 0.48 + rand(-5, 5)
             };
             animateTo(el, pos, drop, RETURN_MS + rand(-150, 150), function () {
               pos = drop;
-              releasePacket(packet);
+              releasePacket(packet, drop, el);
               setFrame(el, 0);
+              // Drift slightly above pipe again for idle
+              pos.y = clamp(drop.y - rs4.h * 0.22, rs4.h * 0.08, rs4.h * 0.35);
+              setPos(el, pos.x, pos.y);
               startIdle();
               schedule(rand(IDLE_MIN_MS, IDLE_MAX_MS));
             });
@@ -247,7 +283,11 @@
         stopIdle();
         el.style.display = "none";
         var held = container.querySelectorAll(".neon-packet.is-held");
-        for (var i = 0; i < held.length; i++) held[i].classList.remove("is-held");
+        for (var i = 0; i < held.length; i++) {
+          held[i].classList.remove("is-held");
+          held[i].style.animation = "";
+          held[i].style.translate = "";
+        }
       }
     }
 

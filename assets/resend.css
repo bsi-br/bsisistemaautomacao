@@ -630,23 +630,37 @@ span.nav-disabled.btn-text {
   animation: mote-breathe 2.6s ease-in-out infinite;
 }
 .glow-mote.is-carrying::after {
+  /* Blue packet visibly carried outside the pipe */
   content: "";
   position: absolute;
-  right: -1px;
-  top: 55%;
-  width: 6px;
-  height: 6px;
+  left: 50%;
+  bottom: -2px;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
   border-radius: 1.5px;
   background: var(--neon-particle-hi, #66CCEE);
   box-shadow:
-    0 0 5px 1px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 90%, transparent),
-    0 0 10px 2px color-mix(in srgb, var(--neon-glow, #004D66) 50%, transparent);
-  transform: translateY(-50%);
+    0 0 6px 1px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 95%, transparent),
+    0 0 14px 3px color-mix(in srgb, var(--neon-glow, #004D66) 55%, transparent);
   pointer-events: none;
 }
+.glow-mote.is-analyzing {
+  filter: drop-shadow(0 0 6px rgba(255, 210, 70, 0.55));
+}
+.glow-mote.is-analyzing::after {
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  bottom: -4px;
+}
 .neon-packet.is-held {
+  /* Removed from channel flow while mote analyzes outside the pipe */
   opacity: 0 !important;
-  visibility: hidden;
+  visibility: hidden !important;
+  animation: none !important;
+  translate: none !important;
+  pointer-events: none !important;
 }
 @keyframes mote-breathe {
   0%, 100% { transform: scale(1); opacity: 0.88; }
