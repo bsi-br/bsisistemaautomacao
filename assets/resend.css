@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "Bebas Neue";
-  src: url("/assets/fonts/BebasNeue-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --bg: #000;
   --text: #f0f0f0;
@@ -36,9 +28,9 @@
   --preview-grid: rgba(255, 255, 255, 0.035);
   --panel-solid: #0a0a0a;
   --radius: 16px;
-  --serif: "Bebas Neue", Impact, Haettenschweiler, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
   --display: var(--serif);
-  --sans: Tahoma, Geneva, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   color-scheme: dark;
 }
 
@@ -368,7 +360,7 @@ span.nav-disabled.btn-text {
 
 /* Full-bleed neon data river — structural mid-hero band (not photo overlay)
    Dark: glow #004D66, core #006680; particles #33BBDD / #66CCEE
-   Light: industrial amber glow/core #C45C26; particles #E07A45 / #E8945C
+   Light: light blue neon canal #5BA8C8 / #6BB8D6; particles #8FCEE6 / #B0E0F0
    Soft edge fade ~18–24% each side; --neon-boost / --neon-jx|--neon-jy from JS */
 .hero-neon-river {
   --neon-boost: 1;
@@ -413,12 +405,12 @@ span.nav-disabled.btn-text {
   );
 }
 
-/* Light mode: industrial amber neon (blue reads poorly on white) */
+/* Light mode: light blue neon canal */
 [data-theme="light"] .hero-neon-river {
-  --neon-glow: #C45C26;
-  --neon-core: #C45C26;
-  --neon-particle: #E07A45;
-  --neon-particle-hi: #E8945C;
+  --neon-glow: #5BA8C8;
+  --neon-core: #6BB8D6;
+  --neon-particle: #8FCEE6;
+  --neon-particle-hi: #B0E0F0;
 }
 
 
@@ -597,120 +589,6 @@ span.nav-disabled.btn-text {
 }
 
 
-/* Glow motes — gold core + tiny turquoise wings over neon river */
-.glow-motes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  /* parent .hero-neon-river is overflow:hidden — keep motes inside via JS clamp */
-  overflow: visible;
-}
-.glow-mote {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  margin-left: -12px;
-  margin-top: -12px;
-  pointer-events: none;
-  background-image: url("/assets/motes/mote.svg");
-  background-repeat: no-repeat;
-  background-size: 24px 24px;
-  background-position: center;
-  filter: drop-shadow(0 0 4px rgba(255, 210, 70, 0.35));
-  will-change: left, top;
-  opacity: 0.92;
-}
-/* Prefer SVG for fly/idle; spritesheet for grab/glance/return */
-.glow-mote[data-frame="0"] {
-  background-image: url("/assets/motes/mote.svg");
-  background-size: 24px 24px;
-  background-position: center;
-}
-.glow-mote[data-frame="1"],
-.glow-mote[data-frame="2"],
-.glow-mote[data-frame="3"] {
-  background-image: url("/assets/motes/mote-spritesheet-32.png");
-  background-size: 96px 24px; /* 4 frames × 24px from 128×32 sheet */
-}
-.glow-mote[data-frame="1"] { background-position: -24px 0; }
-.glow-mote[data-frame="2"] { background-position: -48px 0; }
-.glow-mote[data-frame="3"] { background-position: -72px 0; }
-.glow-mote.is-idle {
-  animation: mote-breathe 2.6s ease-in-out infinite;
-}
-.glow-mote.is-waiting-ahead {
-  animation: none;
-  opacity: 1;
-  filter: drop-shadow(0 0 5px rgba(255, 210, 70, 0.45));
-}
-.glow-mote.is-carrying::after {
-  /* Blue packet glued to mote — must read clearly as "holding" */
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -5px;
-  width: 9px;
-  height: 9px;
-  margin-left: -4.5px;
-  border-radius: 2px;
-  background: var(--neon-particle-hi, #66CCEE);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 70%, #fff),
-    0 0 8px 2px color-mix(in srgb, var(--neon-particle-hi, #66CCEE) 95%, transparent),
-    0 0 16px 4px color-mix(in srgb, var(--neon-glow, #004D66) 60%, transparent);
-  pointer-events: none;
-  z-index: 1;
-}
-.glow-mote.is-analyzing {
-  filter: drop-shadow(0 0 7px rgba(255, 210, 70, 0.65));
-}
-.glow-mote.is-analyzing::after {
-  width: 10px;
-  height: 10px;
-  margin-left: -5px;
-  bottom: -6px;
-}
-.neon-packet.is-held {
-  /* Removed from channel flow while mote analyzes outside the pipe */
-  opacity: 0 !important;
-  visibility: hidden !important;
-  animation: none !important;
-  translate: none !important;
-  pointer-events: none !important;
-}
-@keyframes mote-breathe {
-  0%, 100% { transform: scale(1); opacity: 0.88; }
-  50% { transform: scale(1.06); opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glow-mote {
-    animation: none !important;
-  }
-  /* Keep motes visible (static). JS skips chase/grab when reduce matches. */
-}
-
-@media (max-width: 720px) {
-  .glow-mote {
-    width: 20px;
-    height: 20px;
-    margin-left: -10px;
-    margin-top: -10px;
-  }
-  .glow-mote[data-frame="0"] {
-    background-size: 20px 20px;
-  }
-  .glow-mote[data-frame="1"],
-  .glow-mote[data-frame="2"],
-  .glow-mote[data-frame="3"] {
-    background-size: 80px 20px;
-  }
-  .glow-mote[data-frame="1"] { background-position: -20px 0; }
-  .glow-mote[data-frame="2"] { background-position: -40px 0; }
-  .glow-mote[data-frame="3"] { background-position: -60px 0; }
-}
-
 /* SEÇÕES */
 section.block { padding: 96px 0; border-top: 1px solid var(--border-soft); }
 
@@ -786,7 +664,7 @@ h2 {
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .stat { padding: 32px 28px; border-left: 1px solid var(--border); }
 .stat:first-child { border-left: 0; }
-.stat b { display: block; font-family: var(--sans); font-weight: 600; font-size: 48px; line-height: 1; margin-bottom: 8px; }
+.stat b { display: block; font-family: var(--serif); font-weight: 400; font-size: 48px; line-height: 1; margin-bottom: 8px; }
 .stat span { color: var(--muted); font-size: 14px; }
 
 /* CONTATO */
