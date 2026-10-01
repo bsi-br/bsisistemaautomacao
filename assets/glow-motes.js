@@ -9,9 +9,9 @@
   var MOTE_COUNT = 2;
   var GLANCE_MIN_MS = 800;
   var GLANCE_MAX_MS = 1400;
-  var WAIT_AHEAD_MAX_MS = 5000;
-  var LEAD_PX = 36; // sit ahead of ball in +x flow
-  var GRAB_RADIUS = 14;
+  var WAIT_AHEAD_MAX_MS = 6000;
+  var LEAD_PX = 40;
+  var GRAB_RADIUS = 13;
   var LIFT_MS = 450;
   var RETURN_MS = 950;
   var STAGGER_MS = 2800;
@@ -19,6 +19,7 @@
   var RETRY_MS_MAX = 1200;
   var BETWEEN_MS_MIN = 2500;
   var BETWEEN_MS_MAX = 6000;
+  var SLOT_MS = 380; // move into ahead slot, then HOLD
 
   var layer = document.createElement("div");
   layer.className = "glow-motes";
@@ -48,7 +49,6 @@
     return Math.atan2(m.b, m.a);
   }
 
-  /** Visual packet center → river local left/top space. */
   function packetCenter(el) {
     var pr = el.getBoundingClientRect();
     var rr = river.getBoundingClientRect();
@@ -92,7 +92,6 @@
     return out;
   }
 
-  /** Prefer a packet still left of mid so mote can wait ahead (+x). */
   function pickPacket(moteX) {
     var list = activePackets();
     if (!list.length) return null;
@@ -101,24 +100,20 @@
     var bestScore = Infinity;
     for (var i = 0; i < list.length; i++) {
       var c = packetCenter(list[i]);
-      // Want packet behind mote or with room to lead ahead
-      if (c.x > rs.w * 0.78) continue; // too far right — no room ahead
-      var aheadX = c.x + LEAD_PX;
-      if (aheadX > rs.w * 0.9) continue;
-      // Prefer packets approaching from the left of current mote
-      var score = Math.abs(c.y - rs.h * 0.48) * 2 + (c.x < moteX ? 0 : 40) + c.x * 0.01;
+      if (c.x > rs.w * 0.72) continue;
+      if (c.x + LEAD_PX > rs.w * 0.9) continue;
+      var score = Math.abs(c.y - rs.h * 0.48) * 2 + (c.x < moteX ? 0 : 50) + c.x * 0.01;
       if (score < bestScore) {
         bestScore = score;
         best = list[i];
       }
     }
     if (best) return best;
-    // Fallback: any in-band packet with room ahead
     for (var j = 0; j < list.length; j++) {
       var c2 = packetCenter(list[j]);
       if (c2.x + LEAD_PX < rs.w * 0.9) return list[j];
     }
-    return list[0] || null;
+    return null;
   }
 
   function setPos(el, x, y) {
@@ -184,11 +179,10 @@
     layer.appendChild(el);
 
     var rs0 = riverSize();
-    // Start in pipe band, waiting
     var pos = setPos(
       el,
       rand(rs0.w * 0.35, rs0.w * 0.55) + index * 80,
-      rs0.h * 0.48 + rand(-4, 4)
+      rs0.h * 0.48 + rand(-3, 3)
     );
 
     var waitRaf = 0;
@@ -203,114 +197,117 @@
     }
 
     function holdStation() {
-      // Tiny settle in pipe — no wandering hops
       el.classList.add("is-idle");
-      el.classList.remove("is-carrying", "is-action", "is-analyzing");
+      el.classList.remove("is-carrying", "is-action", "is-analyzing", "is-waiting-ahead");
       setFrame(el, 0);
       busy = false;
     }
 
     /**
-     * 1) Sit AHEAD of packet on same pipe Y
-     * 2) When they collide → grab out of pipe
-     * 3) Analyze outside
-     * 4) Put back
-     * 5) Wait for next
+     * Station AHEAD of ball on pipe → HOLD until collide → grab → analyze → return → wait next.
      */
     function waitAheadAndGrab(packet, onMiss) {
-      var t0 = performance.now();
+      var rs = riverSize();
+      var target0 = packetCenter(packet);
+      var slot = {
+        x: clamp(target0.x + LEAD_PX, rs.w * 0.12, rs.w * 0.88),
+        y: clamp(target0.y, rs.h * 0.42, rs.h * 0.56)
+      };
+
       el.classList.add("is-action");
       el.classList.remove("is-idle");
       setFrame(el, 0);
 
-      function frame(now) {
-        if (stopped) return;
-        if (
-          !packet ||
-          !document.body.contains(packet) ||
-          packet.classList.contains("is-dormant") ||
-          packet.classList.contains("is-held")
-        ) {
-          onMiss();
-          return;
+      // Move into ahead slot, then freeze there
+      animateTo(el, pos, slot, SLOT_MS, function (p) {
+        pos = p;
+        el.classList.add("is-waiting-ahead");
+        var station = { x: pos.x, y: pos.y };
+        var t0 = performance.now();
+
+        function frame(now) {
+          if (stopped) return;
+          if (
+            !packet ||
+            !document.body.contains(packet) ||
+            packet.classList.contains("is-dormant") ||
+            packet.classList.contains("is-held")
+          ) {
+            el.classList.remove("is-waiting-ahead");
+            onMiss();
+            return;
+          }
+
+          var target = packetCenter(packet);
+          var op = parseFloat(getComputedStyle(packet).opacity);
+          if (!(op > 0.05) || !inFlowBand(target, riverSize())) {
+            el.classList.remove("is-waiting-ahead");
+            onMiss();
+            return;
+          }
+
+          // Stay parked ahead — only micro Y align to pipe, do NOT chase +x
+          station.y = station.y + (clamp(target.y, rs.h * 0.42, rs.h * 0.56) - station.y) * 0.08;
+          pos = setPos(el, station.x, station.y);
+
+          var dx = target.x - pos.x;
+          var dy = target.y - pos.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          // Collision when ball reaches the parked mote
+          var collided =
+            dist <= GRAB_RADIUS ||
+            (target.x >= pos.x - 6 && Math.abs(dy) < 14);
+
+          if (collided) {
+            el.classList.remove("is-waiting-ahead");
+            pos = setPos(el, target.x, target.y);
+            holdPacket(packet);
+            el.classList.add("is-carrying");
+            setFrame(el, 1);
+
+            var rs2 = riverSize();
+            var analyze = {
+              x: clamp(pos.x + rand(-8, 8), rs2.w * 0.12, rs2.w * 0.88),
+              y: clamp(rs2.h * rand(0.12, 0.24), 8, rs2.h * 0.3)
+            };
+
+            animateTo(el, pos, analyze, LIFT_MS, function (p2) {
+              pos = p2;
+              setFrame(el, 2);
+              el.classList.add("is-analyzing");
+
+              setTimeout(function () {
+                el.classList.remove("is-analyzing");
+                setFrame(el, 3);
+                var rs3 = riverSize();
+                var drop = {
+                  x: clamp(pos.x + rand(-16, 16), rs3.w * 0.15, rs3.w * 0.85),
+                  y: rs3.h * 0.48 + rand(-3, 3)
+                };
+                animateTo(el, pos, drop, RETURN_MS, function (p3) {
+                  pos = p3;
+                  releasePacket(packet, drop, el);
+                  setFrame(el, 0);
+                  pos = setPos(el, drop.x, rs3.h * 0.48);
+                  holdStation();
+                  schedule(rand(BETWEEN_MS_MIN, BETWEEN_MS_MAX));
+                });
+              }, rand(GLANCE_MIN_MS, GLANCE_MAX_MS));
+            });
+            return;
+          }
+
+          if (now - t0 > WAIT_AHEAD_MAX_MS) {
+            el.classList.remove("is-waiting-ahead");
+            onMiss();
+            return;
+          }
+          waitRaf = requestAnimationFrame(frame);
         }
 
-        var target = packetCenter(packet);
-        var op = parseFloat(getComputedStyle(packet).opacity);
-        var rs = riverSize();
-        if (!(op > 0.05) || !inFlowBand(target, rs)) {
-          onMiss();
-          return;
-        }
-
-        // Stay in front (+x) on the same pipe strip
-        var ahead = {
-          x: clamp(target.x + LEAD_PX, rs.w * 0.1, rs.w * 0.9),
-          y: clamp(target.y, rs.h * 0.4, rs.h * 0.58)
-        };
-
-        // Ease toward ahead slot (same band — not flying around)
-        pos = setPos(
-          el,
-          pos.x + (ahead.x - pos.x) * 0.22,
-          pos.y + (ahead.y - pos.y) * 0.28
-        );
-
-        var dx = target.x - pos.x;
-        var dy = target.y - pos.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-
-        // Collision: packet caught up into mote (or very close)
-        var collided =
-          dist <= GRAB_RADIUS ||
-          (target.x >= pos.x - 8 && target.x <= pos.x + 10 && Math.abs(dy) < 12);
-
-        if (collided) {
-          pos = setPos(el, target.x, target.y);
-          holdPacket(packet);
-          el.classList.add("is-carrying");
-          setFrame(el, 1);
-
-          var analyze = {
-            x: clamp(pos.x + rand(-8, 8), rs.w * 0.12, rs.w * 0.88),
-            y: clamp(rs.h * rand(0.12, 0.24), 8, rs.h * 0.3)
-          };
-
-          animateTo(el, pos, analyze, LIFT_MS, function (p) {
-            pos = p;
-            setFrame(el, 2);
-            el.classList.add("is-analyzing");
-
-            setTimeout(function () {
-              el.classList.remove("is-analyzing");
-              setFrame(el, 3);
-              var rs2 = riverSize();
-              var drop = {
-                x: clamp(pos.x + rand(-16, 16), rs2.w * 0.15, rs2.w * 0.85),
-                y: rs2.h * 0.48 + rand(-3, 3)
-              };
-              animateTo(el, pos, drop, RETURN_MS, function (p2) {
-                pos = p2;
-                releasePacket(packet, drop, el);
-                setFrame(el, 0);
-                // Stay on pipe waiting for the next ball
-                pos = setPos(el, drop.x, rs2.h * 0.48);
-                holdStation();
-                schedule(rand(BETWEEN_MS_MIN, BETWEEN_MS_MAX));
-              });
-            }, rand(GLANCE_MIN_MS, GLANCE_MAX_MS));
-          });
-          return;
-        }
-
-        if (now - t0 > WAIT_AHEAD_MAX_MS) {
-          onMiss();
-          return;
-        }
         waitRaf = requestAnimationFrame(frame);
-      }
-
-      waitRaf = requestAnimationFrame(frame);
+      });
     }
 
     function runCycle() {
@@ -348,7 +345,7 @@
         clearTimeout(timer);
         stopWait();
         busy = false;
-        el.classList.remove("is-carrying", "is-analyzing", "is-action");
+        el.classList.remove("is-carrying", "is-analyzing", "is-action", "is-waiting-ahead");
         var held = container.querySelectorAll(".neon-packet.is-held");
         for (var i = 0; i < held.length; i++) {
           held[i].classList.remove("is-held");

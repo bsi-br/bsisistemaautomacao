@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("/assets/fonts/BebasNeue-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #000;
   --text: #f0f0f0;
@@ -28,8 +36,9 @@
   --preview-grid: rgba(255, 255, 255, 0.035);
   --panel-solid: #0a0a0a;
   --radius: 16px;
-  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Bebas Neue", Impact, Haettenschweiler, sans-serif;
+  --display: var(--serif);
+  --sans: Tahoma, Geneva, "Segoe UI", system-ui, -apple-system, sans-serif;
   color-scheme: dark;
 }
 
@@ -487,7 +496,7 @@ span.nav-disabled.btn-text {
   font-weight: 400;
   font-size: 96px;
   line-height: 1.12;
-  letter-spacing: -0.96px;
+  letter-spacing: 0.02em;
   max-width: 760px;
   margin-left: auto;
   margin-right: auto;
@@ -630,6 +639,11 @@ span.nav-disabled.btn-text {
 .glow-mote.is-idle {
   animation: mote-breathe 2.6s ease-in-out infinite;
 }
+.glow-mote.is-waiting-ahead {
+  animation: none;
+  opacity: 1;
+  filter: drop-shadow(0 0 5px rgba(255, 210, 70, 0.45));
+}
 .glow-mote.is-carrying::after {
   /* Blue packet glued to mote — must read clearly as "holding" */
   content: "";
@@ -707,7 +721,7 @@ h2 {
   font-weight: 400;
   font-size: 56px;
   line-height: 1.05;
-  letter-spacing: -1px;
+  letter-spacing: 0.02em;
   margin-bottom: 20px;
   max-width: 720px;
 }
@@ -729,7 +743,7 @@ h2 {
   transition: background 150ms, border-color 150ms;
 }
 .card:hover { background: var(--surface-hover); border-color: var(--card-hover-border); }
-.card h3 { font-size: 18px; font-weight: 500; margin-bottom: 10px; }
+.card h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: 0.02em; margin-bottom: 10px; }
 .card p { color: var(--muted); font-size: 15px; line-height: 1.6; flex: 1; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
@@ -745,7 +759,7 @@ h2 {
 
 /* QUALIDADE */
 .mini-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
-.mini h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+.mini h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; letter-spacing: 0.02em; margin-bottom: 8px; }
 .mini p { color: var(--muted); font-size: 14px; line-height: 1.6; }
 
 .frame {
@@ -919,7 +933,7 @@ a.card:hover .more { gap: 10px; }
   font-weight: 400;
   font-size: 80px;
   line-height: 1;
-  letter-spacing: -0.8px;
+  letter-spacing: 0.02em;
   max-width: 760px;
   background: linear-gradient(to right bottom, var(--hero-grad-from) 30%, var(--hero-grad-to));
   -webkit-background-clip: text;
