@@ -14,42 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/resend.css">
   <script src="/assets/theme.js" defer></script>
-  <style>
-    /* hero 3D grande, à direita, sem card — sobrescreve o .hero-3d padrão
-       (card 168x168) usado nas páginas de sistemas/ */
-    .hero-3d {
-      position: absolute;
-      top: 28%;
-      right: -140px;
-      transform: translateY(-50%);
-      width: 504px;
-      height: 504px;
-      margin-bottom: 0;
-      padding: 0;
-      background: none;
-      border: none;
-      border-radius: 0;
-    }
-    @media (max-width: 900px) {
-      /* no mobile o 3D sai do posicionamento absoluto e volta ao fluxo
-         normal, acima do título (a div já vem antes do h1 no HTML) */
-      .hero-3d {
-        display: block;
-        position: static;
-        transform: none;
-        width: 220px;
-        height: 220px;
-        margin: 0 auto 24px;
-      }
-      .hero-3d canvas { width: 100% !important; height: 100% !important; }
-    }
-    /* dá espaço pro 3D à direita: título quebra a linha mais cedo em vez de
-       passar por baixo da peça */
-    .hero h1 { max-width: 560px; }
-    @media (max-width: 900px) {
-      .hero h1 { max-width: none; }
-    }
-  </style>
 </head>
 <body>
 
@@ -77,13 +41,15 @@
             <a class="mega-card" href="/sistemas/monitoramento/"><h4>Monitoramento e Controle de Autoclaves</h4><p>Cadastro, cargas, temperatura, pressão e ciclo em tempo real — sistema e processo integrados.</p></a>
             <a class="mega-card" href="/sistemas/branqueador/"><h4>Branqueador</h4><p>Dosagem e controle de branqueamento.</p></a>
             <a class="mega-card" href="/sistemas/caldeiras/"><h4>Caldeiras</h4><p>Monitoramento térmico e de segurança.</p></a>
+            <a class="mega-card" href="/sistemas/qualidade/"><h4>Gestão de Qualidade</h4><p>Não-conformidades, 5W2H e checklists de inspeção.</p></a>
+            <span class="mega-card nav-disabled" aria-disabled="true"><h4>Secadores Industriais</h4><p>Descritivo e telas em preparação.</p></span>
           </div>
         </div>
       </li>
       <li class="has-dropdown"><button type="button" aria-haspopup="true" aria-expanded="false">Empresa <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button><div class="dropdown"><a href="/empresa/sobre/">Sobre</a></div></li>
-      <li><button type="button">Enterprise <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
-      <li><button type="button">Ajuda <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
-      <li><button type="button">Documentos <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></button></li>
+      <li><button type="button" class="nav-disabled" aria-disabled="true" tabindex="-1">Enterprise</button></li>
+      <li><button type="button" class="nav-disabled" aria-disabled="true" tabindex="-1">Ajuda</button></li>
+      <li><button type="button" class="nav-disabled" aria-disabled="true" tabindex="-1">Documentos</button></li>
     </ul></nav>
   </div>
 </header>
@@ -92,13 +58,33 @@
 
 <section class="hero">
   <div class="wrap">
-    <div id="bsi3d" class="hero-3d" aria-hidden="true"></div>
     <h1>Automação industrial integrada</h1>
     <p>Controle completo da produção: da matéria-prima ao produto final. Sistemas conectados para processos Industriais.</p>
     <div class="hero-actions">
       <a href="#contato" class="btn">Solicitar demonstração</a>
       <a href="/sistemas/qualidade/" class="btn-text">Conhecer Gestão de Qualidade para Industria de Alimentos</a>
     </div>
+  </div>
+</section>
+
+<section class="twin-scene" aria-label="Gêmeo digital de autoclave">
+  <div class="wrap">
+    <div class="twin-frame">
+      <img src="/assets/autoclave-digital-twin.jpg" width="1024" height="576" alt="Gêmeo digital de autoclave industrial em galpão escuro, com iluminação neon azul sob a máquina e reflexo no piso — monitoramento e fluxo de dados em tempo real." loading="lazy" decoding="async">
+      <div class="neon-river" aria-hidden="true">
+        <div class="neon-packets">
+          <span class="neon-packet"></span>
+          <span class="neon-packet"></span>
+          <span class="neon-packet"></span>
+          <span class="neon-packet"></span>
+          <span class="neon-packet"></span>
+          <span class="neon-packet"></span>
+          <span class="neon-packet"></span>
+          <span class="neon-packet"></span>
+        </div>
+      </div>
+    </div>
+    <p class="twin-caption">Gêmeo digital — autoclave monitorada com fluxo de dados em tempo real</p>
   </div>
 </section>
 
@@ -145,271 +131,6 @@
   </div>
 </footer>
 
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
-<script type="module">
-import * as THREE from "three";
-import { FontLoader } from "three/addons/loaders/FontLoader.js";
-import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
-
-const container = document.getElementById("bsi3d");
-if (container && window.WebGLRenderingContext) {
-  // canvas ocupa o container inteiro (504px); a distância da câmera é
-  // calculada depois de montar as letras (ver enquadrar()), pra peça inteira
-  // — BSI + AUTOMAÇÃO — caber sem corte em qualquer ângulo do giro
-  const size = 504;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-  camera.position.set(0, 0, 8);
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(size, size);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  container.appendChild(renderer.domElement);
-
-  // material único cinza-carvão (quase preto) — o gradiente até o cinza claro
-  // vem da luz batendo nas facetas do bevel, igual ao cubo do resend.com/home,
-  // não de cores diferentes pintadas em cada letra
-  // luzes mais fracas: assim o pulso de tonalidade (material.color, no
-  // animate()) fica visível em vez de ser "engolido" pelo brilho especular
-  // (reduzidas de novo — peça pedida "mais escura")
-  scene.add(new THREE.AmbientLight(0xffffff, 0.08));
-  const key = new THREE.DirectionalLight(0xffffff, 0.8);
-  key.position.set(3, 5, 5);
-  scene.add(key);
-  const fill = new THREE.DirectionalLight(0xffffff, 0.25);
-  fill.position.set(-3, 1, 4);
-  scene.add(fill);
-  const rim = new THREE.DirectionalLight(0xffffff, 0.3);
-  rim.position.set(-2, -3, -4);
-  scene.add(rim);
-
-  const group = new THREE.Group();
-  scene.add(group);
-
-  // gradiente "pintado" por vértice (escuro embaixo → claro em cima), pra não
-  // depender do ângulo da luz — em vez de um material único, cada vértice
-  // recebe uma cor interpolada conforme sua altura na letra
-  const material = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
-    vertexColors: true,
-    metalness: 0.3,
-    roughness: 0.46,
-  });
-  // gradiente quente: laranja/vermelho escuro → laranja claro (referência template 3D)
-  const DARK = new THREE.Color(0x2a1810);
-  const LIGHT = new THREE.Color(0xd97706);
-
-  function paintVerticalGradient(geometry) {
-    const pos = geometry.attributes.position;
-    const minY = geometry.boundingBox.min.y;
-    const maxY = geometry.boundingBox.max.y;
-    const span = Math.max(maxY - minY, 0.0001);
-    const colors = new Float32Array(pos.count * 3);
-    const c = new THREE.Color();
-    for (let i = 0; i < pos.count; i++) {
-      const t = (pos.getY(i) - minY) / span;
-      c.copy(DARK).lerp(LIGHT, t);
-      colors[i * 3] = c.r;
-      colors[i * 3 + 1] = c.g;
-      colors[i * 3 + 2] = c.b;
-    }
-    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  }
-
-  // a fonte helvetiker do three.js não tem Ç nem Ã, mas tem "~" e ",":
-  // essas letras são compostas com a letra-base + o sinal (til em cima do A,
-  // vírgula embaixo do C fazendo papel de cedilha), cada um um mesh próprio
-  const COMPOSTAS = {
-    "Ç": { base: "C", sinal: ",", lado: "baixo" },
-    "Ã": { base: "A", sinal: "~", lado: "cima" },
-  };
-
-  // monta uma palavra em letras 3D extrudadas lado a lado (eixo X, y fixo em
-  // 0); devolve os meshes criados e a extensão vertical real da palavra
-  // (min/max Y da geometria), pra poder empilhar uma palavra sob a outra
-  function buildWord(font, text, opts) {
-    const { size: letterSize, height, bevelThickness, bevelSize, spacing } = opts;
-    const meshes = [];
-    let cursorX = 0;
-    let minY = Infinity;
-    let maxY = -Infinity;
-    const geo = (ch) => {
-      const g = new TextGeometry(ch, {
-        font,
-        size: letterSize,
-        height,
-        curveSegments: 8,
-        bevelEnabled: true,
-        bevelThickness,
-        bevelSize,
-        bevelSegments: 3,
-      });
-      g.computeBoundingBox();
-      return g;
-    };
-    const addMesh = (geometry, x, y) => {
-      paintVerticalGradient(geometry);
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(x, y, 0);
-      group.add(mesh);
-      meshes.push(mesh);
-      const bb = geometry.boundingBox;
-      minY = Math.min(minY, bb.min.y + y);
-      maxY = Math.max(maxY, bb.max.y + y);
-    };
-    text.split("").forEach((char) => {
-      if (char === " ") { cursorX += letterSize * 0.55; return; }
-      const comp = COMPOSTAS[char];
-      const geometry = geo(comp ? comp.base : char);
-      const bb = geometry.boundingBox;
-      const width = bb.max.x - bb.min.x;
-      addMesh(geometry, cursorX, 0);
-      if (comp) {
-        const sg = geo(comp.sinal);
-        const sb = sg.boundingBox;
-        // centraliza o sinal no X da letra-base e encosta em cima/embaixo dela
-        const sx = cursorX + (bb.min.x + width / 2) - (sb.min.x + (sb.max.x - sb.min.x) / 2);
-        const folga = letterSize * 0.08;
-        const sy = comp.lado === "cima"
-          ? bb.max.y + folga - sb.min.y
-          : bb.min.y - folga * 0.3 - sb.max.y;
-        addMesh(sg, sx, sy);
-      }
-      cursorX += width + spacing;
-    });
-    return { meshes, minY, maxY };
-  }
-
-  new FontLoader().load(
-    "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json",
-    (font) => {
-      const bsi = buildWord(font, "BSI", {
-        size: 2.2, height: 0.9, bevelThickness: 0.08, bevelSize: 0.06, spacing: 0.35,
-      });
-      // "AUTOMAÇÃO" embaixo do BSI, numa escala bem menor (Ç e Ã compostos
-      // pelo buildWord, ver COMPOSTAS)
-      const auto = buildWord(font, "AUTOMAÇÃO", {
-        size: 0.62, height: 0.26, bevelThickness: 0.025, bevelSize: 0.02, spacing: 0.1,
-      });
-      const GAP = 0.55;
-      const dy = (bsi.minY - GAP) - auto.maxY;
-      auto.meshes.forEach((m) => { m.position.y += dy; });
-
-      // centraliza o grupo inteiro (nos 3 eixos) em torno do pivô de rotação,
-      // usando a caixa delimitadora real — TextGeometry não nasce centrada
-      // nem no X nem no Y
-      const box = new THREE.Box3().setFromObject(group);
-      const center = box.getCenter(new THREE.Vector3());
-      group.children.forEach((m) => { m.position.sub(center); });
-
-      // enquadrar: ao girar no eixo Y a largura projetada máxima é a diagonal
-      // largura×profundidade; a câmera recua o suficiente pra essa largura (e
-      // a altura) caberem no campo de visão, com 6% de folga
-      const dims = box.getSize(new THREE.Vector3());
-      const meia = Math.max(Math.hypot(dims.x, dims.z) / 2, dims.y / 2);
-      const tanFov = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-      camera.position.z = (meia / tanFov + dims.z / 2) * 1.06;
-
-      if (reduceMotion) {
-        renderer.render(scene, camera);
-        return;
-      }
-
-      // ciclo fragmentado -> montagem: cada letra nasce espalhada e girada ao
-      // redor da posição final e converge até encaixar na palavra; depois
-      // disso o loop normal (rotação + pulso de tonalidade) assume
-      group.children.forEach((m) => {
-        const target = m.position.clone();
-        m.userData.target = target;
-        const dir = new THREE.Vector3(
-          Math.random() * 2 - 1,
-          Math.random() * 2 - 1,
-          Math.random() * 2 - 1
-        ).normalize();
-        const dist = 3.5 + Math.random() * 3.5;
-        m.userData.start = target.clone().addScaledVector(dir, dist);
-        m.position.copy(m.userData.start);
-        m.userData.startRot = new THREE.Euler(
-          (Math.random() * 2 - 1) * Math.PI,
-          (Math.random() * 2 - 1) * Math.PI,
-          (Math.random() * 2 - 1) * Math.PI
-        );
-        m.rotation.copy(m.userData.startRot);
-      });
-
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    }
-  );
-
-  const ASSEMBLE_MS = 1600;
-  let startTime = null;
-  let rotationCounter = 0; // acumula cada incremento de 0.012
-  let lastCycleAt = 0; // marca onde foi o último ciclo
-  function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
-
-  function resetAssembly(currentTime) {
-    startTime = currentTime;
-    group.children.forEach((m) => {
-      const dir = new THREE.Vector3(
-        Math.random() * 2 - 1,
-        Math.random() * 2 - 1,
-        Math.random() * 2 - 1
-      ).normalize();
-      const dist = 3.5 + Math.random() * 3.5;
-      m.userData.start = m.userData.target.clone().addScaledVector(dir, dist);
-      m.userData.startRot = new THREE.Euler(
-        (Math.random() * 2 - 1) * Math.PI,
-        (Math.random() * 2 - 1) * Math.PI,
-        (Math.random() * 2 - 1) * Math.PI
-      );
-    });
-  }
-
-  function animate(t) {
-    requestAnimationFrame(animate);
-    if (startTime === null) startTime = t || 0;
-
-    // avança a rotação e conta quantas vezes passou por 2π (uma volta)
-    group.rotation.y += 0.012;
-    rotationCounter += 0.012;
-
-    // a cada 2 rotações completas (4π = 2 × 2π), fragmenta novamente
-    if (rotationCounter >= Math.PI * 4) {
-      rotationCounter = 0;
-      resetAssembly(t);
-    }
-
-    const progress = Math.min(((t || 0) - startTime) / ASSEMBLE_MS, 1);
-    if (progress < 1) {
-      const eased = easeOutCubic(progress);
-      group.children.forEach((m) => {
-        m.position.lerpVectors(m.userData.start, m.userData.target, eased);
-        m.rotation.set(
-          m.userData.startRot.x * (1 - eased),
-          m.userData.startRot.y * (1 - eased),
-          m.userData.startRot.z * (1 - eased)
-        );
-      });
-    }
-    group.rotation.x = Math.sin((t || 0) * 0.0006) * 0.15;
-    // tonalidade mínima ainda mais escura, pulso reduzido
-    const cycle = (Math.sin(group.rotation.y) + 1) / 2; // 0..1
-    const shade = 0.02 + cycle * 0.45;
-    material.color.setScalar(shade);
-    renderer.render(scene, camera);
-  }
-}
-</script>
 
 <script src="/assets/nav.js" defer></script>
 
