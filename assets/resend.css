@@ -110,10 +110,14 @@ header {
   align-items: center;
   font: 600 20px/1.2 var(--sans); /* ~1.33× nav 15px */
   letter-spacing: -0.02em;
-  color: var(--text);
+  color: #f0f0f0; /* dark theme wordmark */
   white-space: nowrap;
 }
-.logo:hover { color: var(--text); }
+.logo:hover { color: #ffffff; }
+[data-theme="light"] .logo {
+  color: #0A0A0A; /* Felipe: black wordmark on light */
+}
+[data-theme="light"] .logo:hover { color: #0A0A0A; }
 
 /* MENU HAMBÚRGUER — só aparece em mobile (ver @media 720px) */
 .menu-toggle {
