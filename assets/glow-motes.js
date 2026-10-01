@@ -9,15 +9,15 @@
   if (!container) return;
 
   var MOTE_COUNT = 2;
-  var SIZE = 24;
-  var IDLE_MIN_MS = 8000;
-  var IDLE_MAX_MS = 20000;
-  var GLANCE_MIN_MS = 650;
-  var GLANCE_MAX_MS = 1200;
-  var APPROACH_MS = 1400;
-  var LIFT_MS = 520;
-  var RETURN_MS = 1200;
-  var STAGGER_MS = 4500;
+  var IDLE_MIN_MS = 5000;
+  var IDLE_MAX_MS = 12000;
+  var GLANCE_MIN_MS = 700;
+  var GLANCE_MAX_MS = 1300;
+  var CHASE_MAX_MS = 2800;
+  var GRAB_RADIUS = 14;
+  var LIFT_MS = 480;
+  var RETURN_MS = 1000;
+  var STAGGER_MS = 3500;
 
   var layer = document.createElement("div");
   layer.className = "glow-motes";
@@ -40,14 +40,28 @@
     return { w: river.clientWidth || 1, h: river.clientHeight || 1 };
   }
 
-  /** Visual center of packet relative to river (animation-aware). */
+  /**
+   * Local coords inside the river box (NOT getBoundingClientRect —
+   * the river is rotated; viewport math sends motes outside overflow:hidden).
+   */
   function packetCenter(el) {
-    var rr = river.getBoundingClientRect();
-    var pr = el.getBoundingClientRect();
-    return {
-      x: pr.left - rr.left + pr.width / 2,
-      y: pr.top - rr.top + pr.height / 2
-    };
+    var w = el.offsetWidth || parseFloat(el.style.width) || 6;
+    var h = el.offsetHeight || parseFloat(el.style.height) || 6;
+    var cs = getComputedStyle(el);
+    var left = parseFloat(cs.left);
+    var top = parseFloat(cs.top);
+    if (isNaN(left)) left = el.offsetLeft;
+    if (isNaN(top)) top = el.offsetTop;
+    return { x: left + w / 2, y: top + h / 2 };
+  }
+
+  function inBand(cs, rs) {
+    return (
+      cs.x >= rs.w * 0.12 &&
+      cs.x <= rs.w * 0.88 &&
+      cs.y >= rs.h * 0.25 &&
+      cs.y <= rs.h * 0.75
+    );
   }
 
   function activePackets() {
@@ -56,13 +70,11 @@
     var rs = riverSize();
     for (var i = 0; i < all.length; i++) {
       var el = all[i];
-      if (el.classList.contains("is-dormant")) continue;
-      if (el.classList.contains("is-held")) continue;
-      var op = getComputedStyle(el).opacity;
-      if (parseFloat(op) < 0.2) continue;
+      if (el.classList.contains("is-dormant") || el.classList.contains("is-held")) continue;
+      var op = parseFloat(getComputedStyle(el).opacity);
+      if (!(op > 0.25)) continue;
       var cs = packetCenter(el);
-      if (cs.x < rs.w * 0.1 || cs.x > rs.w * 0.9) continue;
-      if (cs.y < 0 || cs.y > rs.h) continue;
+      if (!inBand(cs, rs)) continue;
       out.push(el);
     }
     return out;
@@ -71,7 +83,6 @@
   function pickPacket(near) {
     var list = activePackets();
     if (!list.length) return null;
-    if (!near) return list[Math.floor(Math.random() * list.length)];
     var best = null;
     var bestD = Infinity;
     for (var i = 0; i < list.length; i++) {
@@ -88,8 +99,13 @@
   }
 
   function setPos(el, x, y) {
+    var rs = riverSize();
+    // Stay inside river — overflow:hidden clips anything outside
+    x = clamp(x, 16, rs.w - 16);
+    y = clamp(y, 10, rs.h - 10);
     el.style.left = x + "px";
     el.style.top = y + "px";
+    return { x: x, y: y };
   }
 
   function setFrame(el, frame) {
@@ -98,8 +114,8 @@
 
   function animateTo(el, from, to, ms, onDone) {
     var t0 = performance.now();
-    var cx = (from.x + to.x) / 2 + (to.y - from.y) * 0.35 + rand(-12, 12);
-    var cy = (from.y + to.y) / 2 - Math.abs(to.x - from.x) * 0.12 - rand(6, 22);
+    var cx = (from.x + to.x) / 2 + rand(-8, 8);
+    var cy = (from.y + to.y) / 2 - rand(4, 14);
 
     function step(now) {
       var t = clamp((now - t0) / ms, 0, 1);
@@ -108,32 +124,30 @@
       var x = omt * omt * from.x + 2 * omt * u * cx + u * u * to.x;
       var y = omt * omt * from.y + 2 * omt * u * cy + u * u * to.y;
       setPos(el, x, y);
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else if (onDone) {
-        onDone();
-      }
+      if (t < 1) requestAnimationFrame(step);
+      else if (onDone) onDone(setPos(el, to.x, to.y));
     }
     requestAnimationFrame(step);
   }
 
   function holdPacket(packet) {
-    // Leave the pipe: stop flow animation + hide in-channel blob
     packet.classList.add("is-held");
     packet.style.animation = "none";
     packet.style.translate = "none";
+    packet.style.opacity = "0";
+    packet.style.visibility = "hidden";
   }
 
   function releasePacket(packet, drop, moteEl) {
     if (!packet) return;
     if (moteEl) moteEl.classList.remove("is-carrying", "is-analyzing");
-    // Re-enter channel near drop X so return is visible (not a mid-flow pop)
     var rs = riverSize();
-    var pct = clamp((drop.x / rs.w) * 100, 4, 96);
+    var pct = clamp((drop.x / rs.w) * 100, 6, 94);
     packet.style.left = pct + "%";
-    packet.style.top = clamp(drop.y, rs.h * 0.4, rs.h * 0.58) + "px";
+    packet.style.top = clamp(drop.y, rs.h * 0.42, rs.h * 0.58) + "px";
+    packet.style.opacity = "";
+    packet.style.visibility = "";
     packet.classList.remove("is-held");
-    // Restart neon-flow from this X
     packet.style.animation = "none";
     void packet.offsetWidth;
     packet.style.animation = "";
@@ -147,31 +161,23 @@
     setFrame(el, 0);
     layer.appendChild(el);
 
-    var rs = riverSize();
-    var pos = {
-      x: rand(rs.w * 0.18, rs.w * 0.82),
-      y: rand(rs.h * 0.22, rs.h * 0.48)
-    };
-    setPos(el, pos.x, pos.y);
+    var rs0 = riverSize();
+    var pos = setPos(el, rand(rs0.w * 0.25, rs0.w * 0.75), rand(rs0.h * 0.2, rs0.h * 0.38));
 
     var idleRaf = 0;
     var idleOrigin = { x: pos.x, y: pos.y };
     var idlePhase = rand(0, Math.PI * 2);
     var busy = false;
     var stopped = false;
+    var chaseRaf = 0;
 
     function idleTick(now) {
       if (stopped || busy) return;
-      var rs2 = riverSize();
+      var rs = riverSize();
       var t = now * 0.001;
-      var ampX = rs2.w * 0.035;
-      var ampY = rs2.h * 0.1;
-      // Idle stays mostly above mid-pipe so it doesn't fight channel blobs
-      pos.x = idleOrigin.x + Math.sin(t * 0.35 + idlePhase) * ampX + Math.sin(t * 0.17 + idlePhase * 1.3) * ampX * 0.4;
-      pos.y = idleOrigin.y + Math.cos(t * 0.42 + idlePhase) * ampY + Math.sin(t * 0.23 + idlePhase) * ampY * 0.35;
-      pos.x = clamp(pos.x, rs2.w * 0.1, rs2.w * 0.9);
-      pos.y = clamp(pos.y, rs2.h * 0.08, rs2.h * 0.42);
-      setPos(el, pos.x, pos.y);
+      var x = idleOrigin.x + Math.sin(t * 0.4 + idlePhase) * rs.w * 0.03;
+      var y = idleOrigin.y + Math.cos(t * 0.5 + idlePhase) * rs.h * 0.06;
+      pos = setPos(el, x, y);
       idleRaf = requestAnimationFrame(idleTick);
     }
 
@@ -192,6 +198,95 @@
         cancelAnimationFrame(idleRaf);
         idleRaf = 0;
       }
+      if (chaseRaf) {
+        cancelAnimationFrame(chaseRaf);
+        chaseRaf = 0;
+      }
+    }
+
+    /** Chase packet in local space until contact, then grab. */
+    function chaseAndGrab(packet, onMiss) {
+      var t0 = performance.now();
+
+      function frame(now) {
+        if (stopped) return;
+        if (
+          !packet ||
+          !document.body.contains(packet) ||
+          packet.classList.contains("is-dormant") ||
+          packet.classList.contains("is-held")
+        ) {
+          onMiss();
+          return;
+        }
+
+        var target = packetCenter(packet);
+        var op = parseFloat(getComputedStyle(packet).opacity);
+        if (!(op > 0.2) || !inBand(target, riverSize())) {
+          onMiss();
+          return;
+        }
+
+        var dx = target.x - pos.x;
+        var dy = target.y - pos.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist <= GRAB_RADIUS || now - t0 > CHASE_MAX_MS && dist < 40) {
+          // Contact — snap onto packet then grab
+          pos = setPos(el, target.x, target.y);
+          holdPacket(packet);
+          el.classList.add("is-carrying");
+          setFrame(el, 1);
+
+          var rs = riverSize();
+          // Analyze ABOVE channel (~45%) but still inside overflow box
+          var analyze = {
+            x: clamp(pos.x + rand(-12, 12), rs.w * 0.15, rs.w * 0.85),
+            y: clamp(rs.h * rand(0.14, 0.26), 12, rs.h * 0.32)
+          };
+
+          animateTo(el, pos, analyze, LIFT_MS, function (p) {
+            pos = p;
+            setFrame(el, 2);
+            el.classList.add("is-analyzing");
+
+            setTimeout(function () {
+              el.classList.remove("is-analyzing");
+              setFrame(el, 3);
+              var rs2 = riverSize();
+              var drop = {
+                x: clamp(pos.x + rand(-24, 24), rs2.w * 0.18, rs2.w * 0.82),
+                y: rs2.h * 0.48 + rand(-4, 4)
+              };
+              animateTo(el, pos, drop, RETURN_MS, function (p2) {
+                pos = p2;
+                releasePacket(packet, drop, el);
+                setFrame(el, 0);
+                pos = setPos(el, drop.x, drop.y - rs2.h * 0.18);
+                startIdle();
+                schedule(rand(IDLE_MIN_MS, IDLE_MAX_MS));
+              });
+            }, rand(GLANCE_MIN_MS, GLANCE_MAX_MS));
+          });
+          return;
+        }
+
+        // Steer toward current packet position (lead slightly ahead on +x flow)
+        var lead = 10;
+        var speed = dist > 80 ? 3.2 : 2.2;
+        var nx = pos.x + (dx / dist) * speed * 2.4 + lead * 0.15;
+        var ny = pos.y + (dy / dist) * speed * 2.4;
+        pos = setPos(el, nx, ny);
+        setFrame(el, 0);
+
+        if (now - t0 > CHASE_MAX_MS) {
+          onMiss();
+          return;
+        }
+        chaseRaf = requestAnimationFrame(frame);
+      }
+
+      chaseRaf = requestAnimationFrame(frame);
     }
 
     function runCycle() {
@@ -202,70 +297,18 @@
 
       var packet = pickPacket(pos);
       if (!packet) {
-        var rs3 = riverSize();
-        var hop = {
-          x: clamp(pos.x + rand(-80, 80), rs3.w * 0.12, rs3.w * 0.88),
-          y: clamp(rand(rs3.h * 0.12, rs3.h * 0.38), rs3.h * 0.08, rs3.h * 0.45)
-        };
-        animateTo(el, pos, hop, 1600, function () {
-          pos = hop;
-          startIdle();
-          schedule(rand(IDLE_MIN_MS, IDLE_MAX_MS));
-        });
+        // Stay in-band; retry soon — do not fly away
+        startIdle();
+        schedule(1200 + rand(0, 800));
         return;
       }
 
-      var target = packetCenter(packet);
-      var approach = { x: target.x, y: target.y };
-
-      animateTo(el, pos, approach, APPROACH_MS + rand(-200, 200), function () {
-        // Refresh target in case packet moved during approach
-        if (!packet.classList.contains("is-held") && document.body.contains(packet)) {
-          target = packetCenter(packet);
-        }
-        pos = { x: target.x, y: target.y };
-        setPos(el, pos.x, pos.y);
-
-        // 1) Grab: take blue ball OUT of the pipe
-        holdPacket(packet);
-        el.classList.add("is-carrying");
-        setFrame(el, 1);
-
-        var rsLift = riverSize();
-        // Clear of the channel band (packets sit ~40–55% down)
-        var analyze = {
-          x: clamp(pos.x + rand(-18, 18), rsLift.w * 0.12, rsLift.w * 0.88),
-          y: clamp(rsLift.h * rand(0.06, 0.16), 4, rsLift.h * 0.22)
-        };
-
-        animateTo(el, pos, analyze, LIFT_MS + rand(-40, 80), function () {
-          pos = analyze;
-          // 2) Analyze outside the pipe
-          setFrame(el, 2);
-          el.classList.add("is-analyzing");
-
-          var glanceMs = rand(GLANCE_MIN_MS, GLANCE_MAX_MS);
-          setTimeout(function () {
-            el.classList.remove("is-analyzing");
-            setFrame(el, 3);
-            var rs4 = riverSize();
-            // 3) Return to channel mid-line and put packet back in flow
-            var drop = {
-              x: clamp(pos.x + rand(-36, 36), rs4.w * 0.15, rs4.w * 0.85),
-              y: rs4.h * 0.48 + rand(-5, 5)
-            };
-            animateTo(el, pos, drop, RETURN_MS + rand(-150, 150), function () {
-              pos = drop;
-              releasePacket(packet, drop, el);
-              setFrame(el, 0);
-              // Drift slightly above pipe again for idle
-              pos.y = clamp(drop.y - rs4.h * 0.22, rs4.h * 0.08, rs4.h * 0.35);
-              setPos(el, pos.x, pos.y);
-              startIdle();
-              schedule(rand(IDLE_MIN_MS, IDLE_MAX_MS));
-            });
-          }, glanceMs);
-        });
+      chaseAndGrab(packet, function () {
+        // Missed — remain visible in river, retry
+        el.classList.remove("is-carrying", "is-analyzing");
+        setFrame(el, 0);
+        startIdle();
+        schedule(900 + rand(0, 700));
       });
     }
 
@@ -287,23 +330,21 @@
           held[i].classList.remove("is-held");
           held[i].style.animation = "";
           held[i].style.translate = "";
+          held[i].style.opacity = "";
+          held[i].style.visibility = "";
         }
       }
     }
 
     startIdle();
-    schedule(1800 + index * STAGGER_MS + rand(0, 1200));
+    schedule(1200 + index * STAGGER_MS + rand(0, 800));
 
     if (typeof reduce.addEventListener === "function") {
       reduce.addEventListener("change", onReduce);
     } else if (typeof reduce.addListener === "function") {
       reduce.addListener(onReduce);
     }
-
-    return el;
   }
 
-  for (var i = 0; i < MOTE_COUNT; i++) {
-    createMote(i);
-  }
+  for (var i = 0; i < MOTE_COUNT; i++) createMote(i);
 })();

@@ -594,6 +594,7 @@ span.nav-disabled.btn-text {
   inset: 0;
   pointer-events: none;
   z-index: 2;
+  /* parent .hero-neon-river is overflow:hidden — keep motes inside via JS clamp */
   overflow: visible;
 }
 .glow-mote {
