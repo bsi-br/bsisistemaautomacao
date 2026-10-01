@@ -374,8 +374,7 @@ span.nav-disabled.btn-text {
   width: 100vw;
   height: 140px;
   transform: translateX(-50%) rotate(9deg);
-  pointer-events: auto;
-  cursor: pointer;
+  pointer-events: none;
   z-index: 0;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(
@@ -406,12 +405,12 @@ span.nav-disabled.btn-text {
   );
 }
 
-/* Light mode: light blue neon canal */
+/* Light mode: graphite packets (soft blue-gray canal glow) */
 [data-theme="light"] .hero-neon-river {
-  --neon-glow: #5BA8C8;
-  --neon-core: #6BB8D6;
-  --neon-particle: #8FCEE6;
-  --neon-particle-hi: #B0E0F0;
+  --neon-glow: #6B7280;      /* soft graphite glow */
+  --neon-core: #4B5563;
+  --neon-particle: #5B6470;
+  --neon-particle-hi: #374151; /* grafite */
 }
 
 
@@ -562,19 +561,6 @@ span.nav-disabled.btn-text {
 .neon-packet:nth-child(8) { animation-delay: 3.0s; top: 43%; width: 5px; height: 5px; }
 
 
-.neon-packet.is-exploding {
-  z-index: 2;
-  animation: neon-explode 0.42s ease-out forwards !important;
-  pointer-events: none;
-}
-@keyframes neon-explode {
-  0%   { opacity: 1; transform: scale(1); filter: brightness(1.1); }
-  35%  { opacity: 1; transform: scale(2.6); filter: brightness(1.85);
-         box-shadow: 0 0 18px 6px color-mix(in srgb, var(--neon-particle-hi) 90%, transparent),
-                     0 0 36px 12px color-mix(in srgb, var(--neon-glow) 55%, transparent); }
-  100% { opacity: 0; transform: scale(0.15); filter: brightness(1.2); }
-}
-
 @keyframes neon-flow {
   0%   { left: -4%; opacity: 0; transform: translateY(0) scale(0.7); }
   8%   { opacity: 1; }
@@ -589,8 +575,7 @@ span.nav-disabled.btn-text {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-neon-river::before,
-  .neon-packet,
-  .neon-packet.is-exploding {
+  .neon-packet {
     animation: none !important;
   }
   .neon-packet {
