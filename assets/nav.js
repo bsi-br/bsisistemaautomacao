@@ -13,6 +13,14 @@
     return t;
   }
 
+  function blurOtherButtons(except) {
+    items.forEach(function (li) {
+      if (li === except) return;
+      var btn = li.querySelector("button");
+      if (btn && document.activeElement === btn) btn.blur();
+    });
+  }
+
   function closeOthers(except) {
     items.forEach(function (li) {
       if (li === except) return;
@@ -38,6 +46,7 @@
       if (window.innerWidth <= 720) return;
       clearTimeout(t.close);
       closeOthers(li);
+      blurOtherButtons(li);
       t.open = setTimeout(function () {
         setOpen(li, true);
       }, OPEN_DELAY);
@@ -77,9 +86,14 @@
 
   document.querySelectorAll(".nav li.has-dropdown > button").forEach(function (btn) {
     btn.addEventListener("click", function (e) {
-      if (window.innerWidth > 720) return;
       e.preventDefault();
       var li = btn.closest("li");
+      if (window.innerWidth > 720) {
+        closeOthers(li);
+        blurOtherButtons(li);
+        setOpen(li, true);
+        return;
+      }
       var willOpen = !li.classList.contains("open");
       closeOthers(li);
       setOpen(li, willOpen);

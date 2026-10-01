@@ -214,8 +214,6 @@ header {
   box-shadow: var(--dropdown-shadow);
   z-index: 110;
 }
-.nav li.has-dropdown:hover .dropdown,
-.nav li.has-dropdown:focus-within .dropdown,
 .nav li.has-dropdown.open .dropdown { display: block; }
 .nav .dropdown a {
   display: block;
@@ -239,8 +237,6 @@ header {
   -webkit-backdrop-filter: none;
   z-index: 110;
 }
-.nav li.has-dropdown:hover .dropdown.mega,
-.nav li.has-dropdown:focus-within .dropdown.mega,
 .nav li.has-dropdown.open .dropdown.mega { display: flex; }
 .mega-list {
   width: 150px;
@@ -351,7 +347,22 @@ span.nav-disabled.btn-text {
 }
 
 .btn:hover { background: var(--btn-bg-hover); border-color: var(--btn-border-hover); }
-.btn-text { color: var(--muted); font: 500 15px var(--sans); padding: 0 12px; height: 42px; display: inline-flex; align-items: center; transition: color 150ms; }
+.btn-text {
+  color: var(--muted);
+  font: 500 15px var(--sans);
+  padding: 0 12px;
+  min-height: 42px;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: min(100%, 280px);
+  text-align: center;
+  line-height: 1.35;
+  white-space: normal;
+  transition: color 150ms;
+}
 .btn-text:hover { color: var(--text); }
 
 /* HERO */
@@ -813,10 +824,8 @@ footer { border-top: 1px solid var(--border-soft); padding: 40px 0; color: var(-
   .nav li.has-dropdown.open > button svg { transform: rotate(180deg); }
 
   /* dropdowns (inclui mega-menu) viram blocos inline expansíveis, sem
-     posicionamento absoluto nem hover — abrem só por toque (JS).
-     !important necessário: as regras :hover/:focus-within do desktop têm
-     especificidade maior que ".nav .dropdown" sozinho e vazavam em touch
-     (o botão ganha foco ao ser tocado, ativando :focus-within) */
+     posicionamento absoluto — abrem só via .open (JS).
+     !important mantém o display mobile acima das regras desktop de .open */
   .nav .dropdown,
   .nav .dropdown.mega {
     display: none !important;
